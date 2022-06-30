@@ -15,6 +15,8 @@
 		5A20690E286DA550000C5BEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A20690C286DA550000C5BEA /* LaunchScreen.storyboard */; };
 		5A206911286DA550000C5BEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A206910286DA550000C5BEA /* main.m */; };
 		5A206920286DA627000C5BEA /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5A20691F286DA627000C5BEA /* test.pdf */; };
+		5A206930286DAEBA000C5BEA /* DYReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; platformFilter = ios; };
+		5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,6 +25,13 @@
 			containerPortal = 5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5A2068CE286D964E000C5BEA;
+			remoteInfo = DYReader;
+		};
+		5A206932286DAEC9000C5BEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A2068CD286D964E000C5BEA;
 			remoteInfo = DYReader;
 		};
 /* End PBXContainerItemProxy section */
@@ -34,6 +43,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A206930286DAEBA000C5BEA /* DYReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +146,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5A206933286DAEC9000C5BEA /* PBXTargetDependency */,
 			);
 			name = NASReader;
 			productName = NASReader;
@@ -216,6 +228,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5A206933286DAEC9000C5BEA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DYReader;
+			targetProxy = 5A206932286DAEC9000C5BEA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5A206907286DA54E000C5BEA /* Main.storyboard */ = {
