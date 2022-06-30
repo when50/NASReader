@@ -1,0 +1,3 @@
+[submodule "libdyreader"]
+	path = libdyreader
+	url = git@github.com:when50/DYReader.git

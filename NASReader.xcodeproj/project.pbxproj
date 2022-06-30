@@ -15,23 +15,14 @@
 		5A20690E286DA550000C5BEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A20690C286DA550000C5BEA /* LaunchScreen.storyboard */; };
 		5A206911286DA550000C5BEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A206910286DA550000C5BEA /* main.m */; };
 		5A206920286DA627000C5BEA /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5A20691F286DA627000C5BEA /* test.pdf */; };
-		5A206922286DA66B000C5BEA /* DYReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20691C286DA569000C5BEA /* DYReader.framework */; platformFilter = ios; };
-		5A206923286DA66B000C5BEA /* DYReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20691C286DA569000C5BEA /* DYReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5A20691B286DA569000C5BEA /* PBXContainerItemProxy */ = {
+		5A20692E286DAE7F000C5BEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5A206917286DA569000C5BEA /* DYReader.xcodeproj */;
+			containerPortal = 5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5A2068CE286D964E000C5BEA;
-			remoteInfo = DYReader;
-		};
-		5A20691D286DA5BC000C5BEA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5A206917286DA569000C5BEA /* DYReader.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A2068CD286D964E000C5BEA;
 			remoteInfo = DYReader;
 		};
 /* End PBXContainerItemProxy section */
@@ -43,7 +34,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5A206923286DA66B000C5BEA /* DYReader.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,8 +53,8 @@
 		5A20690D286DA550000C5BEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A20690F286DA550000C5BEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A206910286DA550000C5BEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		5A206917286DA569000C5BEA /* DYReader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DYReader.xcodeproj; path = ../DYReader/DYReader.xcodeproj; sourceTree = "<group>"; };
 		5A20691F286DA627000C5BEA /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
+		5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DYReader.xcodeproj; path = libdyreader/DYReader.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +62,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A206922286DA66B000C5BEA /* DYReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +71,7 @@
 		5A2068F2286DA54E000C5BEA = {
 			isa = PBXGroup;
 			children = (
-				5A206917286DA569000C5BEA /* DYReader.xcodeproj */,
+				5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */,
 				5A2068FD286DA54E000C5BEA /* NASReader */,
 				5A2068FC286DA54E000C5BEA /* Products */,
 				5A206921286DA66B000C5BEA /* Frameworks */,
@@ -116,19 +105,19 @@
 			path = NASReader;
 			sourceTree = "<group>";
 		};
-		5A206918286DA569000C5BEA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5A20691C286DA569000C5BEA /* DYReader.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		5A206921286DA66B000C5BEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5A20692B286DAE7F000C5BEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5A20692F286DAE7F000C5BEA /* DYReader.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,7 +135,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5A20691E286DA5BC000C5BEA /* PBXTargetDependency */,
 			);
 			name = NASReader;
 			productName = NASReader;
@@ -180,8 +168,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 5A206918286DA569000C5BEA /* Products */;
-					ProjectRef = 5A206917286DA569000C5BEA /* DYReader.xcodeproj */;
+					ProductGroup = 5A20692B286DAE7F000C5BEA /* Products */;
+					ProjectRef = 5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -192,11 +180,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		5A20691C286DA569000C5BEA /* DYReader.framework */ = {
+		5A20692F286DAE7F000C5BEA /* DYReader.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = DYReader.framework;
-			remoteRef = 5A20691B286DA569000C5BEA /* PBXContainerItemProxy */;
+			remoteRef = 5A20692E286DAE7F000C5BEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -228,14 +216,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		5A20691E286DA5BC000C5BEA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = DYReader;
-			targetProxy = 5A20691D286DA5BC000C5BEA /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5A206907286DA54E000C5BEA /* Main.storyboard */ = {
