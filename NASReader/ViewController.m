@@ -6,8 +6,11 @@
 //
 
 #import "ViewController.h"
+#import <DYReader/DYReaderViewer.h>
 
 @interface ViewController ()
+
+@property (nonatomic, strong) DYReaderViewer *readerViewer;
 
 @end
 
@@ -16,6 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.readerViewer = [DYReaderViewer new];
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *file = [bundle pathForResource:@"test" ofType:@"pdf"];
+    [self.readerViewer openFile:file];
 }
 
 
