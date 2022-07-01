@@ -23,7 +23,7 @@
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *file = [bundle pathForResource:@"test" ofType:@"pdf"];
     [self.readerViewer openFile:file];
-    UIView *v = [self.readerViewer getPageViewAtChapter:1 size:self.view.bounds.size page:1];
+    UIView *v = [self.readerViewer getPageViewAtPage:1 size:self.view.bounds.size];
     [self.view addSubview:v];
 }
 
