@@ -6,11 +6,11 @@
 //
 
 #import "ViewController.h"
-#import <DYReader/DYReaderViewer.h>
+#import <DYReader/DYBookReader.h>
 
 @interface ViewController ()
 
-@property (nonatomic, strong) DYReaderViewer *readerViewer;
+@property (nonatomic, strong) DYBookReader *readerViewer;
 
 @end
 
@@ -19,9 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.readerViewer = [DYReaderViewer new];
+    self.readerViewer = [DYBookReader new];
     NSBundle *bundle = [NSBundle mainBundle];
-    NSString *file = [bundle pathForResource:@"test" ofType:@"pdf"];
+    NSString *file = [bundle pathForResource:@"TLYCSEbookDec2020FINAL" ofType:@"epub"];
     [self.readerViewer openFile:file];
     UIView *v = [self.readerViewer getPageViewAtPage:1 size:self.view.bounds.size];
     [self.view addSubview:v];

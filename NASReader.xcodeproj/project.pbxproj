@@ -17,6 +17,12 @@
 		5A206920286DA627000C5BEA /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5A20691F286DA627000C5BEA /* test.pdf */; };
 		5A206930286DAEBA000C5BEA /* DYReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; platformFilter = ios; };
 		5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */; };
+		5AECFE8A2870A0AE00E6205F /* DQVerticalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE892870A0AE00E6205F /* DQVerticalScrollRender.swift */; };
+		5AECFE8C2870A0DF00E6205F /* DQReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8B2870A0DF00E6205F /* DQReaderController.swift */; };
+		5AECFE8E2870A15400E6205F /* DQRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8D2870A15400E6205F /* DQRender.swift */; };
+		5AECFE91287115D400E6205F /* DQPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE90287115D400E6205F /* DQPageCell.swift */; };
+		5AECFE932871209400E6205F /* DQPageMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE922871209400E6205F /* DQPageMaker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +71,13 @@
 		5A206910286DA550000C5BEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5A20691F286DA627000C5BEA /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
 		5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DYReader.xcodeproj; path = libdyreader/DYReader.xcodeproj; sourceTree = "<group>"; };
+		5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = TLYCSEbookDec2020FINAL.epub; sourceTree = "<group>"; };
+		5AECFE882870A0AE00E6205F /* NASReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NASReader-Bridging-Header.h"; sourceTree = "<group>"; };
+		5AECFE892870A0AE00E6205F /* DQVerticalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQVerticalScrollRender.swift; sourceTree = "<group>"; };
+		5AECFE8B2870A0DF00E6205F /* DQReaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQReaderController.swift; sourceTree = "<group>"; };
+		5AECFE8D2870A15400E6205F /* DQRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQRender.swift; sourceTree = "<group>"; };
+		5AECFE90287115D400E6205F /* DQPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQPageCell.swift; sourceTree = "<group>"; };
+		5AECFE922871209400E6205F /* DQPageMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQPageMaker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +113,7 @@
 		5A2068FD286DA54E000C5BEA /* NASReader */ = {
 			isa = PBXGroup;
 			children = (
+				5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */,
 				5A20691F286DA627000C5BEA /* test.pdf */,
 				5A2068FE286DA54E000C5BEA /* AppDelegate.h */,
 				5A2068FF286DA54E000C5BEA /* AppDelegate.m */,
@@ -107,11 +121,17 @@
 				5A206902286DA54E000C5BEA /* SceneDelegate.m */,
 				5A206904286DA54E000C5BEA /* ViewController.h */,
 				5A206905286DA54E000C5BEA /* ViewController.m */,
+				5AECFE942871736D00E6205F /* HorizontalScrollRender */,
+				5AECFE8F287115B600E6205F /* VerticalScrollRender */,
+				5AECFE8B2870A0DF00E6205F /* DQReaderController.swift */,
+				5AECFE8D2870A15400E6205F /* DQRender.swift */,
+				5AECFE922871209400E6205F /* DQPageMaker.swift */,
 				5A206907286DA54E000C5BEA /* Main.storyboard */,
 				5A20690A286DA550000C5BEA /* Assets.xcassets */,
 				5A20690C286DA550000C5BEA /* LaunchScreen.storyboard */,
 				5A20690F286DA550000C5BEA /* Info.plist */,
 				5A206910286DA550000C5BEA /* main.m */,
+				5AECFE882870A0AE00E6205F /* NASReader-Bridging-Header.h */,
 			);
 			path = NASReader;
 			sourceTree = "<group>";
@@ -129,6 +149,22 @@
 				5A20692F286DAE7F000C5BEA /* DYReader.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5AECFE8F287115B600E6205F /* VerticalScrollRender */ = {
+			isa = PBXGroup;
+			children = (
+				5AECFE892870A0AE00E6205F /* DQVerticalScrollRender.swift */,
+				5AECFE90287115D400E6205F /* DQPageCell.swift */,
+			);
+			path = VerticalScrollRender;
+			sourceTree = "<group>";
+		};
+		5AECFE942871736D00E6205F /* HorizontalScrollRender */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HorizontalScrollRender;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +200,7 @@
 				TargetAttributes = {
 					5A2068FA286DA54E000C5BEA = {
 						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1340;
 					};
 				};
 			};
@@ -209,6 +246,7 @@
 				5A206920286DA627000C5BEA /* test.pdf in Resources */,
 				5A20690E286DA550000C5BEA /* LaunchScreen.storyboard in Resources */,
 				5A20690B286DA550000C5BEA /* Assets.xcassets in Resources */,
+				5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */,
 				5A206909286DA54E000C5BEA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,8 +258,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AECFE932871209400E6205F /* DQPageMaker.swift in Sources */,
+				5AECFE8E2870A15400E6205F /* DQRender.swift in Sources */,
 				5A206906286DA54E000C5BEA /* ViewController.m in Sources */,
 				5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */,
+				5AECFE8A2870A0AE00E6205F /* DQVerticalScrollRender.swift in Sources */,
+				5AECFE8C2870A0DF00E6205F /* DQReaderController.swift in Sources */,
+				5AECFE91287115D400E6205F /* DQPageCell.swift in Sources */,
 				5A206911286DA550000C5BEA /* main.m in Sources */,
 				5A206903286DA54E000C5BEA /* SceneDelegate.m in Sources */,
 			);
@@ -372,6 +415,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 425HQFZ36D;
@@ -390,6 +434,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aggrx.NASReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "NASReader/NASReader-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -399,6 +446,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 425HQFZ36D;
@@ -417,6 +465,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aggrx.NASReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "NASReader/NASReader-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
