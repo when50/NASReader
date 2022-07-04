@@ -9,9 +9,23 @@ import UIKit
 import DYReader
 
 class DQReaderController: UIViewController {
+    @objc enum PageStlye: Int {
+        case scrollVertical
+        case scrollHorizontal
+        case cover
+        case curl
+    }
+    
+    @objc var pageStlye = PageStlye.scrollVertical {
+        didSet {
+            buildRender()
+        }
+    }
     @objc var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
+    
     private let bookReader = DYBookReader()
-    private var render: DQRender!
+    private var render: DQRender?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,17 +38,35 @@ class DQReaderController: UIViewController {
     }
     
     private func buildRender() {
+        render?.clean()
         
-        let render: DQVerticalScrollRender = DQVerticalScrollRender(nibName: nil, bundle: nil)
-        render.buildRender(parentController: self)
-        render.view.frame = view.bounds.inset(by: UIEdgeInsets(top: 0, left: edgeInsets.left, bottom: 0, right: edgeInsets.right))
-        render.tableView.contentInset = UIEdgeInsets(top: edgeInsets.top, left: 0, bottom: edgeInsets.bottom, right: 0)
-        render.pageSize = render.view.frame.size
-        render.pageNum = Int(bookReader.pageNum)
-        render.pageMaker = { [weak self] pageIdx in
-            return self?.bookReader.getPageView(atPage: Int32(pageIdx), size: render.pageSize)
+        switch pageStlye {
+        case .scrollVertical:
+            let render = DQVerticalScrollRender(nibName: nil, bundle: nil)
+            render.buildRender(parentController: self)
+            render.view.frame = view.bounds.inset(by: UIEdgeInsets(top: 0, left: edgeInsets.left, bottom: 0, right: edgeInsets.right))
+            render.tableView.contentInset = UIEdgeInsets(top: edgeInsets.top, left: 0, bottom: edgeInsets.bottom, right: 0)
+            render.pageSize = render.view.frame.size
+            render.pageNum = Int(bookReader.pageNum)
+            render.pageMaker = { [weak self] pageIdx in
+                return self?.bookReader.getPageView(atPage: Int32(pageIdx), size: render.pageSize)
+            }
+            self.render = render
+        case .scrollHorizontal:
+            let render = DQHorizontalScrollRender(nibName: nil, bundle: nil)
+            render.buildRender(parentController: self)
+            render.view.frame = view.bounds.inset(by: UIEdgeInsets(top: 0, left: edgeInsets.left, bottom: 0, right: edgeInsets.right))
+            render.pageNum = Int(bookReader.pageNum)
+            render.pageMaker = { [weak self] pageIdx in
+                return self?.bookReader.getPageView(atPage: Int32(pageIdx), size: render.pageSize)
+            }
+            self.render = render
+        case .cover:
+            break
+        case .curl:
+            break
         }
-        self.render = render
+        
     }
 
 }

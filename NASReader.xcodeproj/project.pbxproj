@@ -23,6 +23,8 @@
 		5AECFE8E2870A15400E6205F /* DQRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8D2870A15400E6205F /* DQRender.swift */; };
 		5AECFE91287115D400E6205F /* DQPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE90287115D400E6205F /* DQPageCell.swift */; };
 		5AECFE932871209400E6205F /* DQPageMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE922871209400E6205F /* DQPageMaker.swift */; };
+		5AECFE982872941400E6205F /* DQHorizontalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE972872941400E6205F /* DQHorizontalScrollRender.swift */; };
+		5AECFE9A287294D100E6205F /* DQPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE99287294D100E6205F /* DQPageCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		5AECFE8D2870A15400E6205F /* DQRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQRender.swift; sourceTree = "<group>"; };
 		5AECFE90287115D400E6205F /* DQPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQPageCell.swift; sourceTree = "<group>"; };
 		5AECFE922871209400E6205F /* DQPageMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQPageMaker.swift; sourceTree = "<group>"; };
+		5AECFE972872941400E6205F /* DQHorizontalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQHorizontalScrollRender.swift; sourceTree = "<group>"; };
+		5AECFE99287294D100E6205F /* DQPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQPageCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +167,8 @@
 		5AECFE942871736D00E6205F /* HorizontalScrollRender */ = {
 			isa = PBXGroup;
 			children = (
+				5AECFE972872941400E6205F /* DQHorizontalScrollRender.swift */,
+				5AECFE99287294D100E6205F /* DQPageCollectionViewCell.swift */,
 			);
 			path = HorizontalScrollRender;
 			sourceTree = "<group>";
@@ -262,9 +268,11 @@
 				5AECFE8E2870A15400E6205F /* DQRender.swift in Sources */,
 				5A206906286DA54E000C5BEA /* ViewController.m in Sources */,
 				5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */,
+				5AECFE9A287294D100E6205F /* DQPageCollectionViewCell.swift in Sources */,
 				5AECFE8A2870A0AE00E6205F /* DQVerticalScrollRender.swift in Sources */,
 				5AECFE8C2870A0DF00E6205F /* DQReaderController.swift in Sources */,
 				5AECFE91287115D400E6205F /* DQPageCell.swift in Sources */,
+				5AECFE982872941400E6205F /* DQHorizontalScrollRender.swift in Sources */,
 				5A206911286DA550000C5BEA /* main.m in Sources */,
 				5A206903286DA54E000C5BEA /* SceneDelegate.m in Sources */,
 			);

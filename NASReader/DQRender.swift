@@ -10,4 +10,5 @@ import UIKit
 
 protocol DQRender {
     func buildRender(parentController: UIViewController)
+    func clean()
 }

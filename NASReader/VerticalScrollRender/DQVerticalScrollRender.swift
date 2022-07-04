@@ -19,6 +19,9 @@ class DQVerticalScrollRender: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
         tableView.register(DQPageCell.self, forCellReuseIdentifier: ConstString.cellReuseId.rawValue)
 
         // Uncomment the following line to preserve selection between presentations
@@ -62,5 +65,11 @@ extension DQVerticalScrollRender: DQRender {
         view.frame = parentController.view.bounds
         parentController.view.addSubview(view)
         didMove(toParent: parentController)
+    }
+    
+    func clean() {
+        willMove(toParent: nil)
+        view.removeFromSuperview()
+        removeFromParent()
     }
 }
