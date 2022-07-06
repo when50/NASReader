@@ -7,10 +7,9 @@
 
 import UIKit
 
-class DQVerticalScrollRender: UITableViewController {
-    enum ConstString: String {
-        case cellReuseId = "cellReuseId"
 class DQVerticalScrollRender: UITableViewController, DQRender {
+    struct ConstValue {
+        static let cellReuseId = "cellReuseId"
     }
     
     var pageNum = 0
@@ -23,7 +22,7 @@ class DQVerticalScrollRender: UITableViewController, DQRender {
         tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
-        tableView.register(DQPageCell.self, forCellReuseIdentifier: ConstString.cellReuseId.rawValue)
+        tableView.register(DQPageCell.self, forCellReuseIdentifier: ConstValue.cellReuseId)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -45,7 +44,7 @@ class DQVerticalScrollRender: UITableViewController, DQRender {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ConstString.cellReuseId.rawValue, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ConstValue.cellReuseId, for: indexPath)
         if let cell = cell as? DQPageCell, let page = pageMaker?(indexPath.item) {
             cell.page = page
         }
@@ -60,17 +59,3 @@ class DQVerticalScrollRender: UITableViewController, DQRender {
 
 }
 
-extension DQVerticalScrollRender: DQRender {
-    func buildRender(parentController: UIViewController) {
-        parentController.addChild(self)
-        view.frame = parentController.view.bounds
-        parentController.view.addSubview(view)
-        didMove(toParent: parentController)
-    }
-    
-    func clean() {
-        willMove(toParent: nil)
-        view.removeFromSuperview()
-        removeFromParent()
-    }
-}
