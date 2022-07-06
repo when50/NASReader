@@ -53,7 +53,9 @@ class DQHorizontalScrollRender: UIViewController, DQRender {
                 pageView?.frame = view.bounds.offsetBy(dx: -view.bounds.width, dy: 0)
                 UIView.animate(withDuration: 0.25, delay: 0.0, options: .beginFromCurrentState) {
                     self.pageView?.frame = self.view.bounds
-                    oldPage?.frame = self.view.bounds.offsetBy(dx: self.view.bounds.width, dy: 0)
+                    if !self.coverStyle {
+                        oldPage?.frame = self.view.bounds.offsetBy(dx: self.view.bounds.width, dy: 0)
+                    }
                 } completion: { _ in
                     oldPage?.removeFromSuperview()
                 }
@@ -66,9 +68,16 @@ class DQHorizontalScrollRender: UIViewController, DQRender {
             if currentPage + 1 < pageNum {
                 let oldPage = pageView
                 showPageAt(currentPage + 1, animated: true)
-                pageView?.frame = view.bounds.offsetBy(dx: view.bounds.width, dy: 0)
+                if !self.coverStyle {
+                    pageView?.frame = view.bounds.offsetBy(dx: view.bounds.width, dy: 0)
+                }
+                if let oldPage = oldPage, coverStyle {
+                    view.bringSubviewToFront(oldPage)
+                }
                 UIView.animate(withDuration: 0.25, delay: 0.0, options: .beginFromCurrentState) {
-                    self.pageView?.frame = self.view.bounds
+                    if !self.coverStyle {
+                        self.pageView?.frame = self.view.bounds
+                    }
                     oldPage?.frame = self.view.bounds.offsetBy(dx: -self.view.bounds.width, dy: 0)
                 } completion: { _ in
                     oldPage?.removeFromSuperview()

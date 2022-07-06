@@ -61,6 +61,7 @@ class DQReaderController: UIViewController {
                 return self?.bookReader.getPageView(atPage: Int32(pageIdx), size: render.pageSize)
             }
             render.showPageAt(2)
+            render.coverStyle = true
             self.render = render
         case .cover:
             break
