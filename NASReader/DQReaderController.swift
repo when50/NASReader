@@ -16,7 +16,7 @@ class DQReaderController: UIViewController {
         case curl
     }
     
-    @objc var pageStlye = PageStlye.scrollVertical {
+    @objc var pageStlye = PageStlye.scrollHorizontal {
         didSet {
             buildRender()
         }
@@ -60,6 +60,7 @@ class DQReaderController: UIViewController {
             render.pageMaker = { [weak self] pageIdx in
                 return self?.bookReader.getPageView(atPage: Int32(pageIdx), size: render.pageSize)
             }
+            render.showPageAt(2)
             self.render = render
         case .cover:
             break
