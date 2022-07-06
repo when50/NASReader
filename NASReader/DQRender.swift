@@ -9,7 +9,12 @@ import Foundation
 import UIKit
 
 protocol DQRender {
+    var currentPage: Int { get set }
+    var pageNum: Int { get set }
+    var pageSize: CGSize { get set }
+    var pageMaker: ((Int) -> UIView?)? { get set }
     func buildRender(parentController: UIViewController)
+    func showPageAt(_ pageIdx: Int, animated: Bool)
     func clean()
 }
 

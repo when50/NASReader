@@ -12,9 +12,16 @@ class DQVerticalScrollRender: UITableViewController, DQRender {
         static let cellReuseId = "cellReuseId"
     }
     
+    var currentPage = 0
     var pageNum = 0
     var pageSize: CGSize = .zero
     var pageMaker: ((Int) -> UIView?)?
+    
+    func showPageAt(_ pageIdx: Int, animated: Bool = false) {
+        if (pageIdx < tableView(tableView, numberOfRowsInSection: 0)) {
+            tableView.scrollToRow(at: IndexPath(item: pageIdx, section: 0), at: .top, animated: animated)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
