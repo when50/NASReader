@@ -10,6 +10,7 @@ import UIKit
 class DQVerticalScrollRender: UITableViewController {
     enum ConstString: String {
         case cellReuseId = "cellReuseId"
+class DQVerticalScrollRender: UITableViewController, DQRender {
     }
     
     var pageNum = 0

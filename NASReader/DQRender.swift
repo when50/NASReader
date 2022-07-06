@@ -12,3 +12,18 @@ protocol DQRender {
     func buildRender(parentController: UIViewController)
     func clean()
 }
+
+extension DQRender where Self: UIViewController {
+    func buildRender(parentController: UIViewController) {
+        parentController.addChild(self)
+        view.frame = parentController.view.bounds
+        parentController.view.addSubview(view)
+        didMove(toParent: parentController)
+    }
+    
+    func clean() {
+        willMove(toParent: nil)
+        view.removeFromSuperview()
+        removeFromParent()
+    }
+}

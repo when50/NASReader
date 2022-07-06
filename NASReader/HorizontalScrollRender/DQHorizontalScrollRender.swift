@@ -10,6 +10,7 @@ import UIKit
 class DQHorizontalScrollRender: UIViewController {
     enum ConstString: String {
         case cellReuseId = "cellReuseId"
+class DQHorizontalScrollRender: UIViewController, DQRender {
     }
     
     var collectionView: UICollectionView!
