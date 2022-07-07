@@ -55,13 +55,14 @@ class DQReaderController: UIViewController {
         case .scrollHorizontal:
             let render = DQHorizontalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
-            render.view.frame = view.bounds.inset(by: UIEdgeInsets(top: 0, left: edgeInsets.left, bottom: 0, right: edgeInsets.right))
+            render.view.frame = view.bounds
+            render.pageSize = view.bounds.inset(by: edgeInsets).size
             render.pageNum = Int(bookReader.pageNum)
             render.pageMaker = { [weak self] pageIdx in
                 return self?.bookReader.getPageView(atPage: Int32(pageIdx), size: render.pageSize)
             }
             render.showPageAt(2)
-            render.coverStyle = true
+            render.coverStyle = false
             self.render = render
         case .cover:
             break
