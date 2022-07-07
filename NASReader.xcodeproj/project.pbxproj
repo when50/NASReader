@@ -17,12 +17,11 @@
 		5A206930286DAEBA000C5BEA /* DYReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; platformFilter = ios; };
 		5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */; };
-		5AECFE8A2870A0AE00E6205F /* DQVerticalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE892870A0AE00E6205F /* DQVerticalScrollRender.swift */; };
-		5AECFE8C2870A0DF00E6205F /* DQReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8B2870A0DF00E6205F /* DQReaderController.swift */; };
-		5AECFE8E2870A15400E6205F /* DQRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8D2870A15400E6205F /* DQRender.swift */; };
-		5AECFE91287115D400E6205F /* DQPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE90287115D400E6205F /* DQPageCell.swift */; };
-		5AECFE932871209400E6205F /* DQPageMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE922871209400E6205F /* DQPageMaker.swift */; };
-		5AECFE982872941400E6205F /* DQHorizontalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE972872941400E6205F /* DQHorizontalScrollRender.swift */; };
+		5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */; };
+		5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */; };
+		5AECFE8E2870A15400E6205F /* DYRenderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8D2870A15400E6205F /* DYRenderProtocol.swift */; };
+		5AECFE91287115D400E6205F /* DYPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE90287115D400E6205F /* DYPageTableViewCell.swift */; };
+		5AECFE982872941400E6205F /* DYHorizontalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE972872941400E6205F /* DYHorizontalScrollRender.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,12 +70,11 @@
 		5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DYReader.xcodeproj; path = libdyreader/DYReader.xcodeproj; sourceTree = "<group>"; };
 		5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = TLYCSEbookDec2020FINAL.epub; sourceTree = "<group>"; };
 		5AECFE882870A0AE00E6205F /* NASReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NASReader-Bridging-Header.h"; sourceTree = "<group>"; };
-		5AECFE892870A0AE00E6205F /* DQVerticalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQVerticalScrollRender.swift; sourceTree = "<group>"; };
-		5AECFE8B2870A0DF00E6205F /* DQReaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQReaderController.swift; sourceTree = "<group>"; };
-		5AECFE8D2870A15400E6205F /* DQRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQRender.swift; sourceTree = "<group>"; };
-		5AECFE90287115D400E6205F /* DQPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQPageCell.swift; sourceTree = "<group>"; };
-		5AECFE922871209400E6205F /* DQPageMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQPageMaker.swift; sourceTree = "<group>"; };
-		5AECFE972872941400E6205F /* DQHorizontalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQHorizontalScrollRender.swift; sourceTree = "<group>"; };
+		5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYVerticalScrollRender.swift; sourceTree = "<group>"; };
+		5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYReaderController.swift; sourceTree = "<group>"; };
+		5AECFE8D2870A15400E6205F /* DYRenderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYRenderProtocol.swift; sourceTree = "<group>"; };
+		5AECFE90287115D400E6205F /* DYPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYPageTableViewCell.swift; sourceTree = "<group>"; };
+		5AECFE972872941400E6205F /* DYHorizontalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYHorizontalScrollRender.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,9 +118,8 @@
 				5A206902286DA54E000C5BEA /* SceneDelegate.m */,
 				5AECFE942871736D00E6205F /* HorizontalScrollRender */,
 				5AECFE8F287115B600E6205F /* VerticalScrollRender */,
-				5AECFE8B2870A0DF00E6205F /* DQReaderController.swift */,
-				5AECFE8D2870A15400E6205F /* DQRender.swift */,
-				5AECFE922871209400E6205F /* DQPageMaker.swift */,
+				5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */,
+				5AECFE8D2870A15400E6205F /* DYRenderProtocol.swift */,
 				5A206907286DA54E000C5BEA /* Main.storyboard */,
 				5A20690A286DA550000C5BEA /* Assets.xcassets */,
 				5A20690C286DA550000C5BEA /* LaunchScreen.storyboard */,
@@ -151,8 +148,8 @@
 		5AECFE8F287115B600E6205F /* VerticalScrollRender */ = {
 			isa = PBXGroup;
 			children = (
-				5AECFE892870A0AE00E6205F /* DQVerticalScrollRender.swift */,
-				5AECFE90287115D400E6205F /* DQPageCell.swift */,
+				5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */,
+				5AECFE90287115D400E6205F /* DYPageTableViewCell.swift */,
 			);
 			path = VerticalScrollRender;
 			sourceTree = "<group>";
@@ -160,7 +157,7 @@
 		5AECFE942871736D00E6205F /* HorizontalScrollRender */ = {
 			isa = PBXGroup;
 			children = (
-				5AECFE972872941400E6205F /* DQHorizontalScrollRender.swift */,
+				5AECFE972872941400E6205F /* DYHorizontalScrollRender.swift */,
 			);
 			path = HorizontalScrollRender;
 			sourceTree = "<group>";
@@ -256,13 +253,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AECFE932871209400E6205F /* DQPageMaker.swift in Sources */,
-				5AECFE8E2870A15400E6205F /* DQRender.swift in Sources */,
+				5AECFE8E2870A15400E6205F /* DYRenderProtocol.swift in Sources */,
 				5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */,
-				5AECFE8A2870A0AE00E6205F /* DQVerticalScrollRender.swift in Sources */,
-				5AECFE8C2870A0DF00E6205F /* DQReaderController.swift in Sources */,
-				5AECFE91287115D400E6205F /* DQPageCell.swift in Sources */,
-				5AECFE982872941400E6205F /* DQHorizontalScrollRender.swift in Sources */,
+				5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */,
+				5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */,
+				5AECFE91287115D400E6205F /* DYPageTableViewCell.swift in Sources */,
+				5AECFE982872941400E6205F /* DYHorizontalScrollRender.swift in Sources */,
 				5A206911286DA550000C5BEA /* main.m in Sources */,
 				5A206903286DA54E000C5BEA /* SceneDelegate.m in Sources */,
 			);

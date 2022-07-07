@@ -8,7 +8,8 @@
 import UIKit
 import DYReader
 
-class DQReaderController: UIViewController {
+
+class DYReaderController: UIViewController {
     @objc enum PageStlye: Int {
         case scrollVertical
         case scrollHorizontal
@@ -24,7 +25,7 @@ class DQReaderController: UIViewController {
     @objc var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
     
     private let bookReader = DYBookReader()
-    private var render: DQRender?
+    private var render: DYRenderProtocol?
     
 
     override func viewDidLoad() {
@@ -42,7 +43,7 @@ class DQReaderController: UIViewController {
         
         switch pageStlye {
         case .scrollVertical:
-            let render = DQVerticalScrollRender(nibName: nil, bundle: nil)
+            let render = DYVerticalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
             render.view.frame = view.bounds.inset(by: UIEdgeInsets(top: 0, left: edgeInsets.left, bottom: 0, right: edgeInsets.right))
             render.tableView.contentInset = UIEdgeInsets(top: edgeInsets.top, left: 0, bottom: edgeInsets.bottom, right: 0)
@@ -53,7 +54,7 @@ class DQReaderController: UIViewController {
             }
             self.render = render
         case .scrollHorizontal:
-            let render = DQHorizontalScrollRender(nibName: nil, bundle: nil)
+            let render = DYHorizontalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
             render.view.frame = view.bounds
             render.pageSize = view.bounds.inset(by: edgeInsets).size

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DQPageCell: UITableViewCell {
+class DYPageTableViewCell: UITableViewCell {
     var page: UIView? {
         didSet {
             oldValue?.removeFromSuperview()

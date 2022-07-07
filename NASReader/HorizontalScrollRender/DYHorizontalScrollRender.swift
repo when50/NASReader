@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DQHorizontalScrollRender: UIViewController, DQRender {
+class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
     struct ConstValue {
         static let scrollTapRange = 0.3
     }

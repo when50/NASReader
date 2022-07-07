@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DQVerticalScrollRender: UITableViewController, DQRender {
+class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
     struct ConstValue {
         static let cellReuseId = "cellReuseId"
     }
@@ -29,7 +29,7 @@ class DQVerticalScrollRender: UITableViewController, DQRender {
         tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
-        tableView.register(DQPageCell.self, forCellReuseIdentifier: ConstValue.cellReuseId)
+        tableView.register(DYPageTableViewCell.self, forCellReuseIdentifier: ConstValue.cellReuseId)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -52,7 +52,7 @@ class DQVerticalScrollRender: UITableViewController, DQRender {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ConstValue.cellReuseId, for: indexPath)
-        if let cell = cell as? DQPageCell, let page = pageMaker?(indexPath.item) {
+        if let cell = cell as? DYPageTableViewCell, let page = pageMaker?(indexPath.item) {
             cell.page = page
         }
         return cell

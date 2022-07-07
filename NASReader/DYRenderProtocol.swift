@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol DQRender {
+protocol DYRenderProtocol {
     var currentPage: Int { get set }
     var pageNum: Int { get set }
     var pageSize: CGSize { get set }
@@ -18,7 +18,7 @@ protocol DQRender {
     func clean()
 }
 
-extension DQRender where Self: UIViewController {
+extension DYRenderProtocol where Self: UIViewController {
     func buildRender(parentController: UIViewController) {
         parentController.addChild(self)
         view.frame = parentController.view.bounds
