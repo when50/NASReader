@@ -12,7 +12,11 @@ class DQHorizontalScrollRender: UIViewController, DQRender {
         static let scrollTapRange = 0.3
     }
     
-    var coverStyle = false
+    var coverStyle = false {
+        didSet {
+            updatePages()
+        }
+    }
     var currentPage = 0
     var pageNum = 0
     var pageSize: CGSize = .zero
@@ -24,8 +28,23 @@ class DQHorizontalScrollRender: UIViewController, DQRender {
         currentPage = pageIdx
         if let page = pageMaker?(pageIdx) {
             page.frame = view.bounds
+            page.backgroundColor = .white
+            page.layer.shadowColor = UIColor.black.cgColor
+            page.layer.shadowOpacity = coverStyle ? 1 : 0
+            page.layer.shadowOffset = .zero
+            page.layer.shadowRadius = 10
+            
             view.addSubview(page)
             pageView = page
+        }
+    }
+    
+    private func updatePages() {
+        view.subviews.forEach { page in
+            page.layer.shadowColor = UIColor.black.cgColor
+            page.layer.shadowOpacity = coverStyle ? 1 : 0
+            page.layer.shadowOffset = .zero
+            page.layer.shadowRadius = 10
         }
     }
     
