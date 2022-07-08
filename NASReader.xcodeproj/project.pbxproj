@@ -20,6 +20,8 @@
 		5AACAF37287806D200D13209 /* DYReaderFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF36287806D200D13209 /* DYReaderFeatureView.swift */; };
 		5AACAF3C2878080E00D13209 /* UIImage+DNIconfontHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF3B2878080E00D13209 /* UIImage+DNIconfontHelper.m */; };
 		5AACAF3F2878086F00D13209 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AACAF3E2878086F00D13209 /* iconfont.ttf */; };
+		5AACAF41287811A500D13209 /* DNSimpleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF40287811A500D13209 /* DNSimpleSlider.swift */; };
+		5AACAF4428782F3D00D13209 /* UIButton+alignVertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF4328782F3D00D13209 /* UIButton+alignVertical.swift */; };
 		5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */; };
 		5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */; };
 		5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */; };
@@ -77,6 +79,8 @@
 		5AACAF3A2878080E00D13209 /* UIImage+DNIconfontHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DNIconfontHelper.h"; sourceTree = "<group>"; };
 		5AACAF3B2878080E00D13209 /* UIImage+DNIconfontHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DNIconfontHelper.m"; sourceTree = "<group>"; };
 		5AACAF3E2878086F00D13209 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
+		5AACAF40287811A500D13209 /* DNSimpleSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNSimpleSlider.swift; sourceTree = "<group>"; };
+		5AACAF4328782F3D00D13209 /* UIButton+alignVertical.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+alignVertical.swift"; sourceTree = "<group>"; };
 		5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = TLYCSEbookDec2020FINAL.epub; sourceTree = "<group>"; };
 		5AECFE882870A0AE00E6205F /* NASReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NASReader-Bridging-Header.h"; sourceTree = "<group>"; };
 		5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYVerticalScrollRender.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 			children = (
 				5AACAF34287806B200D13209 /* DYReaderNavigationView.swift */,
 				5AACAF36287806D200D13209 /* DYReaderFeatureView.swift */,
+				5AACAF40287811A500D13209 /* DNSimpleSlider.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 		5AACAF38287807FB00D13209 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				5AACAF4228782F1D00D13209 /* verticalButton */,
 				5AACAF392878080E00D13209 /* iconFontHelper */,
 			);
 			path = Vendor;
@@ -189,6 +195,14 @@
 				5AACAF3E2878086F00D13209 /* iconfont.ttf */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		5AACAF4228782F1D00D13209 /* verticalButton */ = {
+			isa = PBXGroup;
+			children = (
+				5AACAF4328782F3D00D13209 /* UIButton+alignVertical.swift */,
+			);
+			path = verticalButton;
 			sourceTree = "<group>";
 		};
 		5AECFE8F287115B600E6205F /* VerticalScrollRender */ = {
@@ -304,8 +318,10 @@
 				5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */,
 				5AACAF35287806B200D13209 /* DYReaderNavigationView.swift in Sources */,
 				5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */,
+				5AACAF4428782F3D00D13209 /* UIButton+alignVertical.swift in Sources */,
 				5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */,
 				5AECFE91287115D400E6205F /* DYPageTableViewCell.swift in Sources */,
+				5AACAF41287811A500D13209 /* DNSimpleSlider.swift in Sources */,
 				5AECFE982872941400E6205F /* DYHorizontalScrollRender.swift in Sources */,
 				5A206911286DA550000C5BEA /* main.m in Sources */,
 				5AACAF3C2878080E00D13209 /* UIImage+DNIconfontHelper.m in Sources */,

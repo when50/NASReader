@@ -27,7 +27,7 @@ class DYReaderController: UIViewController {
     private let bookReader = DYBookReader()
     private var render: DYRenderProtocol?
     private let navigationView = DYReaderNavigationView(frame: .zero)
-    
+    private var featureView = DYReaderFeatureView(frame: .zero)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,16 +78,27 @@ class DYReaderController: UIViewController {
     
     private func buildUI() {
         let views: [String: Any] = [
-            "navigationView": navigationView
+            "navigationView": navigationView,
+            "featureView": featureView
         ]
         navigationView.translatesAutoresizingMaskIntoConstraints = false
-        navigationView.layer.shadowOpacity = 1
-        navigationView.layer.shadowColor = UIColor.black.cgColor
-        navigationView.layer.shadowOffset = .zero
-        navigationView.layer.shadowRadius = 10
+        setupShadow(view: navigationView)
         view.addSubview(navigationView)
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[navigationView(==94)]", metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[navigationView]-(0)-|", metrics: nil, views: views))
+        
+        featureView.translatesAutoresizingMaskIntoConstraints = false
+        setupShadow(view: featureView)
+        view.addSubview(featureView)
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[featureView(==175)]-(0)-|", metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[featureView]-(0)-|", metrics: nil, views: views))
+    }
+    
+    private func setupShadow(view: UIView) {
+        view.layer.shadowOpacity = 1
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = .zero
+        view.layer.shadowRadius = 10
     }
 
 }
