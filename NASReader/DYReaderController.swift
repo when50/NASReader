@@ -26,6 +26,7 @@ class DYReaderController: UIViewController {
     
     private let bookReader = DYBookReader()
     private var render: DYRenderProtocol?
+    private let navigationView = DYReaderNavigationView(frame: .zero)
     
 
     override func viewDidLoad() {
@@ -36,6 +37,8 @@ class DYReaderController: UIViewController {
             bookReader.openFile(bookfile)
         }
         buildRender()
+        
+        buildUI()
     }
     
     private func buildRender() {
@@ -63,7 +66,7 @@ class DYReaderController: UIViewController {
                 return self?.bookReader.getPageView(atPage: Int32(pageIdx), size: render.pageSize)
             }
             render.showPageAt(2)
-            render.coverStyle = false
+            render.coverStyle = true
             self.render = render
         case .cover:
             break
@@ -71,6 +74,20 @@ class DYReaderController: UIViewController {
             break
         }
         
+    }
+    
+    private func buildUI() {
+        let views: [String: Any] = [
+            "navigationView": navigationView
+        ]
+        navigationView.translatesAutoresizingMaskIntoConstraints = false
+        navigationView.layer.shadowOpacity = 1
+        navigationView.layer.shadowColor = UIColor.black.cgColor
+        navigationView.layer.shadowOffset = .zero
+        navigationView.layer.shadowRadius = 10
+        view.addSubview(navigationView)
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[navigationView(==94)]", metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[navigationView]-(0)-|", metrics: nil, views: views))
     }
 
 }

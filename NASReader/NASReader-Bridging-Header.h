@@ -3,3 +3,4 @@
 //
 
 #import <DYReader/DYBookReader.h>
+#import "UIImage+DNIconfontHelper.h"

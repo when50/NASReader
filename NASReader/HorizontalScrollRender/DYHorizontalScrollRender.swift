@@ -28,7 +28,7 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
         currentPage = pageIdx
         if let page = pageMaker?(pageIdx) {
             page.frame = view.bounds
-            page.backgroundColor = .white
+            page.backgroundColor = .yellow
             page.layer.shadowColor = UIColor.black.cgColor
             page.layer.shadowOpacity = coverStyle ? 1 : 0
             page.layer.shadowOffset = .zero

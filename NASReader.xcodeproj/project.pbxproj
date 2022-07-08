@@ -16,6 +16,10 @@
 		5A206920286DA627000C5BEA /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5A20691F286DA627000C5BEA /* test.pdf */; };
 		5A206930286DAEBA000C5BEA /* DYReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; platformFilter = ios; };
 		5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5AACAF35287806B200D13209 /* DYReaderNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF34287806B200D13209 /* DYReaderNavigationView.swift */; };
+		5AACAF37287806D200D13209 /* DYReaderFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF36287806D200D13209 /* DYReaderFeatureView.swift */; };
+		5AACAF3C2878080E00D13209 /* UIImage+DNIconfontHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF3B2878080E00D13209 /* UIImage+DNIconfontHelper.m */; };
+		5AACAF3F2878086F00D13209 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AACAF3E2878086F00D13209 /* iconfont.ttf */; };
 		5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */; };
 		5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */; };
 		5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */; };
@@ -68,6 +72,11 @@
 		5A206910286DA550000C5BEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5A20691F286DA627000C5BEA /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
 		5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DYReader.xcodeproj; path = libdyreader/DYReader.xcodeproj; sourceTree = "<group>"; };
+		5AACAF34287806B200D13209 /* DYReaderNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYReaderNavigationView.swift; sourceTree = "<group>"; };
+		5AACAF36287806D200D13209 /* DYReaderFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYReaderFeatureView.swift; sourceTree = "<group>"; };
+		5AACAF3A2878080E00D13209 /* UIImage+DNIconfontHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DNIconfontHelper.h"; sourceTree = "<group>"; };
+		5AACAF3B2878080E00D13209 /* UIImage+DNIconfontHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DNIconfontHelper.m"; sourceTree = "<group>"; };
+		5AACAF3E2878086F00D13209 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = TLYCSEbookDec2020FINAL.epub; sourceTree = "<group>"; };
 		5AECFE882870A0AE00E6205F /* NASReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NASReader-Bridging-Header.h"; sourceTree = "<group>"; };
 		5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYVerticalScrollRender.swift; sourceTree = "<group>"; };
@@ -110,6 +119,9 @@
 		5A2068FD286DA54E000C5BEA /* NASReader */ = {
 			isa = PBXGroup;
 			children = (
+				5AACAF3D2878085A00D13209 /* Resources */,
+				5AACAF38287807FB00D13209 /* Vendor */,
+				5AACAF0F2877DF4700D13209 /* View */,
 				5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */,
 				5A20691F286DA627000C5BEA /* test.pdf */,
 				5A2068FE286DA54E000C5BEA /* AppDelegate.h */,
@@ -143,6 +155,40 @@
 				5A20692F286DAE7F000C5BEA /* DYReader.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5AACAF0F2877DF4700D13209 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5AACAF34287806B200D13209 /* DYReaderNavigationView.swift */,
+				5AACAF36287806D200D13209 /* DYReaderFeatureView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5AACAF38287807FB00D13209 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				5AACAF392878080E00D13209 /* iconFontHelper */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		5AACAF392878080E00D13209 /* iconFontHelper */ = {
+			isa = PBXGroup;
+			children = (
+				5AACAF3A2878080E00D13209 /* UIImage+DNIconfontHelper.h */,
+				5AACAF3B2878080E00D13209 /* UIImage+DNIconfontHelper.m */,
+			);
+			path = iconFontHelper;
+			sourceTree = "<group>";
+		};
+		5AACAF3D2878085A00D13209 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5AACAF3E2878086F00D13209 /* iconfont.ttf */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		5AECFE8F287115B600E6205F /* VerticalScrollRender */ = {
@@ -240,6 +286,7 @@
 			files = (
 				5A206920286DA627000C5BEA /* test.pdf in Resources */,
 				5A20690E286DA550000C5BEA /* LaunchScreen.storyboard in Resources */,
+				5AACAF3F2878086F00D13209 /* iconfont.ttf in Resources */,
 				5A20690B286DA550000C5BEA /* Assets.xcassets in Resources */,
 				5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */,
 				5A206909286DA54E000C5BEA /* Main.storyboard in Resources */,
@@ -255,12 +302,15 @@
 			files = (
 				5AECFE8E2870A15400E6205F /* DYRenderProtocol.swift in Sources */,
 				5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */,
+				5AACAF35287806B200D13209 /* DYReaderNavigationView.swift in Sources */,
 				5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */,
 				5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */,
 				5AECFE91287115D400E6205F /* DYPageTableViewCell.swift in Sources */,
 				5AECFE982872941400E6205F /* DYHorizontalScrollRender.swift in Sources */,
 				5A206911286DA550000C5BEA /* main.m in Sources */,
+				5AACAF3C2878080E00D13209 /* UIImage+DNIconfontHelper.m in Sources */,
 				5A206903286DA54E000C5BEA /* SceneDelegate.m in Sources */,
+				5AACAF37287806D200D13209 /* DYReaderFeatureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
