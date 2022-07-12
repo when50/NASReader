@@ -85,25 +85,76 @@ class DYReaderSettingView: UIView, DYControlProtocol {
         // 间距
         let lineSpaceIcons = ["图标-行间距4", "图标-行间距3", "图标-行间距2", "图标-行间距1"]
         var lineSpaceBtns = [UIButton]()
+        var lineSpaceSpacers = [UIView]()
+        var lineSpaceViews = [String: UIView]()
+        var lineSpaceIdx = 0
         lineSpaceIcons.forEach { icon in
             let btn = UIButton(type: .system)
             btn.setImage(UIImage.icon(withName: icon, fontSize: 14.0, color: .black), for: .selected)
             btn.setImage(UIImage.icon(withName: icon, fontSize: 14.0, color: .gray), for: .normal)
             btn.layer.borderColor = #colorLiteral(red: 1, green: 0.9999999404, blue: 0.9999999404, alpha: 0.2)
             lineSpaceBtns.append(btn)
+            lineSpaceViews["lineSpaceBtns\(lineSpaceIdx)"] = btn
+            if lineSpaceIdx + 1 < lineSpaceIcons.count {
+                let spacer = UIView()
+                spacer.backgroundColor = .clear
+                lineSpaceSpacers.append(spacer)
+                lineSpaceViews["spacer\(lineSpaceIdx)"] = spacer
+            }
+            lineSpaceIdx += 1
         }
         addSubviews(lineSpaceBtns)
+        addSubviews(lineSpaceSpacers)
         lineSpaceBtns.forEach { btn in
             addConstraint(NSLayoutConstraint(item: btn, attribute: .centerY, relatedBy: .equal, toItem: labels[2], attribute: .centerY, multiplier: 1.0, constant: 0.0))
         }
-        let lineSpaceViews = [
-            "lineSpaceBtns0": lineSpaceBtns[0],
-            "lineSpaceBtns1": lineSpaceBtns[1],
-            "lineSpaceBtns2": lineSpaceBtns[2],
-            "lineSpaceBtns3": lineSpaceBtns[3],
-        ]
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(90)-[lineSpaceBtns0]->=0-[lineSpaceBtns1]->=0-[lineSpaceBtns2]->=0-[lineSpaceBtns3]-(30)-|", metrics: nil, views: lineSpaceViews))
+        lineSpaceSpacers.forEach { spacer in
+            addConstraint(NSLayoutConstraint(item: spacer, attribute: .centerY, relatedBy: .equal, toItem: labels[2], attribute: .centerY, multiplier: 1.0, constant: 0.0))
+        }
+        let lineSpaceHConstraints = "H:|-(90)-[lineSpaceBtns0]-[spacer0(spacer1)]-[lineSpaceBtns1]-[spacer1(spacer2)]-[lineSpaceBtns2]-[spacer2]-[lineSpaceBtns3]-(30)-|"
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: lineSpaceHConstraints, metrics: nil, views: lineSpaceViews))
+        lineSpaceSpacers.forEach { spacer in
+            addConstraint(NSLayoutConstraint(item: spacer, attribute: .height, relatedBy: .equal, toItem: lineSpaceBtns[0], attribute: .height, multiplier: 1.0, constant: 0.0))
+        }
+        
         // 背景
+        let bgImgs = [
+            bgImage(color: #colorLiteral(red: 1, green: 0.9999999404, blue: 0.9999999404, alpha: 1)),
+            bgImage(color: #colorLiteral(red: 0.9529411765, green: 0.9176470588, blue: 0.8117647059, alpha: 1)),
+            bgImage(color: #colorLiteral(red: 0.9254901961, green: 0.9803921569, blue: 0.9254901961, alpha: 1)),
+            bgImage(color: #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 0.9411764706, alpha: 1)),
+            UIImage(named: "bookReader_icon_background5")
+        ]
+        var bgViews = [String: UIView]()
+        var bgBtns = [UIButton]()
+        var bgSpacers = [UIView]()
+        var bgIdx = 0
+        bgImgs.forEach { img in
+            let btn = UIButton(type: .custom)
+            btn.setImage(img, for: .normal)
+            bgBtns.append(btn)
+            bgViews["bgBtn\(bgIdx)"] = btn
+            if bgIdx + 1 < bgImgs.count {
+                let spacer = UIView()
+                spacer.backgroundColor = .clear
+                bgSpacers.append(spacer)
+                bgViews["spacer\(bgIdx)"] = spacer
+            }
+            bgIdx += 1
+        }
+        addSubviews(bgBtns)
+        addSubviews(bgSpacers)
+        bgBtns.forEach { btn in
+            addConstraint(NSLayoutConstraint(item: btn, attribute: .centerY, relatedBy: .equal, toItem: labels[3], attribute: .centerY, multiplier: 1.0, constant: 0.0))
+            addConstraint(NSLayoutConstraint(item: btn, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 32.0))
+        }
+        bgSpacers.forEach { spacer in
+            addConstraint(NSLayoutConstraint(item: spacer, attribute: .centerY, relatedBy: .equal, toItem: labels[3], attribute: .centerY, multiplier: 1.0, constant: 0.0))
+            addConstraint(NSLayoutConstraint(item: spacer, attribute: .height, relatedBy: .equal, toItem: bgBtns[0], attribute: .height, multiplier: 1.0, constant: 0.0))
+        }
+        let bgHConstraints = "H:|-(90)-[bgBtn0(48)][spacer0][bgBtn1(48)][spacer1(spacer0)][bgBtn2(48)][spacer2(spacer0)][bgBtn3(48)][spacer3(spacer0)][bgBtn4(48)]-(30)-|"
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: bgHConstraints, metrics: nil, views: bgViews))
+        
         // 翻页
         
     }
@@ -119,6 +170,11 @@ class DYReaderSettingView: UIView, DYControlProtocol {
         addConstraint(NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 20))
             
         return label
+    }
+    
+    private func bgImage(color: UIColor) -> UIImage {
+        let image = UIImage.init(color: color, size: CGSize(width: 40.0, height: 24.0))
+        return image.byRoundCornerRadius(12.0)
     }
 
 }

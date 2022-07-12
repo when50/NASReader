@@ -4,3 +4,5 @@
 
 #import <DYReader/DYBookReader.h>
 #import "UIImage+DNIconfontHelper.h"
+#import "UIImage+RoundCorner.h"
+#import "UIImage+Color.h"
