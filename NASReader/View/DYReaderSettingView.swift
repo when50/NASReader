@@ -156,7 +156,36 @@ class DYReaderSettingView: UIView, DYControlProtocol {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: bgHConstraints, metrics: nil, views: bgViews))
         
         // 翻页
-        
+        let pageStyleTitles = ["覆盖", "仿真", "平移", "滚动"]
+        var pageStyleViews = [String: UIView]()
+        var pageBtns = [UIButton]()
+        var pageSpacers = [UIView]()
+        var pageIdx = 0
+        pageStyleTitles.forEach { title in
+            let btn = UIButton(type: .system)
+            btn.setTitle(title, for: .normal)
+            pageBtns.append(btn)
+            pageStyleViews["pageBtn\(pageIdx)"] = btn
+            if pageIdx + 1 < pageStyleTitles.count {
+                let spacer = UIView()
+                spacer.backgroundColor = .clear
+                pageSpacers.append(spacer)
+                pageStyleViews["spacer\(pageIdx)"] = spacer
+            }
+            pageIdx += 1
+        }
+        addSubviews(pageBtns)
+        addSubviews(pageSpacers)
+        pageBtns.forEach { btn in
+            addConstraint(NSLayoutConstraint(item: btn, attribute: .centerY, relatedBy: .equal, toItem: labels[4], attribute: .centerY, multiplier: 1.0, constant: 0.0))
+            addConstraint(NSLayoutConstraint(item: btn, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 33.0))
+        }
+        pageSpacers.forEach { spacer in
+            addConstraint(NSLayoutConstraint(item: spacer, attribute: .centerY, relatedBy: .equal, toItem: labels[4], attribute: .centerY, multiplier: 1.0, constant: 0.0))
+            addConstraint(NSLayoutConstraint(item: spacer, attribute: .height, relatedBy: .equal, toItem: pageBtns[0], attribute: .height, multiplier: 1.0, constant: 0.0))
+        }
+        let pageStyleHConstraints = "H:|-(80)-[pageBtn0(48)][spacer0][pageBtn1(48)][spacer1(spacer0)][pageBtn2(48)][spacer2(spacer0)][pageBtn3(48)]-(20)-|"
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: pageStyleHConstraints, metrics: nil, views: pageStyleViews))
     }
     
     private func setupTitleLabel(title: String, top: CGFloat) -> UILabel {
