@@ -16,6 +16,8 @@
 		5A206920286DA627000C5BEA /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5A20691F286DA627000C5BEA /* test.pdf */; };
 		5A206930286DAEBA000C5BEA /* DYReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; platformFilter = ios; };
 		5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5A76DC6F28796F80003D6D36 /* DYReaderSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A76DC6E28796F80003D6D36 /* DYReaderSettingView.swift */; };
+		5A76DC712879A513003D6D36 /* DYControlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A76DC702879A513003D6D36 /* DYControlProtocol.swift */; };
 		5AACAF35287806B200D13209 /* DYReaderNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF34287806B200D13209 /* DYReaderNavigationView.swift */; };
 		5AACAF37287806D200D13209 /* DYReaderFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF36287806D200D13209 /* DYReaderFeatureView.swift */; };
 		5AACAF3C2878080E00D13209 /* UIImage+DNIconfontHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF3B2878080E00D13209 /* UIImage+DNIconfontHelper.m */; };
@@ -74,6 +76,8 @@
 		5A206910286DA550000C5BEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5A20691F286DA627000C5BEA /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
 		5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DYReader.xcodeproj; path = libdyreader/DYReader.xcodeproj; sourceTree = "<group>"; };
+		5A76DC6E28796F80003D6D36 /* DYReaderSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYReaderSettingView.swift; sourceTree = "<group>"; };
+		5A76DC702879A513003D6D36 /* DYControlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYControlProtocol.swift; sourceTree = "<group>"; };
 		5AACAF34287806B200D13209 /* DYReaderNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYReaderNavigationView.swift; sourceTree = "<group>"; };
 		5AACAF36287806D200D13209 /* DYReaderFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYReaderFeatureView.swift; sourceTree = "<group>"; };
 		5AACAF3A2878080E00D13209 /* UIImage+DNIconfontHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DNIconfontHelper.h"; sourceTree = "<group>"; };
@@ -166,7 +170,9 @@
 			children = (
 				5AACAF34287806B200D13209 /* DYReaderNavigationView.swift */,
 				5AACAF36287806D200D13209 /* DYReaderFeatureView.swift */,
+				5A76DC6E28796F80003D6D36 /* DYReaderSettingView.swift */,
 				5AACAF40287811A500D13209 /* DNSimpleSlider.swift */,
+				5A76DC702879A513003D6D36 /* DYControlProtocol.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -317,6 +323,7 @@
 				5AECFE8E2870A15400E6205F /* DYRenderProtocol.swift in Sources */,
 				5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */,
 				5AACAF35287806B200D13209 /* DYReaderNavigationView.swift in Sources */,
+				5A76DC712879A513003D6D36 /* DYControlProtocol.swift in Sources */,
 				5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */,
 				5AACAF4428782F3D00D13209 /* UIButton+alignVertical.swift in Sources */,
 				5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */,
@@ -325,6 +332,7 @@
 				5AECFE982872941400E6205F /* DYHorizontalScrollRender.swift in Sources */,
 				5A206911286DA550000C5BEA /* main.m in Sources */,
 				5AACAF3C2878080E00D13209 /* UIImage+DNIconfontHelper.m in Sources */,
+				5A76DC6F28796F80003D6D36 /* DYReaderSettingView.swift in Sources */,
 				5A206903286DA54E000C5BEA /* SceneDelegate.m in Sources */,
 				5AACAF37287806D200D13209 /* DYReaderFeatureView.swift in Sources */,
 			);

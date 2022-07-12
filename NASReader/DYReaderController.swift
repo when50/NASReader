@@ -28,6 +28,7 @@ class DYReaderController: UIViewController {
     private var render: DYRenderProtocol?
     private let navigationView = DYReaderNavigationView(frame: .zero)
     private var featureView = DYReaderFeatureView(frame: .zero)
+    private var settingView = DYReaderSettingView(frame: .zero)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,21 +78,26 @@ class DYReaderController: UIViewController {
     }
     
     private func buildUI() {
-        let views: [String: Any] = [
+        let views: [String: UIView] = [
             "navigationView": navigationView,
-            "featureView": featureView
+            "featureView": featureView,
+            "settingView": settingView,
         ]
-        navigationView.translatesAutoresizingMaskIntoConstraints = false
-        setupShadow(view: navigationView)
-        view.addSubview(navigationView)
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[navigationView(==94)]", metrics: nil, views: views))
+        
+        [navigationView, featureView, settingView].forEach { subView in
+            subView.translatesAutoresizingMaskIntoConstraints = false
+            setupShadow(view: subView)
+            view.addSubview(subView)
+        }
+        
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[navigationView(94)]", metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[navigationView]-(0)-|", metrics: nil, views: views))
         
-        featureView.translatesAutoresizingMaskIntoConstraints = false
-        setupShadow(view: featureView)
-        view.addSubview(featureView)
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[featureView(==175)]-(0)-|", metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[featureView(175)]-(0)-|", metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[featureView]-(0)-|", metrics: nil, views: views))
+        
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[settingView(334)]-(0)-|", metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[settingView]-(0)-|", metrics: nil, views: views))
     }
     
     private func setupShadow(view: UIView) {
