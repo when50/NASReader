@@ -21,6 +21,7 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
     var pageNum = 0
     var pageSize: CGSize = .zero
     var pageMaker: ((Int) -> UIView?)?
+    var tapFeatureArea: (() -> Void)?
     private var showPageBlock: (() -> Void)?
     private var pageView: UIView?
     
@@ -106,6 +107,7 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
             }
         default:
             print("toggle control")
+            tapFeatureArea?()
         }
     }
 }

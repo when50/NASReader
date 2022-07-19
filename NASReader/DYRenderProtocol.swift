@@ -13,6 +13,7 @@ protocol DYRenderProtocol {
     var pageNum: Int { get set }
     var pageSize: CGSize { get set }
     var pageMaker: ((Int) -> UIView?)? { get set }
+    var tapFeatureArea: (() -> Void)? { get set }
     func buildRender(parentController: UIViewController)
     func showPageAt(_ pageIdx: Int, animated: Bool)
     func clean()
@@ -23,6 +24,7 @@ extension DYRenderProtocol where Self: UIViewController {
         parentController.addChild(self)
         view.frame = parentController.view.bounds
         parentController.view.addSubview(view)
+        parentController.view.sendSubviewToBack(view)
         didMove(toParent: parentController)
     }
     

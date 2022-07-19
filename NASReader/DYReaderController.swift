@@ -24,11 +24,28 @@ class DYReaderController: UIViewController {
     }
     @objc var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
     
+    private var featureViewShown = false {
+        didSet {
+            if featureViewShown {
+                showNavigationFeatureViews()
+            } else {
+                hideNavigationFeatureViews()
+            }
+        }
+    }
+    
     private let bookReader = DYBookReader()
     private var render: DYRenderProtocol?
     private let navigationView = DYReaderNavigationView(frame: .zero)
-    private var featureView = DYReaderFeatureView(frame: .zero)
-    private var settingView = DYReaderSettingView(frame: .zero)
+    private let featureView = DYReaderFeatureView(frame: .zero)
+    private let settingView = DYReaderSettingView(frame: .zero)
+    private var gestureView: UIView = {
+        let v = UIView(frame: .zero)
+        v.backgroundColor = .clear
+        return v
+    }()
+    private var navigationTopConstraints: NSLayoutConstraint?
+    private var featureBottomConstraints: NSLayoutConstraint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +55,8 @@ class DYReaderController: UIViewController {
             bookReader.openFile(bookfile)
         }
         buildRender()
-        
         buildUI()
+        setupGestures()
     }
     
     private func buildRender() {
@@ -74,7 +91,10 @@ class DYReaderController: UIViewController {
         case .curl:
             break
         }
-        
+        self.render?.tapFeatureArea = { [weak self] in
+            guard let sself = self else { return }
+            sself.featureViewShown = true
+        }
     }
     
     private func buildUI() {
@@ -82,22 +102,33 @@ class DYReaderController: UIViewController {
             "navigationView": navigationView,
             "featureView": featureView,
             "settingView": settingView,
+            "gestureView": gestureView,
         ]
         
-        [navigationView, featureView, settingView].forEach { subView in
+        [navigationView, featureView, settingView, gestureView].forEach { subView in
             subView.translatesAutoresizingMaskIntoConstraints = false
+            subView.isHidden = true
             setupShadow(view: subView)
             view.addSubview(subView)
         }
-        
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[navigationView(94)]", metrics: nil, views: views))
+
+        let top = NSLayoutConstraint(item: navigationView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: -94)
+        view.addConstraint(top)
+        navigationTopConstraints = top
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[navigationView(94)]", metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[navigationView]-(0)-|", metrics: nil, views: views))
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[featureView(175)]-(0)-|", metrics: nil, views: views))
+        let bottom = NSLayoutConstraint(item: featureView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 175)
+        view.addConstraint(bottom)
+        featureBottomConstraints = bottom
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[featureView(175)]", metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[featureView]-(0)-|", metrics: nil, views: views))
         
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[settingView(334)]-(0)-|", metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[settingView]-(0)-|", metrics: nil, views: views))
+        
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[gestureView]-(0)-|", metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[gestureView]-(0)-|", metrics: nil, views: views))
     }
     
     private func setupShadow(view: UIView) {
@@ -106,5 +137,40 @@ class DYReaderController: UIViewController {
         view.layer.shadowOffset = .zero
         view.layer.shadowRadius = 10
     }
+    
+    private func setupGestures() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler(sender:)))
+        gestureView.addGestureRecognizer(tap)
+    }
+    
+    @objc
+    private func tapHandler(sender: UITapGestureRecognizer) {
+        featureViewShown = false
+    }
+    
+    private func showNavigationFeatureViews() {
+        navigationView.isHidden = false
+        featureView.isHidden = false
+        gestureView.isHidden = false
+        UIView.animate(withDuration: 0.25) { [weak navigationTopConstraints, weak featureBottomConstraints, weak view] in
+            navigationTopConstraints?.constant = 0
+            featureBottomConstraints?.constant = 0
+            view?.layoutIfNeeded()
+        }
+    }
+    
+    private func hideNavigationFeatureViews() {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut) { [weak navigationTopConstraints, weak featureBottomConstraints, weak view] in
+            navigationTopConstraints?.constant = -94
+            featureBottomConstraints?.constant = 175
+            view?.layoutIfNeeded()
+        } completion: { [weak navigationView, weak featureView, weak gestureView] _ in
+            navigationView?.isHidden = true
+            featureView?.isHidden = true
+            gestureView?.isHidden = true
+        }
+    }
+    
+    
 
 }

@@ -16,7 +16,7 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
     var pageNum = 0
     var pageSize: CGSize = .zero
     var pageMaker: ((Int) -> UIView?)?
-    
+    var tapFeatureArea: (() -> Void)?
     func showPageAt(_ pageIdx: Int, animated: Bool = false) {
         if (pageIdx < tableView(tableView, numberOfRowsInSection: 0)) {
             tableView.scrollToRow(at: IndexPath(item: pageIdx, section: 0), at: .top, animated: animated)
@@ -31,11 +31,13 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         tableView.showsHorizontalScrollIndicator = false
         tableView.register(DYPageTableViewCell.self, forCellReuseIdentifier: ConstValue.cellReuseId)
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        tableView.addGestureRecognizer(tap)
+    }
+    
+    @objc
+    private func handleTap(sender: UITapGestureRecognizer) {
+        tapFeatureArea?()
     }
 
     // MARK: - Table view data source
