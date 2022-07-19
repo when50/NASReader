@@ -16,6 +16,7 @@
 		5A206920286DA627000C5BEA /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5A20691F286DA627000C5BEA /* test.pdf */; };
 		5A206930286DAEBA000C5BEA /* DYReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; platformFilter = ios; };
 		5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5A336C382886B917009F4DE9 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A336C372886B917009F4DE9 /* Bindable.swift */; };
 		5A65CB24287D7DBE00D4BE75 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65CB23287D7DBE00D4BE75 /* UIImage+Color.m */; };
 		5A65CB28287D7E3200D4BE75 /* UIImage+RoundCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65CB27287D7E3200D4BE75 /* UIImage+RoundCorner.m */; };
 		5A76DC6F28796F80003D6D36 /* DYReaderSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A76DC6E28796F80003D6D36 /* DYReaderSettingView.swift */; };
@@ -78,6 +79,7 @@
 		5A206910286DA550000C5BEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5A20691F286DA627000C5BEA /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
 		5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DYReader.xcodeproj; path = libdyreader/DYReader.xcodeproj; sourceTree = "<group>"; };
+		5A336C372886B917009F4DE9 /* Bindable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		5A65CB22287D7DBE00D4BE75 /* UIImage+Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		5A65CB23287D7DBE00D4BE75 /* UIImage+Color.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		5A65CB26287D7E3200D4BE75 /* UIImage+RoundCorner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundCorner.h"; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		5A2068FD286DA54E000C5BEA /* NASReader */ = {
 			isa = PBXGroup;
 			children = (
+				5A336C352886B8E4009F4DE9 /* Helpers */,
 				5AACAF3D2878085A00D13209 /* Resources */,
 				5AACAF38287807FB00D13209 /* Vendor */,
 				5AACAF0F2877DF4700D13209 /* View */,
@@ -169,6 +172,22 @@
 				5A20692F286DAE7F000C5BEA /* DYReader.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5A336C352886B8E4009F4DE9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				5A336C362886B8FD009F4DE9 /* Utils */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		5A336C362886B8FD009F4DE9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5A336C372886B917009F4DE9 /* Bindable.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		5A65CB1E287D7D7200D4BE75 /* ColorImage */ = {
@@ -354,6 +373,7 @@
 				5A65CB24287D7DBE00D4BE75 /* UIImage+Color.m in Sources */,
 				5AACAF4428782F3D00D13209 /* UIButton+alignVertical.swift in Sources */,
 				5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */,
+				5A336C382886B917009F4DE9 /* Bindable.swift in Sources */,
 				5AECFE91287115D400E6205F /* DYPageTableViewCell.swift in Sources */,
 				5AACAF41287811A500D13209 /* DNSimpleSlider.swift in Sources */,
 				5AECFE982872941400E6205F /* DYHorizontalScrollRender.swift in Sources */,
