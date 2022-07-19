@@ -8,6 +8,7 @@
 import UIKit
 
 class DYReaderSettingView: UIView, DYControlProtocol {
+    let topShadowView = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,6 +21,20 @@ class DYReaderSettingView: UIView, DYControlProtocol {
     
     private func setupUI() {
         backgroundColor = .white
+        
+        topShadowView.backgroundColor = backgroundColor
+        let bgView = UIView()
+        bgView.backgroundColor = backgroundColor
+        addSubviews([bgView, topShadowView])
+        sendSubviewToBack(topShadowView)
+        addConstraint(NSLayoutConstraint(item: topShadowView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0))
+        addConstraint(NSLayoutConstraint(item: topShadowView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 0.0))
+        addConstraint(NSLayoutConstraint(item: topShadowView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0.0))
+        addConstraint(NSLayoutConstraint(item: topShadowView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 10.0))
+        addConstraint(NSLayoutConstraint(item: bgView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 0.0))
+        addConstraint(NSLayoutConstraint(item: bgView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0))
+        addConstraint(NSLayoutConstraint(item: bgView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0.0))
+        addConstraint(NSLayoutConstraint(item: bgView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0))
         
         var labels = [UILabel]()
         let labelTitles = ["亮度", "字号", "间距", "背景", "翻页"]
