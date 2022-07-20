@@ -37,7 +37,9 @@ class DYReaderFeatureView: UIView {
             delegate?.toggleDeepColor(open: isOpen)
         }
         settingShown.bind { [weak settingBtn, weak delegate] shown in
-            settingBtn?.isSelected = shown
+            let iconName = shown ? "图标-设置-面" : "图标-设置"
+            let icon = UIImage.icon(withName: iconName, fontSize: 18.0, color: .black)
+            settingBtn?.setImage(icon, for: .normal)
             delegate?.toggleSettingView(shown: shown)
         }
     }
