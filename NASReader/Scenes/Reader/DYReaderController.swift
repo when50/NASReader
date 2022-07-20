@@ -34,6 +34,7 @@ class DYReaderController: UIViewController {
         }
     }
     
+    weak var coordinator: DYReaderCoordinatorProtocol?
     private let bookReader = DYBookReader()
     private var render: DYRenderProtocol?
     private let navigationView = DYReaderNavigationView(frame: .zero)
@@ -201,7 +202,7 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
     }
     
     func showOutlineViews() {
-        
+        coordinator?.showOutline(Outline())
     }
     
     func toggleDeepColor(open: Bool) {

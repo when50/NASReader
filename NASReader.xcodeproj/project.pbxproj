@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2068FF286DA54E000C5BEA /* AppDelegate.m */; };
-		5A206903286DA54E000C5BEA /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A206902286DA54E000C5BEA /* SceneDelegate.m */; };
-		5A206909286DA54E000C5BEA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A206907286DA54E000C5BEA /* Main.storyboard */; };
 		5A20690B286DA550000C5BEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A20690A286DA550000C5BEA /* Assets.xcassets */; };
 		5A20690E286DA550000C5BEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A20690C286DA550000C5BEA /* LaunchScreen.storyboard */; };
 		5A206911286DA550000C5BEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A206910286DA550000C5BEA /* main.m */; };
@@ -27,6 +25,15 @@
 		5AACAF3F2878086F00D13209 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AACAF3E2878086F00D13209 /* iconfont.ttf */; };
 		5AACAF41287811A500D13209 /* DNSimpleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF40287811A500D13209 /* DNSimpleSlider.swift */; };
 		5AACAF4428782F3D00D13209 /* UIButton+alignVertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACAF4328782F3D00D13209 /* UIButton+alignVertical.swift */; };
+		5AB21E1328879BF100EE1433 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E1228879BF100EE1433 /* OutlineViewController.swift */; };
+		5AB21E1528879F4D00EE1433 /* OutlineViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E1428879F4D00EE1433 /* OutlineViewCoordinator.swift */; };
+		5AB21E1928879FA800EE1433 /* DYReaderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E1828879FA800EE1433 /* DYReaderCoordinator.swift */; };
+		5AB21E1D2887A0DC00EE1433 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E1C2887A0DC00EE1433 /* Coordinator.swift */; };
+		5AB21E1F2887A1A000EE1433 /* DYReaderProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E1E2887A1A000EE1433 /* DYReaderProtocols.swift */; };
+		5AB21E232887A27D00EE1433 /* OutlineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E222887A27D00EE1433 /* OutlineItem.swift */; };
+		5AB21E252887A32000EE1433 /* OutlineProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E242887A32000EE1433 /* OutlineProtocols.swift */; };
+		5AB21E272887A72F00EE1433 /* Outline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E262887A72F00EE1433 /* Outline.swift */; };
+		5AB21E292887A86E00EE1433 /* OutlineCoordinable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E282887A86E00EE1433 /* OutlineCoordinable.swift */; };
 		5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */; };
 		5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */; };
 		5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */; };
@@ -70,9 +77,6 @@
 		5A2068FB286DA54E000C5BEA /* NASReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NASReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A2068FE286DA54E000C5BEA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A2068FF286DA54E000C5BEA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		5A206901286DA54E000C5BEA /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		5A206902286DA54E000C5BEA /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		5A206908286DA54E000C5BEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5A20690A286DA550000C5BEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A20690D286DA550000C5BEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A20690F286DA550000C5BEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -93,6 +97,15 @@
 		5AACAF3E2878086F00D13209 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		5AACAF40287811A500D13209 /* DNSimpleSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNSimpleSlider.swift; sourceTree = "<group>"; };
 		5AACAF4328782F3D00D13209 /* UIButton+alignVertical.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+alignVertical.swift"; sourceTree = "<group>"; };
+		5AB21E1228879BF100EE1433 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
+		5AB21E1428879F4D00EE1433 /* OutlineViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewCoordinator.swift; sourceTree = "<group>"; };
+		5AB21E1828879FA800EE1433 /* DYReaderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYReaderCoordinator.swift; sourceTree = "<group>"; };
+		5AB21E1C2887A0DC00EE1433 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		5AB21E1E2887A1A000EE1433 /* DYReaderProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYReaderProtocols.swift; sourceTree = "<group>"; };
+		5AB21E222887A27D00EE1433 /* OutlineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineItem.swift; sourceTree = "<group>"; };
+		5AB21E242887A32000EE1433 /* OutlineProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineProtocols.swift; sourceTree = "<group>"; };
+		5AB21E262887A72F00EE1433 /* Outline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outline.swift; sourceTree = "<group>"; };
+		5AB21E282887A86E00EE1433 /* OutlineCoordinable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineCoordinable.swift; sourceTree = "<group>"; };
 		5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = TLYCSEbookDec2020FINAL.epub; sourceTree = "<group>"; };
 		5AECFE882870A0AE00E6205F /* NASReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NASReader-Bridging-Header.h"; sourceTree = "<group>"; };
 		5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYVerticalScrollRender.swift; sourceTree = "<group>"; };
@@ -135,21 +148,17 @@
 		5A2068FD286DA54E000C5BEA /* NASReader */ = {
 			isa = PBXGroup;
 			children = (
+				5AB21E202887A23400EE1433 /* DYReaderDomain */,
+				5AB21E1628879F7600EE1433 /* Scenes */,
 				5A336C352886B8E4009F4DE9 /* Helpers */,
 				5AACAF3D2878085A00D13209 /* Resources */,
 				5AACAF38287807FB00D13209 /* Vendor */,
 				5AACAF0F2877DF4700D13209 /* View */,
+				5AB21E1028879BB500EE1433 /* Render */,
 				5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */,
 				5A20691F286DA627000C5BEA /* test.pdf */,
 				5A2068FE286DA54E000C5BEA /* AppDelegate.h */,
 				5A2068FF286DA54E000C5BEA /* AppDelegate.m */,
-				5A206901286DA54E000C5BEA /* SceneDelegate.h */,
-				5A206902286DA54E000C5BEA /* SceneDelegate.m */,
-				5AECFE942871736D00E6205F /* HorizontalScrollRender */,
-				5AECFE8F287115B600E6205F /* VerticalScrollRender */,
-				5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */,
-				5AECFE8D2870A15400E6205F /* DYRenderProtocol.swift */,
-				5A206907286DA54E000C5BEA /* Main.storyboard */,
 				5A20690A286DA550000C5BEA /* Assets.xcassets */,
 				5A20690C286DA550000C5BEA /* LaunchScreen.storyboard */,
 				5A20690F286DA550000C5BEA /* Info.plist */,
@@ -177,6 +186,7 @@
 		5A336C352886B8E4009F4DE9 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5AB21E1A2887A0BC00EE1433 /* Protocols */,
 				5A336C362886B8FD009F4DE9 /* Utils */,
 			);
 			path = Helpers;
@@ -254,6 +264,79 @@
 				5AACAF4328782F3D00D13209 /* UIButton+alignVertical.swift */,
 			);
 			path = verticalButton;
+			sourceTree = "<group>";
+		};
+		5AB21E1028879BB500EE1433 /* Render */ = {
+			isa = PBXGroup;
+			children = (
+				5AECFE8D2870A15400E6205F /* DYRenderProtocol.swift */,
+				5AECFE942871736D00E6205F /* HorizontalScrollRender */,
+				5AECFE8F287115B600E6205F /* VerticalScrollRender */,
+			);
+			path = Render;
+			sourceTree = "<group>";
+		};
+		5AB21E1128879BDA00EE1433 /* Outlines */ = {
+			isa = PBXGroup;
+			children = (
+				5AB21E1228879BF100EE1433 /* OutlineViewController.swift */,
+				5AB21E1428879F4D00EE1433 /* OutlineViewCoordinator.swift */,
+				5AB21E242887A32000EE1433 /* OutlineProtocols.swift */,
+				5AB21E262887A72F00EE1433 /* Outline.swift */,
+			);
+			path = Outlines;
+			sourceTree = "<group>";
+		};
+		5AB21E1628879F7600EE1433 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				5AB21E1728879F8400EE1433 /* Reader */,
+				5AB21E1128879BDA00EE1433 /* Outlines */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		5AB21E1728879F8400EE1433 /* Reader */ = {
+			isa = PBXGroup;
+			children = (
+				5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */,
+				5AB21E1828879FA800EE1433 /* DYReaderCoordinator.swift */,
+				5AB21E1E2887A1A000EE1433 /* DYReaderProtocols.swift */,
+			);
+			path = Reader;
+			sourceTree = "<group>";
+		};
+		5AB21E1A2887A0BC00EE1433 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5AB21E1B2887A0CF00EE1433 /* Coordinator */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		5AB21E1B2887A0CF00EE1433 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				5AB21E1C2887A0DC00EE1433 /* Coordinator.swift */,
+				5AB21E282887A86E00EE1433 /* OutlineCoordinable.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		5AB21E202887A23400EE1433 /* DYReaderDomain */ = {
+			isa = PBXGroup;
+			children = (
+				5AB21E212887A25600EE1433 /* Entities */,
+			);
+			path = DYReaderDomain;
+			sourceTree = "<group>";
+		};
+		5AB21E212887A25600EE1433 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				5AB21E222887A27D00EE1433 /* OutlineItem.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		5AECFE8F287115B600E6205F /* VerticalScrollRender */ = {
@@ -354,7 +437,6 @@
 				5AACAF3F2878086F00D13209 /* iconfont.ttf in Resources */,
 				5A20690B286DA550000C5BEA /* Assets.xcassets in Resources */,
 				5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */,
-				5A206909286DA54E000C5BEA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,10 +449,16 @@
 			files = (
 				5AECFE8E2870A15400E6205F /* DYRenderProtocol.swift in Sources */,
 				5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */,
+				5AB21E1F2887A1A000EE1433 /* DYReaderProtocols.swift in Sources */,
+				5AB21E1528879F4D00EE1433 /* OutlineViewCoordinator.swift in Sources */,
 				5AACAF35287806B200D13209 /* DYReaderNavigationView.swift in Sources */,
 				5A76DC712879A513003D6D36 /* DYControlProtocol.swift in Sources */,
 				5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */,
+				5AB21E252887A32000EE1433 /* OutlineProtocols.swift in Sources */,
+				5AB21E1D2887A0DC00EE1433 /* Coordinator.swift in Sources */,
+				5AB21E1328879BF100EE1433 /* OutlineViewController.swift in Sources */,
 				5A65CB24287D7DBE00D4BE75 /* UIImage+Color.m in Sources */,
+				5AB21E1928879FA800EE1433 /* DYReaderCoordinator.swift in Sources */,
 				5AACAF4428782F3D00D13209 /* UIButton+alignVertical.swift in Sources */,
 				5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */,
 				5A336C382886B917009F4DE9 /* Bindable.swift in Sources */,
@@ -379,8 +467,10 @@
 				5AECFE982872941400E6205F /* DYHorizontalScrollRender.swift in Sources */,
 				5A206911286DA550000C5BEA /* main.m in Sources */,
 				5AACAF3C2878080E00D13209 /* UIImage+DNIconfontHelper.m in Sources */,
+				5AB21E272887A72F00EE1433 /* Outline.swift in Sources */,
+				5AB21E232887A27D00EE1433 /* OutlineItem.swift in Sources */,
 				5A76DC6F28796F80003D6D36 /* DYReaderSettingView.swift in Sources */,
-				5A206903286DA54E000C5BEA /* SceneDelegate.m in Sources */,
+				5AB21E292887A86E00EE1433 /* OutlineCoordinable.swift in Sources */,
 				5A65CB28287D7E3200D4BE75 /* UIImage+RoundCorner.m in Sources */,
 				5AACAF37287806D200D13209 /* DYReaderFeatureView.swift in Sources */,
 			);
@@ -397,14 +487,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5A206907286DA54E000C5BEA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5A206908286DA54E000C5BEA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5A20690C286DA550000C5BEA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -539,9 +621,9 @@
 				INFOPLIST_FILE = NASReader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -570,9 +652,9 @@
 				INFOPLIST_FILE = NASReader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
