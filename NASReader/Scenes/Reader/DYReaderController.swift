@@ -190,11 +190,19 @@ class DYReaderController: UIViewController {
 
 extension DYReaderController: DYReaderFeatureViewDelegate {
     func switchToPrevChapter() {
-        
+        let switchToChapter = bookReader.chapterIdx - 1
+        guard switchToChapter >= 0, bookReader.switchChapter(switchToChapter) else {
+            return
+        }
+        render?.showPageAt(Int(bookReader.pageIdx), animated: false)
     }
     
     func switchToNextChapter() {
-        
+        let switchToChapter = bookReader.chapterIdx + 1
+        guard switchToChapter < bookReader.chapterList.count, bookReader.switchChapter(switchToChapter) else {
+            return
+        }
+        render?.showPageAt(Int(bookReader.pageIdx), animated: false)
     }
     
     func switchToChapterWithProgress(_ progress: Float) {
