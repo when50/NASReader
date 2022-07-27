@@ -36,6 +36,8 @@ class DYReaderController: UIViewController {
     
     private let bookReader = DYBookReader()
     
+    private var invalidRenderContent = Bindable(false)
+    private var rollbackChapterIndex = Bindable(0)
     weak var coordinator: DYReaderCoordinatorProtocol?
     private var render: DYRenderProtocol?
     private let navigationView = DYReaderNavigationView(frame: .zero)
@@ -45,7 +47,7 @@ class DYReaderController: UIViewController {
         let view = RollbackChapterView(frame: .zero)
         view.rollback = { [weak self] in
             self?.bookReader.rollbackChapter()
-            self?.render?.showPage(animated: false)
+            self?.invalidRenderContent.value = true
         }
         return view
     }()
@@ -73,6 +75,8 @@ class DYReaderController: UIViewController {
         buildUI()
         setupGestures()
         setupBindables()
+        
+        invalidRenderContent.value = true
     }
     
     private func loadHistory() {
@@ -105,7 +109,6 @@ class DYReaderController: UIViewController {
         }
         render?.dataSource = DYRenderDataSourceImpl(reader: bookReader, pageSize: pageSize)
         render?.delegate = DYRenderDelegateImpl(reader: bookReader)
-        render?.showPage(animated: false)
         render?.tapFeatureArea = { [weak self] in
             guard let sself = self else { return }
             sself.featureViewShown = true
@@ -167,6 +170,33 @@ class DYReaderController: UIViewController {
     
     private func setupBindables() {
         featureView.setupBindables()
+        invalidRenderContent.bind { [weak self] in
+            if $0 {
+                self?.updateRenderContent()
+            }
+        }
+        rollbackChapterIndex.bind { [weak self] in
+            self?.updateRollbackInfo(chapterIndex: $0)
+        }
+    }
+    
+    private func updateRenderContent(animated: Bool = false) {
+        render?.showPage(animated: animated)
+        
+        if let progress = bookReader.chapterProgress(chaterIndex: Int(bookReader.chapterIdx)) {
+            featureView.progressSlider.progress = CGFloat(progress)
+        }
+        
+        invalidRenderContent.value = false
+        
+        rollbackChapterIndex.value = Int(bookReader.chapterIdx)
+    }
+    
+    private func updateRollbackInfo(chapterIndex: Int) {
+        if let chapter = bookReader.getChapterAt(Int32(chapterIndex)) {
+            let progress = bookReader.chapterProgress(chaterIndex: chapterIndex) ?? 0
+            rollbackView.updateChapter(chapter.title, locationPercent: CGFloat(progress), rollbackEnabled: true)
+        }
     }
     
     @objc
@@ -208,7 +238,7 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
         guard bookReader.switchChapter(switchToChapter) else {
             return
         }
-        render?.showPage(animated: false)
+        invalidRenderContent.value = true
     }
     
     func switchToNextChapter() {
@@ -216,7 +246,7 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
         guard bookReader.switchChapter(switchToChapter) else {
             return
         }
-        render?.showPage(animated: false)
+        invalidRenderContent.value = true
     }
     
     func slidingChapterBegin() {
@@ -224,20 +254,17 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
     }
     
     func slidingChapterProgress(_ progress: Float) {
-        let chapterIdx = Int32(Float(bookReader.chapterList.count - 1) * progress)
-        let chapter = bookReader.getChapterAt(chapterIdx)
-        if let chapter = chapter {
-            rollbackView.isHidden = false
-            rollbackView.updateChapter(chapter.title, locationPercent: CGFloat(progress), rollbackEnabled: true)
+        rollbackView.isHidden = false
+        if let chapterIndex = bookReader.chapterIndex(progress: progress) {
+            rollbackChapterIndex.value = chapterIndex
         }
     }
     
     func slidingChapterProgressEnd(_ progress: Float) {
-        let switchToChapter = Int32(Float(bookReader.chapterList.count - 1) * progress)
-        guard bookReader.switchChapter(switchToChapter) else {
-            return
+        guard let switchToChapter = bookReader.chapterIndex(progress: progress) else { return }
+        if bookReader.switchChapter(Int32(switchToChapter)) {
+            invalidRenderContent.value = true
         }
-        render?.showPage(animated: false)
     }
     
     func showOutlineViews() {
@@ -261,5 +288,17 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
             rollbackView.isHidden = true
         }
         settingView.isHidden = !shown
+    }
+}
+
+extension DYBookReader {
+    func chapterIndex(progress: Float) -> Int? {
+        guard chapterList.count > 0 else { return nil }
+        return Int(Float(chapterList.count - 1) * progress)
+    }
+    
+    func chapterProgress(chaterIndex: Int) -> Float? {
+        guard chapterList.count > 0 else { return nil }
+        return Float(chaterIndex) / Float(chapterList.count - 1)
     }
 }
