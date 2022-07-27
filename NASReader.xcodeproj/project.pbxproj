@@ -36,6 +36,8 @@
 		5AB21E292887A86E00EE1433 /* OutlineCoordinable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E282887A86E00EE1433 /* OutlineCoordinable.swift */; };
 		5AB21E2B2887DD1A00EE1433 /* OutlineItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E2A2887DD1A00EE1433 /* OutlineItemCell.swift */; };
 		5AB21EC4288FC1EC00EE1433 /* RollbackChapterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21EC3288FC1EB00EE1433 /* RollbackChapterView.m */; };
+		5AB21ECC2891276700EE1433 /* DYRenderDelegateImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21ECB2891276700EE1433 /* DYRenderDelegateImpl.swift */; };
+		5AB21ECE289127BB00EE1433 /* DYRenderDataSourceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */; };
 		5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */; };
 		5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */; };
 		5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */; };
@@ -111,6 +113,8 @@
 		5AB21E2A2887DD1A00EE1433 /* OutlineItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineItemCell.swift; sourceTree = "<group>"; };
 		5AB21EC2288FC1EB00EE1433 /* RollbackChapterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RollbackChapterView.h; sourceTree = "<group>"; };
 		5AB21EC3288FC1EB00EE1433 /* RollbackChapterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RollbackChapterView.m; sourceTree = "<group>"; };
+		5AB21ECB2891276700EE1433 /* DYRenderDelegateImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYRenderDelegateImpl.swift; sourceTree = "<group>"; };
+		5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYRenderDataSourceImpl.swift; sourceTree = "<group>"; };
 		5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = TLYCSEbookDec2020FINAL.epub; sourceTree = "<group>"; };
 		5AECFE882870A0AE00E6205F /* NASReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NASReader-Bridging-Header.h"; sourceTree = "<group>"; };
 		5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYVerticalScrollRender.swift; sourceTree = "<group>"; };
@@ -276,6 +280,8 @@
 		5AB21E1028879BB500EE1433 /* Render */ = {
 			isa = PBXGroup;
 			children = (
+				5AB21ECB2891276700EE1433 /* DYRenderDelegateImpl.swift */,
+				5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */,
 				5AECFE8D2870A15400E6205F /* DYRenderProtocol.swift */,
 				5AECFE942871736D00E6205F /* HorizontalScrollRender */,
 				5AECFE8F287115B600E6205F /* VerticalScrollRender */,
@@ -461,6 +467,7 @@
 				5AB21E1528879F4D00EE1433 /* OutlineViewCoordinator.swift in Sources */,
 				5AACAF35287806B200D13209 /* DYReaderNavigationView.swift in Sources */,
 				5A76DC712879A513003D6D36 /* DYControlProtocol.swift in Sources */,
+				5AB21ECC2891276700EE1433 /* DYRenderDelegateImpl.swift in Sources */,
 				5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */,
 				5AB21E252887A32000EE1433 /* OutlineProtocols.swift in Sources */,
 				5AB21E1D2887A0DC00EE1433 /* Coordinator.swift in Sources */,
@@ -477,6 +484,7 @@
 				5A206911286DA550000C5BEA /* main.m in Sources */,
 				5AACAF3C2878080E00D13209 /* UIImage+DNIconfontHelper.m in Sources */,
 				5AB21E272887A72F00EE1433 /* Outline.swift in Sources */,
+				5AB21ECE289127BB00EE1433 /* DYRenderDataSourceImpl.swift in Sources */,
 				5AB21E232887A27D00EE1433 /* OutlineItem.swift in Sources */,
 				5A76DC6F28796F80003D6D36 /* DYReaderSettingView.swift in Sources */,
 				5AB21EC4288FC1EC00EE1433 /* RollbackChapterView.m in Sources */,

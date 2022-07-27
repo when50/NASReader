@@ -8,14 +8,17 @@
 import UIKit
 
 class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
+    func showPage(animated: Bool) {
+        
+    }
+    
     struct ConstValue {
         static let cellReuseId = "cellReuseId"
     }
     
+    var delegate: DYRenderDelegate?
+    var dataSource: DYRenderDataSource?
     var currentPage = 0
-    var pageNum = 0
-    var pageSize: CGSize = .zero
-    var pageMaker: ((Int) -> UIView?)?
     var tapFeatureArea: (() -> Void)?
     func showPageAt(_ pageIdx: Int, animated: Bool = false) {
         if (pageIdx < tableView(tableView, numberOfRowsInSection: 0)) {
@@ -49,12 +52,12 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return pageNum
+        return dataSource?.pageNum ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ConstValue.cellReuseId, for: indexPath)
-        if let cell = cell as? DYPageTableViewCell, let page = pageMaker?(indexPath.item) {
+        if let cell = cell as? DYPageTableViewCell, let page = dataSource?.getPageAt(index: indexPath.item) {
             cell.page = page
         }
         return cell
@@ -62,7 +65,11 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
     
     // MARK: - TableView delegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return pageSize.height
+        return dataSource?.pageSize.height ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        switchTo(chapterIndex: <#T##Int#>, pageIndex: <#T##Int#>)
     }
 
 

@@ -9,6 +9,14 @@ import Foundation
 
 public struct OutlineItem {
     let title: String
+    var cached: Bool
     let location: Int?
-    let subItems: [OutlineItem]
+    let subItems: [OutlineItem]?
+    
+    init(chapter: DYChapter) {
+        title = chapter.title
+        cached = false
+        location = Int(chapter.pageIdx)
+        subItems = nil
+    }
 }

@@ -34,12 +34,21 @@ class DYReaderController: UIViewController {
         }
     }
     
-    weak var coordinator: DYReaderCoordinatorProtocol?
     private let bookReader = DYBookReader()
+    
+    weak var coordinator: DYReaderCoordinatorProtocol?
     private var render: DYRenderProtocol?
     private let navigationView = DYReaderNavigationView(frame: .zero)
     private let featureView = DYReaderFeatureView(frame: .zero)
     private let settingView = DYReaderSettingView(frame: .zero)
+    private lazy var rollbackView: RollbackChapterView = {
+        let view = RollbackChapterView(frame: .zero)
+        view.rollback = { [weak self] in
+            self?.bookReader.rollbackChapter()
+            self?.render?.showPage(animated: false)
+        }
+        return view
+    }()
     private var gestureView: UIView = {
         let v = UIView(frame: .zero)
         v.backgroundColor = .clear
@@ -59,45 +68,45 @@ class DYReaderController: UIViewController {
         
         featureView.delegate = self
         
+        loadHistory()
         buildRender()
         buildUI()
         setupGestures()
         setupBindables()
     }
     
+    private func loadHistory() {
+        
+    }
+    
     private func buildRender() {
         render?.clean()
         
+        var pageSize = view.bounds.size
         switch pageStlye {
         case .scrollVertical:
             let render = DYVerticalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
             render.view.frame = view.bounds.inset(by: UIEdgeInsets(top: 0, left: edgeInsets.left, bottom: 0, right: edgeInsets.right))
             render.tableView.contentInset = UIEdgeInsets(top: edgeInsets.top, left: 0, bottom: edgeInsets.bottom, right: 0)
-            render.pageSize = render.view.frame.size
-            render.pageNum = Int(bookReader.pageNum)
-            render.pageMaker = { [weak self] pageIdx in
-                return self?.bookReader.getPageView(atPage: Int32(pageIdx), size: render.pageSize)
-            }
+            pageSize = render.view.frame.size
             self.render = render
         case .scrollHorizontal:
             let render = DYHorizontalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
             render.view.frame = view.bounds
-            render.pageSize = view.bounds.inset(by: edgeInsets).size
-            render.pageNum = Int(bookReader.pageNum)
-            render.pageMaker = { [weak self] pageIdx in
-                return self?.bookReader.getPageView(atPage: Int32(pageIdx), size: render.pageSize)
-            }
-            render.showPageAt(2)
             render.coverStyle = true
+            pageSize = view.bounds.inset(by: edgeInsets).size
             self.render = render
         case .cover:
             break
         case .curl:
             break
         }
-        self.render?.tapFeatureArea = { [weak self] in
+        render?.dataSource = DYRenderDataSourceImpl(reader: bookReader, pageSize: pageSize)
+        render?.delegate = DYRenderDelegateImpl(reader: bookReader)
+        render?.showPage(animated: false)
+        render?.tapFeatureArea = { [weak self] in
             guard let sself = self else { return }
             sself.featureViewShown = true
         }
@@ -109,9 +118,10 @@ class DYReaderController: UIViewController {
             "featureView": featureView,
             "settingView": settingView,
             "gestureView": gestureView,
+            "rollbackView": rollbackView,
         ]
         
-        [gestureView, navigationView, featureView, settingView, featureView].forEach { subView in
+        [gestureView, navigationView, featureView, settingView, featureView, rollbackView].forEach { subView in
             subView.translatesAutoresizingMaskIntoConstraints = false
             subView.isHidden = true
             setupShadow(view: subView)
@@ -138,6 +148,9 @@ class DYReaderController: UIViewController {
         
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[gestureView]-(0)-|", metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[gestureView]-(0)-|", metrics: nil, views: views))
+        
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[rollbackView(48)]-(98)-[featureView]", metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[rollbackView]-(20)-|", metrics: nil, views: views))
     }
     
     private func setupShadow(view: UIView) {
@@ -191,26 +204,50 @@ class DYReaderController: UIViewController {
 extension DYReaderController: DYReaderFeatureViewDelegate {
     func switchToPrevChapter() {
         let switchToChapter = bookReader.chapterIdx - 1
-        guard switchToChapter >= 0, bookReader.switchChapter(switchToChapter) else {
+        guard bookReader.switchChapter(switchToChapter) else {
             return
         }
-        render?.showPageAt(Int(bookReader.pageIdx), animated: false)
+        render?.showPage(animated: false)
     }
     
     func switchToNextChapter() {
         let switchToChapter = bookReader.chapterIdx + 1
-        guard switchToChapter < bookReader.chapterList.count, bookReader.switchChapter(switchToChapter) else {
+        guard bookReader.switchChapter(switchToChapter) else {
             return
         }
-        render?.showPageAt(Int(bookReader.pageIdx), animated: false)
+        render?.showPage(animated: false)
     }
     
-    func switchToChapterWithProgress(_ progress: Float) {
-        
+    func slidingChapterBegin() {
+        bookReader.recordCurrentChapter()
+    }
+    
+    func slidingChapterProgress(_ progress: Float) {
+        let chapterIdx = Int32(Float(bookReader.chapterList.count - 1) * progress)
+        let chapter = bookReader.getChapterAt(chapterIdx)
+        if let chapter = chapter {
+            rollbackView.isHidden = false
+            rollbackView.updateChapter(chapter.title, locationPercent: CGFloat(progress), rollbackEnabled: true)
+        }
+    }
+    
+    func slidingChapterProgressEnd(_ progress: Float) {
+        let switchToChapter = Int32(Float(bookReader.chapterList.count - 1) * progress)
+        guard bookReader.switchChapter(switchToChapter) else {
+            return
+        }
+        render?.showPage(animated: false)
     }
     
     func showOutlineViews() {
-        coordinator?.showOutline(Outline())
+        guard let chapterList = bookReader.chapterList as? [DYChapter] else {
+            print("\(bookReader.chapterList) can not convert [DYChapter]")
+            return
+        }
+        let items = chapterList.map { chapter in
+            return OutlineItem(chapter: chapter)
+        }
+        coordinator?.showOutline(Outline(items: items))
     }
     
     func toggleDeepColor(open: Bool) {

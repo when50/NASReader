@@ -8,18 +8,36 @@
 import Foundation
 import UIKit
 
+protocol DYRenderDelegate {
+    func switchTo(chapterIndex: Int, pageIndex: Int) -> Bool
+    func switchPrevPage() -> Bool
+    func switchNextPage() -> Bool
+}
+
+protocol DYRenderDataSource {
+    var currentPageIdx: Int { get }
+    var currentChapterIdx: Int { get }
+    var pageNum: Int { get }
+    var pageSize: CGSize { get }
+    func getPageAt(index: Int) -> UIView?
+    func getCurrentPage() -> UIView?
+    func getChapterIndex(pageIndex: Int) -> Int?
+}
+
 protocol DYRenderProtocol {
-    var currentPage: Int { get set }
-    var pageNum: Int { get set }
-    var pageSize: CGSize { get set }
-    var pageMaker: ((Int) -> UIView?)? { get set }
     var tapFeatureArea: (() -> Void)? { get set }
+    var delegate: DYRenderDelegate? { get set }
+    var dataSource: DYRenderDataSource? { get set }
     func buildRender(parentController: UIViewController)
-    func showPageAt(_ pageIdx: Int, animated: Bool)
+    func showPage(animated: Bool)
     func clean()
 }
 
 extension DYRenderProtocol where Self: UIViewController {
+    func switchTo(chapterIndex: Int, pageIndex: Int) -> Bool {
+        return delegate?.switchTo(chapterIndex: chapterIndex, pageIndex: pageIndex) ?? false
+    }
+    
     func buildRender(parentController: UIViewController) {
         parentController.addChild(self)
         view.frame = parentController.view.bounds

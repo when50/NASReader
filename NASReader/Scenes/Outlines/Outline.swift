@@ -8,5 +8,9 @@
 import Foundation
 
 final class Outline: OutlineProtocol {
+    var outlineItems: [OutlineItem]
     
+    init(items: [OutlineItem]) {
+        outlineItems = items
+    }
 }

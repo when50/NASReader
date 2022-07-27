@@ -17,17 +17,14 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
             updatePages()
         }
     }
-    var currentPage = 0
-    var pageNum = 0
-    var pageSize: CGSize = .zero
-    var pageMaker: ((Int) -> UIView?)?
+    var dataSource: DYRenderDataSource?
+    var delegate: DYRenderDelegate?
     var tapFeatureArea: (() -> Void)?
     private var showPageBlock: (() -> Void)?
     private var pageView: UIView?
     
-    func showPageAt(_ pageIdx: Int, animated: Bool = false) {
-        currentPage = pageIdx
-        if let page = pageMaker?(pageIdx) {
+    func showPage(animated: Bool = false) {
+        if let page = dataSource?.getCurrentPage() {
             page.frame = view.bounds
             page.backgroundColor = .yellow
             page.layer.shadowColor = UIColor.black.cgColor
@@ -62,14 +59,15 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
     
     @objc
     private func tapHandler(sender: UITapGestureRecognizer) {
+        guard let delegate = delegate else { return }
         let location = sender.location(in: sender.view)
         let scaledLocation = location.x / view.frame.width
         switch scaledLocation {
         case let v where v < ConstValue.scrollTapRange:
             print("scroll backwards")
-            if currentPage > 0 {
+            if delegate.switchPrevPage() {
                 let oldPage = pageView
-                showPageAt(currentPage - 1, animated: true)
+                showPage(animated: true)
                 pageView?.frame = view.bounds.offsetBy(dx: -view.bounds.width, dy: 0)
                 UIView.animate(withDuration: 0.25, delay: 0.0, options: .beginFromCurrentState) {
                     self.pageView?.frame = self.view.bounds
@@ -85,9 +83,9 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
             }
         case let v where v + ConstValue.scrollTapRange > 1.0:
             print("scroll forward")
-            if currentPage + 1 < pageNum {
+            if delegate.switchNextPage() {
                 let oldPage = pageView
-                showPageAt(currentPage + 1, animated: true)
+                showPage(animated: true)
                 if !self.coverStyle {
                     pageView?.frame = view.bounds.offsetBy(dx: view.bounds.width, dy: 0)
                 }

@@ -12,7 +12,9 @@ import UIKit
 protocol DYReaderFeatureViewDelegate: NSObject {
     func switchToPrevChapter()
     func switchToNextChapter()
-    func switchToChapterWithProgress(_ progress: Float)
+    func slidingChapterBegin()
+    func slidingChapterProgress(_ progress: Float)
+    func slidingChapterProgressEnd(_ progress: Float)
     func showOutlineViews()
     func toggleDeepColor(open: Bool)
     func toggleSettingView(shown: Bool)
@@ -23,7 +25,20 @@ class DYReaderFeatureView: UIView {
     
     let previousChapterBtn = UIButton(type: .system)
     let nextChapterBtn = UIButton(type: .system)
-    let progressSlider = DNSimpleSlider()
+    lazy var progressSlider: DNSimpleSlider = {
+        let slider = DNSimpleSlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.dragStart = { [weak self] in
+            self?.delegate?.slidingChapterBegin()
+        }
+        slider.dragMoved = { [weak self] progress in
+            self?.delegate?.slidingChapterProgress(Float(progress))
+        }
+        slider.dragEnd = { [weak self] progress in
+            self?.delegate?.slidingChapterProgressEnd(Float(progress))
+        }
+        return slider
+    }()
     let outlineBtn = UIButton(type: .system)
     let deepColorBtn = UIButton(type: .system)
     let settingBtn = UIButton(type: .system)
@@ -65,10 +80,6 @@ class DYReaderFeatureView: UIView {
         nextChapterBtn.addTarget(self, action: #selector(btnHandler(sender:)), for: .touchUpInside)
         addSubview(nextChapterBtn)
         
-        progressSlider.translatesAutoresizingMaskIntoConstraints = false
-        progressSlider.dragEnd = { [weak delegate] progress in
-            delegate?.switchToChapterWithProgress(Float(progress))
-        }
         addSubview(progressSlider)
         
         let lineView = UIView()
