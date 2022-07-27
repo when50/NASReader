@@ -36,9 +36,9 @@ class DYReaderController: UIViewController {
     
     private let bookReader = DYBookReader()
     
+    weak var coordinator: DYReaderCoordinatorProtocol?
     private var invalidRenderContent = Bindable(false)
     private var rollbackChapterIndex = Bindable(0)
-    weak var coordinator: DYReaderCoordinatorProtocol?
     private var render: DYRenderProtocol?
     private let navigationView = DYReaderNavigationView(frame: .zero)
     private let featureView = DYReaderFeatureView(frame: .zero)
@@ -250,7 +250,9 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
     }
     
     func slidingChapterBegin() {
-        bookReader.recordCurrentChapter()
+        if rollbackView.isHidden {
+            bookReader.recordCurrentChapter()
+        }
     }
     
     func slidingChapterProgress(_ progress: Float) {
