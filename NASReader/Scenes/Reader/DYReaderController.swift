@@ -186,6 +186,7 @@ class DYReaderController: UIViewController {
     }
     
     private func hideNavigationFeatureViews() {
+        rollbackView.isHidden = true
         featureView.settingShown.value = false
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut) { [weak navigationTopConstraint, weak featureBottomConstraint, weak view] in
             navigationTopConstraint?.constant = -94
@@ -257,6 +258,7 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
     func toggleSettingView(shown: Bool) {
         if shown {
             view?.bringSubviewToFront(settingView)
+            rollbackView.isHidden = true
         }
         settingView.isHidden = !shown
     }
