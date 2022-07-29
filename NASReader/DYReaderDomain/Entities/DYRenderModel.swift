@@ -30,12 +30,33 @@ struct DYRenderModel {
         case scrollVertical
     }
     
+    struct FontSize {
+        static let range = 16.0...28.0
+    }
+    
     var brightness: Float
     var applyBrightness: Bool
-    var fontSize: Float
+    private(set) var fontSize: Float
     var lineSpace = LineSpace.lineSpace1
     var backgroundColor = BackgroundColor.color1
     var style = Style.cover
     
+    var isMinFontSize: Bool {
+        return abs(FontSize.range.lowerBound - Double(fontSize)) < 0.5
+    }
+    var isMaxFontSize: Bool {
+        return abs(FontSize.range.upperBound - Double(fontSize)) < 0.5
+    }
     
+    mutating func minusFontSize() {
+        if FontSize.range.contains(Double(fontSize) - 1) {
+            fontSize -= 1
+        }
+    }
+    
+    mutating func increaseFontSize() {
+        if FontSize.range.contains(Double(fontSize) + 1) {
+            fontSize += 1
+        }
+    }
 }

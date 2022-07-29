@@ -32,11 +32,36 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
             if let sself = self {
                 sself.delegate?.settingView(sself, didChanged: value)
             }
+            
+            self?.fontSizeLabel.text = "\(Int(value.fontSize))"
+            self?.smallerFontBtn.isEnabled = !value.isMinFontSize
+            self?.biggerFontBtn.isEnabled = !value.isMaxFontSize
         }
     }
     
     let topShadowView = UIView()
     weak var delegate: DYReaderSettingViewDelegate?
+    private lazy var smallerFontBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage.icon(withName: "图标-减号", fontSize: 10.0, color: .black), for: .normal)
+        btn.addTarget(self, action: #selector(fontSizeHandler(sender:)), for: .touchUpInside)
+        return btn
+    }()
+    private lazy var biggerFontBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage.icon(withName: "图标-加号", fontSize: 10.0, color: .black), for: .normal)
+        btn.addTarget(self, action: #selector(fontSizeHandler(sender:)), for: .touchUpInside)
+        return btn
+    }()
+    private lazy var fontSizeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.text = "20"
+        return label
+    }()
+    
     private lazy var brightnessSlider: UISlider = {
         let brightnessSlider = UISlider(frame: .zero)
         brightnessSlider.addTarget(self, action: #selector(brightnessChanged(sender:)), for: .valueChanged)
@@ -140,15 +165,6 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(80)-[minBrightnessImageView]-[brightnessSlider]-[maxBrightnessImageView]-(22)-[applyBrightnessBtn]-(20)-|", metrics: nil, views: lightViews))
         
         // 字号
-        let smallerFontBtn = UIButton(type: .system)
-        smallerFontBtn.setImage(UIImage.icon(withName: "图标-减号", fontSize: 10.0, color: .black), for: .normal)
-        let biggerFontBtn = UIButton(type: .system)
-        biggerFontBtn.setImage(UIImage.icon(withName: "图标-加号", fontSize: 10.0, color: .black), for: .normal)
-        let fontSizeLabel = UILabel()
-        fontSizeLabel.font = UIFont.systemFont(ofSize: 15)
-        fontSizeLabel.textColor = .black
-        fontSizeLabel.textAlignment = .center
-        fontSizeLabel.text = "20"
         addSubviews([smallerFontBtn, biggerFontBtn, fontSizeLabel])
         
         let fontViews = [
@@ -209,6 +225,17 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         renderModel.value.applyBrightness = !renderModel.value.applyBrightness
     }
     
+    @objc
+    private func fontSizeHandler(sender: UIButton) {
+        switch sender {
+        case biggerFontBtn:
+            renderModel.value.increaseFontSize()
+        case smallerFontBtn:
+            renderModel.value.minusFontSize()
+        default:
+            break
+        }
+    }
 }
 
 extension UIImage {

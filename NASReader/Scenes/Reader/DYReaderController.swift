@@ -37,13 +37,14 @@ class DYReaderController: UIViewController {
     private let bookReader = DYBookReader()
     
     weak var coordinator: DYReaderCoordinatorProtocol?
+    
     private var invalidRenderContent = Bindable(false)
     private var rollbackChapterIndex = Bindable(0)
     private var render: DYRenderProtocol?
     private let navigationView = DYReaderNavigationView(frame: .zero)
     private let featureView = DYReaderFeatureView(frame: .zero)
     private lazy var settingView: DYReaderSettingView = {
-        let v = DYReaderSettingView(renderModel: DYRenderModel(brightness: 1.0, applyBrightness: false, fontSize: 12))
+        let v = DYReaderSettingView(renderModel: DYRenderModel(brightness: 1.0, applyBrightness: false, fontSize: 20))
         v.delegate = self
         return v
     }()
