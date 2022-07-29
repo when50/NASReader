@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^Rollback)(void);
 
-@interface RollbackChapterView : UIView
+@interface DYRollbackChapterView : UIView
 
 @property (nonatomic, copy, nullable) Rollback rollback;
 @property (nonatomic, copy) NSString *origChapterName;

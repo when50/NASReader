@@ -42,19 +42,24 @@ class DYReaderController: UIViewController {
     private var render: DYRenderProtocol?
     private let navigationView = DYReaderNavigationView(frame: .zero)
     private let featureView = DYReaderFeatureView(frame: .zero)
-    private let settingView = DYReaderSettingView(frame: .zero)
-    private lazy var rollbackView: RollbackChapterView = {
-        let view = RollbackChapterView(frame: .zero)
-        view.rollback = { [weak self] in
-            self?.bookReader.rollbackChapter()
-            self?.invalidRenderContent.value = true
-        }
-        return view
+    private lazy var settingView: DYReaderSettingView = {
+        let v = DYReaderSettingView(frame: .zero)
+        v.delegate = self
+        return v
     }()
     private var gestureView: UIView = {
         let v = UIView(frame: .zero)
         v.backgroundColor = .clear
         return v
+    }()
+    private var brightnessView = DYBrightnessView(frame: .zero)
+    private lazy var rollbackView: DYRollbackChapterView = {
+        let view = DYRollbackChapterView(frame: .zero)
+        view.rollback = { [weak self] in
+            self?.bookReader.rollbackChapter()
+            self?.invalidRenderContent.value = true
+        }
+        return view
     }()
     private var navigationTopConstraint: NSLayoutConstraint?
     private var featureBottomConstraint: NSLayoutConstraint?
@@ -122,15 +127,18 @@ class DYReaderController: UIViewController {
             "settingView": settingView,
             "gestureView": gestureView,
             "rollbackView": rollbackView,
+            "brightnessView": brightnessView,
         ]
         
-        [gestureView, navigationView, featureView, settingView, featureView, rollbackView].forEach { subView in
+        [gestureView, navigationView, featureView, settingView, featureView, rollbackView, brightnessView].forEach { subView in
             subView.translatesAutoresizingMaskIntoConstraints = false
             subView.isHidden = true
             setupShadow(view: subView)
             view.addSubview(subView)
         }
         
+        brightnessView.layer.shadowOpacity = 0
+        brightnessView.isHidden = false
         settingView.layer.shadowOpacity = 0
         setupShadow(view: settingView.topShadowView)
         
@@ -154,6 +162,9 @@ class DYReaderController: UIViewController {
         
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[rollbackView(48)]-(98)-[featureView]", metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[rollbackView]-(20)-|", metrics: nil, views: views))
+        
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[brightnessView]-(0)-|", metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[brightnessView]-(0)-|", metrics: nil, views: views))
     }
     
     private func setupShadow(view: UIView) {
@@ -294,6 +305,17 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
             rollbackView.isHidden = true
         }
         settingView.isHidden = !shown
+        view.bringSubviewToFront(brightnessView)
+    }
+}
+
+extension DYReaderController: DYReaderSettingViewDelegate {
+    func settingView(_ view: DYReaderSettingView, changeBrightness: Float, applyBrightness: Bool) {
+        if applyBrightness {
+            brightnessView.brightness.value = changeBrightness
+        } else {
+            brightnessView.brightness.value = 1
+        }
     }
 }
 

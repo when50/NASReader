@@ -6,10 +6,10 @@
 //  Copyright © 2021 blox. All rights reserved.
 //
 
-#import "RollbackChapterView.h"
+#import "DYRollbackChapterView.h"
 #import "UIImage+DNIconfontHelper.h"
 
-@interface RollbackChapterView()
+@interface DYRollbackChapterView()
 
 @property (nonatomic, strong) UILabel *chapterLabel;
 @property (nonatomic, strong) UILabel *percentLabel;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation RollbackChapterView
+@implementation DYRollbackChapterView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
