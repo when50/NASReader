@@ -281,7 +281,7 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
                                    isCurrent: i == bookReader.chapterIdx)
             items += [item]
         }
-        coordinator?.showOutline(for: Outline(items: items))
+        coordinator?.showOutline(for: Outline(items: items), delegate: self)
     }
     
     func toggleDeepColor(open: Bool) {
@@ -294,6 +294,15 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
             rollbackView.isHidden = true
         }
         settingView.isHidden = !shown
+    }
+}
+
+extension DYReaderController: OutlineViewControllerDelegate {
+    func outlineViewController(_ outlineViewController: OutlineViewController,
+                               didSelectItem index: Int) {
+        bookReader.switchChapter(Int32(index))
+        invalidRenderContent.value = true
+        dismiss(animated: true)
     }
 }
 

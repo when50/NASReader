@@ -10,6 +10,7 @@ import UIKit
 final class OutlineViewCoordinator: Coordinator, OutlineViewCoordinatorProtocol {
     var navigationController: UINavigationController
     var outline: OutlineProtocol?
+    var delegate: OutlineViewControllerDelegate?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -19,6 +20,7 @@ final class OutlineViewCoordinator: Coordinator, OutlineViewCoordinatorProtocol 
         let viewController = OutlineViewController()
         viewController.coordinator = self
         viewController.outline = outline
+        viewController.delegate = delegate
         navigationController.present(viewController, animated: true, completion: nil)
     }
 }

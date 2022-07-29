@@ -293,9 +293,9 @@
 			isa = PBXGroup;
 			children = (
 				5A5D50692892954A00978A2B /* OutlineProtocols.swift */,
+				5AB21E262887A72F00EE1433 /* Outline.swift */,
 				5AB21E1228879BF100EE1433 /* OutlineViewController.swift */,
 				5AB21E1428879F4D00EE1433 /* OutlineViewCoordinator.swift */,
-				5AB21E262887A72F00EE1433 /* Outline.swift */,
 				5AB21E2A2887DD1A00EE1433 /* OutlineItemCell.swift */,
 			);
 			path = Outlines;

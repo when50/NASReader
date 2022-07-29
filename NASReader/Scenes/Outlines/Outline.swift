@@ -14,8 +14,8 @@ struct Outline: OutlineProtocol {
         self.items = items
     }
     
-    func itemAt(index: Int) -> OutlineItem? {
-        guard items.indices.contains(index) else { return nil }
+    func itemAt(index: Int) -> OutlineItem! {
+        assert(index < items.count && index >= 0, "找不到OutlineItem: \(index)")
         return items[index]
     }
 }

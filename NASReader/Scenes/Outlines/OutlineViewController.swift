@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol OutlineViewControllerDelegate: AnyObject {
+    func outlineViewController(_ outlineViewController: OutlineViewController, didSelectItem index: Int)
+}
+
 class OutlineViewController: UITableViewController {
     struct Constant {
         static let outlineReuseIdentifier = "OutlineItemCell"
@@ -14,6 +18,7 @@ class OutlineViewController: UITableViewController {
     
     weak var coordinator: OutlineViewCoordinatorProtocol?
     var outline: OutlineProtocol?
+    weak var delegate: OutlineViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +53,10 @@ class OutlineViewController: UITableViewController {
             cell.setViewModel(item: item)
         }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.outlineViewController(self, didSelectItem: indexPath.item)
     }
     
 }
