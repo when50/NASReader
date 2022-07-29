@@ -23,8 +23,4 @@ final class DYReaderCoordinator: NSObject, Coordinator, OutlineCoordinable, DYRe
         viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: true)
     }
-    
-    func showOutline(_ outline: OutlineProtocol) {
-        showOutline(for: outline, navigationController: navigationController)
-    }
 }

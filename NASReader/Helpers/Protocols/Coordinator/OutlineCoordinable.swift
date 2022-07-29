@@ -8,12 +8,13 @@
 import Foundation
 
 protocol OutlineCoordinable {
-    func showOutline(for outline: OutlineProtocol, navigationController: UINavigationController)
+    func showOutline(for outline: OutlineProtocol)
 }
 
 extension OutlineCoordinable where Self: Coordinator {
-    func showOutline(for outline: OutlineProtocol, navigationController: UINavigationController) {
+    func showOutline(for outline: OutlineProtocol) {
         let coordinator = OutlineViewCoordinator(navigationController: navigationController)
+        coordinator.outline = outline
         coordinator.start()
     }
 }

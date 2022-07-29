@@ -13,7 +13,7 @@ class OutlineViewController: UITableViewController {
     }
     
     weak var coordinator: OutlineViewCoordinatorProtocol?
-    var outlineItems: [OutlineItem] = []
+    var outline: OutlineProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,8 @@ class OutlineViewController: UITableViewController {
     }
     
     private func setupUI() {
+        tableView.estimatedRowHeight = 45
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.register(OutlineItemCell.self, forCellReuseIdentifier: Constant.outlineReuseIdentifier)
     }
     
@@ -37,13 +39,13 @@ class OutlineViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return outlineItems.count
+        return outline?.items.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constant.outlineReuseIdentifier)!
-        if let cell = cell as? OutlineItemCell {
-            cell.setViewModel(item: outlineItems[indexPath.item], isCurrent: false)
+        if let cell = cell as? OutlineItemCell, let item = outline?.itemAt(index: indexPath.item) {
+            cell.setViewModel(item: item)
         }
         return cell
     }

@@ -10,12 +10,14 @@ import Foundation
 public struct OutlineItem {
     let title: String
     var cached: Bool
+    var isCurrent: Bool
     let location: Int?
     let subItems: [OutlineItem]?
     
-    init(chapter: DYChapter) {
+    init(chapter: DYChapter, cached: Bool, isCurrent: Bool) {
         title = chapter.title
-        cached = false
+        self.cached = cached
+        self.isCurrent = isCurrent
         location = Int(chapter.pageIdx)
         subItems = nil
     }

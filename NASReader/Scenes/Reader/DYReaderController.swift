@@ -274,10 +274,14 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
             print("\(bookReader.chapterList) can not convert [DYChapter]")
             return
         }
-        let items = chapterList.map { chapter in
-            return OutlineItem(chapter: chapter)
+        var items = [OutlineItem]()
+        for i in chapterList.indices {
+            let item = OutlineItem(chapter: chapterList[i],
+                                   cached: true,
+                                   isCurrent: i == bookReader.chapterIdx)
+            items += [item]
         }
-        coordinator?.showOutline(Outline(items: items))
+        coordinator?.showOutline(for: Outline(items: items))
     }
     
     func toggleDeepColor(open: Bool) {

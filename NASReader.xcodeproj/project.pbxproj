@@ -15,6 +15,7 @@
 		5A206930286DAEBA000C5BEA /* DYReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; platformFilter = ios; };
 		5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5A336C382886B917009F4DE9 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A336C372886B917009F4DE9 /* Bindable.swift */; };
+		5A5D506A2892954A00978A2B /* OutlineProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5D50692892954A00978A2B /* OutlineProtocols.swift */; };
 		5A65CB24287D7DBE00D4BE75 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65CB23287D7DBE00D4BE75 /* UIImage+Color.m */; };
 		5A65CB28287D7E3200D4BE75 /* UIImage+RoundCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65CB27287D7E3200D4BE75 /* UIImage+RoundCorner.m */; };
 		5A76DC6F28796F80003D6D36 /* DYReaderSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A76DC6E28796F80003D6D36 /* DYReaderSettingView.swift */; };
@@ -31,7 +32,6 @@
 		5AB21E1D2887A0DC00EE1433 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E1C2887A0DC00EE1433 /* Coordinator.swift */; };
 		5AB21E1F2887A1A000EE1433 /* DYReaderProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E1E2887A1A000EE1433 /* DYReaderProtocols.swift */; };
 		5AB21E232887A27D00EE1433 /* OutlineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E222887A27D00EE1433 /* OutlineItem.swift */; };
-		5AB21E252887A32000EE1433 /* OutlineProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E242887A32000EE1433 /* OutlineProtocols.swift */; };
 		5AB21E272887A72F00EE1433 /* Outline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E262887A72F00EE1433 /* Outline.swift */; };
 		5AB21E292887A86E00EE1433 /* OutlineCoordinable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E282887A86E00EE1433 /* OutlineCoordinable.swift */; };
 		5AB21E2B2887DD1A00EE1433 /* OutlineItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E2A2887DD1A00EE1433 /* OutlineItemCell.swift */; };
@@ -88,6 +88,7 @@
 		5A20691F286DA627000C5BEA /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
 		5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DYReader.xcodeproj; path = libdyreader/DYReader.xcodeproj; sourceTree = "<group>"; };
 		5A336C372886B917009F4DE9 /* Bindable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		5A5D50692892954A00978A2B /* OutlineProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlineProtocols.swift; sourceTree = "<group>"; };
 		5A65CB22287D7DBE00D4BE75 /* UIImage+Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		5A65CB23287D7DBE00D4BE75 /* UIImage+Color.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		5A65CB26287D7E3200D4BE75 /* UIImage+RoundCorner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundCorner.h"; sourceTree = "<group>"; };
@@ -107,7 +108,6 @@
 		5AB21E1C2887A0DC00EE1433 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		5AB21E1E2887A1A000EE1433 /* DYReaderProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYReaderProtocols.swift; sourceTree = "<group>"; };
 		5AB21E222887A27D00EE1433 /* OutlineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineItem.swift; sourceTree = "<group>"; };
-		5AB21E242887A32000EE1433 /* OutlineProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineProtocols.swift; sourceTree = "<group>"; };
 		5AB21E262887A72F00EE1433 /* Outline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outline.swift; sourceTree = "<group>"; };
 		5AB21E282887A86E00EE1433 /* OutlineCoordinable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineCoordinable.swift; sourceTree = "<group>"; };
 		5AB21E2A2887DD1A00EE1433 /* OutlineItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineItemCell.swift; sourceTree = "<group>"; };
@@ -292,9 +292,9 @@
 		5AB21E1128879BDA00EE1433 /* Outlines */ = {
 			isa = PBXGroup;
 			children = (
+				5A5D50692892954A00978A2B /* OutlineProtocols.swift */,
 				5AB21E1228879BF100EE1433 /* OutlineViewController.swift */,
 				5AB21E1428879F4D00EE1433 /* OutlineViewCoordinator.swift */,
-				5AB21E242887A32000EE1433 /* OutlineProtocols.swift */,
 				5AB21E262887A72F00EE1433 /* Outline.swift */,
 				5AB21E2A2887DD1A00EE1433 /* OutlineItemCell.swift */,
 			);
@@ -469,11 +469,11 @@
 				5A76DC712879A513003D6D36 /* DYControlProtocol.swift in Sources */,
 				5AB21ECC2891276700EE1433 /* DYRenderDelegateImpl.swift in Sources */,
 				5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */,
-				5AB21E252887A32000EE1433 /* OutlineProtocols.swift in Sources */,
 				5AB21E1D2887A0DC00EE1433 /* Coordinator.swift in Sources */,
 				5AB21E1328879BF100EE1433 /* OutlineViewController.swift in Sources */,
 				5A65CB24287D7DBE00D4BE75 /* UIImage+Color.m in Sources */,
 				5AB21E1928879FA800EE1433 /* DYReaderCoordinator.swift in Sources */,
+				5A5D506A2892954A00978A2B /* OutlineProtocols.swift in Sources */,
 				5AACAF4428782F3D00D13209 /* UIButton+alignVertical.swift in Sources */,
 				5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */,
 				5A336C382886B917009F4DE9 /* Bindable.swift in Sources */,

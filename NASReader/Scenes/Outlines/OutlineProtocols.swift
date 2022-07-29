@@ -7,8 +7,10 @@
 
 import Foundation
 
-protocol OutlineProtocol: AnyObject {
+protocol OutlineProtocol {
+    var items: [OutlineItem] { get }
     
+    func itemAt(index: Int) -> OutlineItem?
 }
 
 protocol OutlineViewCoordinatorProtocol: AnyObject {

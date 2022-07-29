@@ -7,10 +7,15 @@
 
 import Foundation
 
-final class Outline: OutlineProtocol {
-    var outlineItems: [OutlineItem]
+struct Outline: OutlineProtocol {
+    var items: [OutlineItem]
     
     init(items: [OutlineItem]) {
-        outlineItems = items
+        self.items = items
+    }
+    
+    func itemAt(index: Int) -> OutlineItem? {
+        guard items.indices.contains(index) else { return nil }
+        return items[index]
     }
 }
