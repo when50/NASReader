@@ -8,10 +8,33 @@
 import UIKit
 
 protocol DYReaderSettingViewDelegate: AnyObject {
-    func settingView(_ view: DYReaderSettingView, changeBrightness: Float, applyBrightness: Bool)
+    func settingView(_ view: DYReaderSettingView, didChanged renderModel: DYRenderModel)
 }
 
 final class DYReaderSettingView: UIView, DYControlProtocol {
+    private var renderModel = Bindable(DYRenderModel(brightness: 1.0, applyBrightness: true, fontSize: 12))
+    
+    init(renderModel: DYRenderModel) {
+        super.init(frame: .zero)
+        setupUI()
+        setupBindables()
+        self.renderModel.value = renderModel
+    }
+    
+    override init(frame: CGRect) {
+        fatalError("使用init(renderMdoel:)")
+    }
+    
+    private func setupBindables() {
+        renderModel.bind { [weak self] value in
+            self?.brightnessSlider.value = value.brightness
+            self?.disableBrightnessBtn.isSelected = !value.applyBrightness
+            if let sself = self {
+                sself.delegate?.settingView(sself, didChanged: value)
+            }
+        }
+    }
+    
     let topShadowView = UIView()
     weak var delegate: DYReaderSettingViewDelegate?
     private lazy var brightnessSlider: UISlider = {
@@ -20,17 +43,18 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         return brightnessSlider
     }()
     private lazy var disableBrightnessBtn: UIButton = {
-        let applyBrightnessBtn = UIButton(type: .system)
+        let btn = UIButton(type: .system)
         
         let unselectedImg1 = UIImage.icon(withName: "图标-未选择", fontSize: 14.0, color: .black)
         let selectedImg2 = UIImage.icon(withName: "图标-已选择", fontSize: 14.0, color: .black)
-        applyBrightnessBtn.setImage(unselectedImg1, for: .normal)
-        applyBrightnessBtn.setImage(selectedImg2, for: .selected)
-        applyBrightnessBtn.setTitle("系统", for: .normal)
-        applyBrightnessBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
-        applyBrightnessBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
-        applyBrightnessBtn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -4)
-        return applyBrightnessBtn
+        btn.setImage(unselectedImg1, for: .normal)
+        btn.setImage(selectedImg2, for: .selected)
+        btn.setTitle("系统", for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
+        btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
+        btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -4)
+        btn.addTarget(self, action: #selector(brightnessHandler(sender:)), for: .touchUpInside)
+        return btn
     }()
     private var lineSpaceBtns: [UIButton] = {
         let lineSpaceIcons = ["图标-行间距4", "图标-行间距3", "图标-行间距2", "图标-行间距1"]
@@ -43,7 +67,7 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         }
     }()
     private var backgroundColorBtns: [UIButton] = {
-        let backgroundColors = [ #colorLiteral(red: 1, green: 0.9999999404, blue: 0.9999999404, alpha: 1), #colorLiteral(red: 0.9529411765, green: 0.9176470588, blue: 0.8117647059, alpha: 1), #colorLiteral(red: 0.9254901961, green: 0.9803921569, blue: 0.9254901961, alpha: 1), #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 0.9411764706, alpha: 1)]
+        let backgroundColors = [#colorLiteral(red: 1, green: 0.9999999404, blue: 0.9999999404, alpha: 1), #colorLiteral(red: 0.9529411765, green: 0.9176470588, blue: 0.8117647059, alpha: 1), #colorLiteral(red: 0.9254901961, green: 0.9803921569, blue: 0.9254901961, alpha: 1), #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 0.9411764706, alpha: 1)]
         
         var backgroundImages = backgroundColors.map { color in
             return UIImage.backgroundColorBtnImage(color: color)
@@ -65,11 +89,6 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
             return btn
         }
     }()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -182,7 +201,12 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
     
     @objc
     private func brightnessChanged(sender: UISlider) {
-        delegate?.settingView(self, changeBrightness: sender.value, applyBrightness: !disableBrightnessBtn.isSelected)
+        renderModel.value.brightness = sender.value
+    }
+    
+    @objc
+    private func brightnessHandler(sender: UIButton) {
+        renderModel.value.applyBrightness = !renderModel.value.applyBrightness
     }
     
 }

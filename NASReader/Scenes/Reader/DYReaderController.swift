@@ -43,7 +43,7 @@ class DYReaderController: UIViewController {
     private let navigationView = DYReaderNavigationView(frame: .zero)
     private let featureView = DYReaderFeatureView(frame: .zero)
     private lazy var settingView: DYReaderSettingView = {
-        let v = DYReaderSettingView(frame: .zero)
+        let v = DYReaderSettingView(renderModel: DYRenderModel(brightness: 1.0, applyBrightness: false, fontSize: 12))
         v.delegate = self
         return v
     }()
@@ -310,9 +310,9 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
 }
 
 extension DYReaderController: DYReaderSettingViewDelegate {
-    func settingView(_ view: DYReaderSettingView, changeBrightness: Float, applyBrightness: Bool) {
-        if applyBrightness {
-            brightnessView.brightness.value = changeBrightness
+    func settingView(_ view: DYReaderSettingView, didChanged renderModel: DYRenderModel) {
+        if renderModel.applyBrightness {
+            brightnessView.brightness.value = renderModel.brightness
         } else {
             brightnessView.brightness.value = 1
         }
