@@ -9,8 +9,11 @@ import UIKit
 
 @objc
 final class DYReaderCoordinator: NSObject, Coordinator, OutlineCoordinable, DYReaderCoordinatorProtocol  {
+    lazy var transitioningDelegate = SlideInPresentationManager()
+    
     @objc
     var navigationController: UINavigationController
+    private lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     
     @objc
     init(navigationController: UINavigationController) {
@@ -22,5 +25,10 @@ final class DYReaderCoordinator: NSObject, Coordinator, OutlineCoordinable, DYRe
         let viewController = DYReaderController()
         viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func showOutline(for outline: OutlineProtocol, delegate: OutlineViewControllerDelegate) {
+        transitioningDelegate.direction = .left
+        showOutline(for: outline, delegate: delegate, transitioningDelegate: transitioningDelegate)
     }
 }

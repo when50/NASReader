@@ -66,7 +66,7 @@ class DYReaderController: UIViewController {
     private var navigationTopConstraint: NSLayoutConstraint?
     private var featureBottomConstraint: NSLayoutConstraint?
     private var settingBottomConstraint: NSLayoutConstraint?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

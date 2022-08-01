@@ -5,19 +5,22 @@
 //  Created by oneko.c on 2022/7/20.
 //
 
-import Foundation
+import UIKit
 
 protocol OutlineCoordinable {
     func showOutline(for outline: OutlineProtocol,
-                     delegate: OutlineViewControllerDelegate)
+                     delegate: OutlineViewControllerDelegate,
+                     transitioningDelegate: UIViewControllerTransitioningDelegate)
 }
 
 extension OutlineCoordinable where Self: Coordinator {
     func showOutline(for outline: OutlineProtocol,
-                     delegate: OutlineViewControllerDelegate) {
+                     delegate: OutlineViewControllerDelegate,
+                     transitioningDelegate: UIViewControllerTransitioningDelegate) {
         let coordinator = OutlineViewCoordinator(navigationController: navigationController)
         coordinator.outline = outline
         coordinator.delegate = delegate
+        coordinator.transitioningDelegate = transitioningDelegate
         coordinator.start()
     }
 }
