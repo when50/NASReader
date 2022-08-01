@@ -89,7 +89,9 @@ struct DYRenderModel {
         }
         set {
             assert(LineSpace.all.indices.contains(newValue), "无法设置lineSpace: \(newValue)")
-            lineSpace = LineSpace.all[newValue]
+            if lineSpace != LineSpace.all[newValue] {
+                lineSpace = LineSpace.all[newValue]
+            }
         }
     }
     
@@ -100,7 +102,9 @@ struct DYRenderModel {
         }
         set {
             assert(BackgroundColor.all.indices.contains(newValue), "无法设置backgroundColor: \(newValue)")
-            backgroundColor = BackgroundColor.all[newValue]
+            if backgroundColor != BackgroundColor.all[newValue] {
+                backgroundColor = BackgroundColor.all[newValue]
+            }
         }
     }
     
@@ -111,7 +115,9 @@ struct DYRenderModel {
         }
         set {
             assert(Style.all.indices.contains(newValue), "无法设置backgroundColor: \(newValue)")
-            style = Style.all[newValue]
+            if style != Style.all[newValue] {
+                style = Style.all[newValue]
+            }
         }
     }
 }

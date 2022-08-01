@@ -36,6 +36,19 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
             self?.fontSizeLabel.text = "\(Int(value.fontSize))"
             self?.smallerFontBtn.isEnabled = !value.isMinFontSize
             self?.biggerFontBtn.isEnabled = !value.isMaxFontSize
+            
+            self?.lineSpaceBtns.forEach({ btn in
+                btn.updateBorder(shown: false)
+            })
+            self?.lineSpaceBtns[value.lineSpaceIndex].updateBorder(shown: true)
+            self?.backgroundColorBtns.forEach({ btn in
+                btn.updateBorder(shown: false)
+            })
+            self?.backgroundColorBtns[value.backgroundColorIndex].updateBorder(shown: true)
+            self?.styleBtns.forEach({ btn in
+                btn.updateBorder(shown: false)
+            })
+            self?.styleBtns[value.styleIndex].updateBorder(shown: true)
         }
     }
     
@@ -83,17 +96,18 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         btn.addTarget(self, action: #selector(brightnessHandler(sender:)), for: .touchUpInside)
         return btn
     }()
-    private var lineSpaceBtns: [UIButton] = {
+    private lazy var lineSpaceBtns: [UIButton] = {
         let lineSpaceIcons = ["图标-行间距4", "图标-行间距3", "图标-行间距2", "图标-行间距1"]
         return lineSpaceIcons.map { icon in
             let btn = UIButton(type: .system)
             btn.setImage(UIImage.icon(withName: icon, fontSize: 14.0, color: .black), for: .selected)
             btn.setImage(UIImage.icon(withName: icon, fontSize: 14.0, color: .gray), for: .normal)
             btn.setupBorder(cornerRadius: 10)
+            btn.addTarget(self, action: #selector(lineSpaceHandler(sender:)), for: .touchUpInside)
             return btn
         }
     }()
-    private var backgroundColorBtns: [UIButton] = {
+    private lazy var backgroundColorBtns: [UIButton] = {
         let backgroundColors = [#colorLiteral(red: 1, green: 0.9999999404, blue: 0.9999999404, alpha: 1), #colorLiteral(red: 0.9529411765, green: 0.9176470588, blue: 0.8117647059, alpha: 1), #colorLiteral(red: 0.9254901961, green: 0.9803921569, blue: 0.9254901961, alpha: 1), #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 0.9411764706, alpha: 1)]
         
         var backgroundImages = backgroundColors.map { color in
@@ -106,15 +120,17 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
             let btn = UIButton(type: .custom)
             btn.setImage(image, for: .normal)
             btn.setupBorder(cornerRadius: 16)
+            btn.addTarget(self, action: #selector(backgroundColorHandler(sender:)), for: .touchUpInside)
             return btn
         }
     }()
-    private var pageStyleBtns: [UIButton] = {
+    private lazy var styleBtns: [UIButton] = {
         let titles = ["覆盖", "仿真", "平移", "滚动"]
         return titles.map { title in
             let btn = UIButton(type: .system)
             btn.setTitle(title, for: .normal)
             btn.setupBorder(cornerRadius: 10)
+            btn.addTarget(self, action: #selector(styleHandler(sender:)), for: .touchUpInside)
             return btn
         }
     }()
@@ -209,11 +225,11 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(90)-[backgroundColorStack]-(30)-|", metrics: nil, views: ["backgroundColorStack": backgroundColorStack]))
         
         // 翻页
-        let pageStack = UIStackView(arrangedSubviews: pageStyleBtns)
+        let pageStack = UIStackView(arrangedSubviews: styleBtns)
         pageStack.axis = .horizontal
         pageStack.distribution = .equalSpacing
         addSubviews([pageStack])
-        pageStyleBtns.forEach { btn in
+        styleBtns.forEach { btn in
             btn.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[btn(48)]", metrics: nil, views: ["btn": btn]))
             btn.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[btn(33)]", metrics: nil, views: ["btn": btn]))
         }
@@ -255,6 +271,27 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
             break
         }
     }
+    
+    @objc
+    private func lineSpaceHandler(sender: UIButton) {
+        if let i = lineSpaceBtns.firstIndex(of: sender) {
+            renderModel.value.lineSpaceIndex = i
+        }
+    }
+    
+    @objc
+    private func backgroundColorHandler(sender: UIButton) {
+        if let i = backgroundColorBtns.firstIndex(of: sender) {
+            renderModel.value.backgroundColorIndex = i
+        }
+    }
+    
+    @objc
+    private func styleHandler(sender: UIButton) {
+        if let i = styleBtns.firstIndex(of: sender) {
+            renderModel.value.styleIndex = i
+        }
+    }
 }
 
 extension UIImage {
@@ -270,6 +307,10 @@ extension UIButton {
         layer.borderWidth = 1.0
         layer.cornerRadius = cornerRadius
         clipsToBounds = true
+    }
+    
+    func updateBorder(shown: Bool) {
+        layer.borderWidth = shown ? 1.0 : 0.0
     }
 }
 
