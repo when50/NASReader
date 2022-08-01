@@ -13,6 +13,14 @@ struct DYRenderModel {
         case lineSpace2
         case lineSpace3
         case lineSpace4
+        
+        static var all: [LineSpace] {
+            return [.lineSpace1, .lineSpace2, .lineSpace3, .lineSpace4]
+        }
+        
+        var index: Int? {
+            return LineSpace.all.firstIndex(of: self)
+        }
     }
     
     enum BackgroundColor {
@@ -21,6 +29,13 @@ struct DYRenderModel {
         case color3
         case color4
         case color5
+        
+        static var all: [BackgroundColor] {
+            return [.color1, .color2, .color3, .color4, .color5]
+        }
+        var index: Int? {
+            return BackgroundColor.all.firstIndex(of: self)
+        }
     }
     
     enum Style {
@@ -28,6 +43,13 @@ struct DYRenderModel {
         case curl
         case scrollHorizontal
         case scrollVertical
+        
+        static var all: [Style] {
+            return [.cover, .curl, .scrollHorizontal, .scrollVertical]
+        }
+        var index: Int? {
+            return Style.all.firstIndex(of: self)
+        }
     }
     
     struct FontSize {
@@ -57,6 +79,39 @@ struct DYRenderModel {
     mutating func increaseFontSize() {
         if FontSize.range.contains(Double(fontSize) + 1) {
             fontSize += 1
+        }
+    }
+    
+    var lineSpaceIndex: Int {
+        get {
+            assert(lineSpace.index != nil, "找不到lineSpace：\(lineSpace)")
+            return lineSpace.index!
+        }
+        set {
+            assert(LineSpace.all.indices.contains(newValue), "无法设置lineSpace: \(newValue)")
+            lineSpace = LineSpace.all[newValue]
+        }
+    }
+    
+    var backgroundColorIndex: Int {
+        get {
+            assert(backgroundColor.index != nil, "找不到backgroundColor：\(backgroundColor)")
+            return backgroundColor.index!
+        }
+        set {
+            assert(BackgroundColor.all.indices.contains(newValue), "无法设置backgroundColor: \(newValue)")
+            backgroundColor = BackgroundColor.all[newValue]
+        }
+    }
+    
+    var styleIndex: Int {
+        get {
+            assert(style.index != nil, "找不到styleIndex：\(style)")
+            return style.index!
+        }
+        set {
+            assert(Style.all.indices.contains(newValue), "无法设置backgroundColor: \(newValue)")
+            style = Style.all[newValue]
         }
     }
 }
