@@ -44,12 +44,14 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
     private lazy var smallerFontBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage.icon(withName: "图标-减号", fontSize: 10.0, color: .black), for: .normal)
+        btn.setupBorder(cornerRadius: 12)
         btn.addTarget(self, action: #selector(fontSizeHandler(sender:)), for: .touchUpInside)
         return btn
     }()
     private lazy var biggerFontBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage.icon(withName: "图标-加号", fontSize: 10.0, color: .black), for: .normal)
+        btn.setupBorder(cornerRadius: 12)
         btn.addTarget(self, action: #selector(fontSizeHandler(sender:)), for: .touchUpInside)
         return btn
     }()
@@ -87,7 +89,7 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
             let btn = UIButton(type: .system)
             btn.setImage(UIImage.icon(withName: icon, fontSize: 14.0, color: .black), for: .selected)
             btn.setImage(UIImage.icon(withName: icon, fontSize: 14.0, color: .gray), for: .normal)
-            btn.layer.borderColor = #colorLiteral(red: 1, green: 0.9999999404, blue: 0.9999999404, alpha: 0.2)
+            btn.setupBorder(cornerRadius: 10)
             return btn
         }
     }()
@@ -103,6 +105,7 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         return backgroundImages.map { image in
             let btn = UIButton(type: .custom)
             btn.setImage(image, for: .normal)
+            btn.setupBorder(cornerRadius: 16)
             return btn
         }
     }()
@@ -111,6 +114,7 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         return titles.map { title in
             let btn = UIButton(type: .system)
             btn.setTitle(title, for: .normal)
+            btn.setupBorder(cornerRadius: 10)
             return btn
         }
     }()
@@ -174,14 +178,20 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         ]
         fontSizeLabel.setContentHuggingPriority(UILayoutPriority(10), for: .horizontal)
         addConstraint(NSLayoutConstraint(item: smallerFontBtn, attribute: .centerY, relatedBy: .equal, toItem: labels[1], attribute: .centerY, multiplier: 1.0, constant: 0.0))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[smallerFontBtn(24)]", metrics: nil, views: fontViews))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[biggerFontBtn(24)]", metrics: nil, views: fontViews))
         addConstraint(NSLayoutConstraint(item: biggerFontBtn, attribute: .centerY, relatedBy: .equal, toItem: labels[1], attribute: .centerY, multiplier: 1.0, constant: 0.0))
         addConstraint(NSLayoutConstraint(item: fontSizeLabel, attribute: .centerY, relatedBy: .equal, toItem: labels[1], attribute: .centerY, multiplier: 1.0, constant: 0.0))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(80)-[smallerFontBtn]-[fontSizeLabel]-[biggerFontBtn]-(20)-|", metrics: nil, views: fontViews))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(80)-[smallerFontBtn(60)]-[fontSizeLabel]-[biggerFontBtn(60)]-(20)-|", metrics: nil, views: fontViews))
         
         let lineSpaceStack = UIStackView(arrangedSubviews: lineSpaceBtns)
         lineSpaceStack.axis = .horizontal
         lineSpaceStack.distribution = .equalSpacing
         addSubviews([lineSpaceStack])
+        lineSpaceBtns.forEach { btn in
+            btn.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[btn(42)]", metrics: nil, views: ["btn": btn]))
+            btn.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[btn(28)]", metrics: nil, views: ["btn": btn]))
+        }
         addConstraint(NSLayoutConstraint(item: lineSpaceStack, attribute: .centerY, relatedBy: .equal, toItem: labels[2], attribute: .centerY, multiplier: 1.0, constant: 0))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(90)-[lineSpaceStack]-(30)-|", metrics: nil, views: ["lineSpaceStack": lineSpaceStack]))
         
@@ -190,6 +200,11 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         backgroundColorStack.axis = .horizontal
         backgroundColorStack.distribution = .equalSpacing
         addSubviews([backgroundColorStack])
+        backgroundColorBtns.forEach { btn in
+            btn.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[btn(48)]", metrics: nil, views: ["btn": btn]))
+            btn.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[btn(32)]", metrics: nil, views: ["btn": btn]))
+            btn.imageView?.setupBorder(cornerRadius: 12)
+        }
         addConstraint(NSLayoutConstraint(item: backgroundColorStack, attribute: .centerY, relatedBy: .equal, toItem: labels[3], attribute: .centerY, multiplier: 1.0, constant: 0))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(90)-[backgroundColorStack]-(30)-|", metrics: nil, views: ["backgroundColorStack": backgroundColorStack]))
         
@@ -198,6 +213,10 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         pageStack.axis = .horizontal
         pageStack.distribution = .equalSpacing
         addSubviews([pageStack])
+        pageStyleBtns.forEach { btn in
+            btn.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[btn(48)]", metrics: nil, views: ["btn": btn]))
+            btn.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[btn(33)]", metrics: nil, views: ["btn": btn]))
+        }
         addConstraint(NSLayoutConstraint(item: pageStack, attribute: .centerY, relatedBy: .equal, toItem: labels[4], attribute: .centerY, multiplier: 1.0, constant: 0))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(80)-[pageStack]-(20)-|", metrics: nil, views: ["pageStack": pageStack]))
     }
@@ -242,5 +261,23 @@ extension UIImage {
     static func backgroundColorBtnImage(color: UIColor) -> UIImage {
         let image = UIImage.init(color: color, size: CGSize(width: 40.0, height: 24.0))
         return image.byRoundCornerRadius(12.0)
+    }
+}
+
+extension UIButton {
+    func setupBorder(cornerRadius: CGFloat) {
+        layer.borderColor = #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1).cgColor
+        layer.borderWidth = 1.0
+        layer.cornerRadius = cornerRadius
+        clipsToBounds = true
+    }
+}
+
+extension UIImageView {
+    func setupBorder(cornerRadius: CGFloat) {
+        layer.borderColor = #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1).cgColor
+        layer.borderWidth = 0.5
+        layer.cornerRadius = cornerRadius
+        clipsToBounds = true
     }
 }
