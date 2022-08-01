@@ -35,6 +35,7 @@ class DYReaderController: UIViewController {
     }
     
     private let bookReader = DYBookReader()
+    private var renderModel = Bindable(DYRenderModel(brightness: 1.0, useSystemBrightness: true, fontSize: 20))
     
     weak var coordinator: DYReaderCoordinatorProtocol?
     
@@ -44,7 +45,7 @@ class DYReaderController: UIViewController {
     private let navigationView = DYReaderNavigationView(frame: .zero)
     private let featureView = DYReaderFeatureView(frame: .zero)
     private lazy var settingView: DYReaderSettingView = {
-        let v = DYReaderSettingView(renderModel: DYRenderModel(brightness: 1.0, applyBrightness: false, fontSize: 20))
+        let v = DYReaderSettingView(frame: .zero)
         v.delegate = self
         return v
     }()
@@ -83,6 +84,7 @@ class DYReaderController: UIViewController {
         setupBindables()
         
         invalidRenderContent.value = true
+        self.renderModel.value = DYRenderModel(brightness: 0.0, useSystemBrightness: false, fontSize: 18)
     }
     
     private func loadHistory() {
@@ -190,6 +192,15 @@ class DYReaderController: UIViewController {
         rollbackChapterIndex.bind { [weak self] in
             self?.updateRollbackInfo(chapterIndex: $0)
         }
+        renderModel.bind { [weak self] value in
+            // seriallize
+            if value.useSystemBrightness {
+                self?.brightnessView.brightness.value = 1
+            } else {
+                self?.brightnessView.brightness.value = value.brightness
+            }
+            self?.settingView.updateRenderModel(value)
+        }
     }
     
     private func updateRenderContent(animated: Bool = false) {
@@ -240,8 +251,6 @@ class DYReaderController: UIViewController {
             gestureView?.isHidden = true
         }
     }
-    
-    
 }
 
 extension DYReaderController: DYReaderFeatureViewDelegate {
@@ -312,10 +321,8 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
 
 extension DYReaderController: DYReaderSettingViewDelegate {
     func settingView(_ view: DYReaderSettingView, didChanged renderModel: DYRenderModel) {
-        if renderModel.applyBrightness {
-            brightnessView.brightness.value = renderModel.brightness
-        } else {
-            brightnessView.brightness.value = 1
+        if renderModel != self.renderModel.value {
+            self.renderModel.value = renderModel
         }
     }
 }

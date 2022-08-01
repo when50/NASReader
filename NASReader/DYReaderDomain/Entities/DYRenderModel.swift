@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DYRenderModel {
+struct DYRenderModel: Equatable {
     enum LineSpace {
         case lineSpace1
         case lineSpace2
@@ -57,7 +57,7 @@ struct DYRenderModel {
     }
     
     var brightness: Float
-    var applyBrightness: Bool
+    var useSystemBrightness: Bool
     private(set) var fontSize: Float
     var lineSpace = LineSpace.lineSpace1
     var backgroundColor = BackgroundColor.color1

@@ -12,23 +12,24 @@ protocol DYReaderSettingViewDelegate: AnyObject {
 }
 
 final class DYReaderSettingView: UIView, DYControlProtocol {
-    private var renderModel = Bindable(DYRenderModel(brightness: 1.0, applyBrightness: true, fontSize: 12))
-    
-    init(renderModel: DYRenderModel) {
-        super.init(frame: .zero)
-        setupUI()
-        setupBindables()
+    private var renderModel = Bindable(DYRenderModel(brightness: 1.0, useSystemBrightness: true, fontSize: 12))
+    func updateRenderModel(_ renderModel: DYRenderModel) {
         self.renderModel.value = renderModel
     }
     
     override init(frame: CGRect) {
-        fatalError("使用init(renderMdoel:)")
+        super.init(frame: frame)
+        setupUI()
+        setupBindables()
     }
     
     private func setupBindables() {
         renderModel.bind { [weak self] value in
             self?.brightnessSlider.value = value.brightness
-            self?.disableBrightnessBtn.isSelected = !value.applyBrightness
+            
+            let brightnessIconStr = value.useSystemBrightness ? "图标-已选择" : "图标-未选择"
+            self?.useSystemBrightnessBtn.setImage(UIImage.icon(withName: brightnessIconStr, fontSize: 14.0, color: .black), for: .normal)
+            
             if let sself = self {
                 sself.delegate?.settingView(sself, didChanged: value)
             }
@@ -82,13 +83,11 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         brightnessSlider.addTarget(self, action: #selector(brightnessChanged(sender:)), for: .valueChanged)
         return brightnessSlider
     }()
-    private lazy var disableBrightnessBtn: UIButton = {
+    private lazy var useSystemBrightnessBtn: UIButton = {
         let btn = UIButton(type: .system)
         
-        let unselectedImg1 = UIImage.icon(withName: "图标-未选择", fontSize: 14.0, color: .black)
-        let selectedImg2 = UIImage.icon(withName: "图标-已选择", fontSize: 14.0, color: .black)
-        btn.setImage(unselectedImg1, for: .normal)
-        btn.setImage(selectedImg2, for: .selected)
+        let img = UIImage.icon(withName: "图标-未选择", fontSize: 14.0, color: .black)
+        btn.setImage(img, for: .normal)
         btn.setTitle("系统", for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
         btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
@@ -170,19 +169,19 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         let maxBrightnessImageView = UIImageView(image: UIImage.icon(withName: "图标-亮度+", fontSize: 17.4, color: .black))
         let minBrightnessImageView = UIImageView(image: UIImage.icon(withName: "图标-亮度-", fontSize: 17.4, color: .black))
         
-        addSubviews([maxBrightnessImageView, minBrightnessImageView, brightnessSlider, disableBrightnessBtn])
+        addSubviews([maxBrightnessImageView, minBrightnessImageView, brightnessSlider, useSystemBrightnessBtn])
         
         let lightViews: [String: Any] = [
             "maxBrightnessImageView": maxBrightnessImageView,
             "minBrightnessImageView": minBrightnessImageView,
             "brightnessSlider": brightnessSlider,
-            "applyBrightnessBtn": disableBrightnessBtn,
+            "useSystemBrightnessBtn": useSystemBrightnessBtn,
         ]
         addConstraint(NSLayoutConstraint(item: maxBrightnessImageView, attribute: .centerY, relatedBy: .equal, toItem: labels[0], attribute: .centerY, multiplier: 1.0, constant: 0.0))
         addConstraint(NSLayoutConstraint(item: minBrightnessImageView, attribute: .centerY, relatedBy: .equal, toItem: labels[0], attribute: .centerY, multiplier: 1.0, constant: 0.0))
         addConstraint(NSLayoutConstraint(item: brightnessSlider, attribute: .centerY, relatedBy: .equal, toItem: labels[0], attribute: .centerY, multiplier: 1.0, constant: 0.0))
-        addConstraint(NSLayoutConstraint(item: disableBrightnessBtn, attribute: .centerY, relatedBy: .equal, toItem: labels[0], attribute: .centerY, multiplier: 1.0, constant: 0.0))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(80)-[minBrightnessImageView]-[brightnessSlider]-[maxBrightnessImageView]-(22)-[applyBrightnessBtn]-(20)-|", metrics: nil, views: lightViews))
+        addConstraint(NSLayoutConstraint(item: useSystemBrightnessBtn, attribute: .centerY, relatedBy: .equal, toItem: labels[0], attribute: .centerY, multiplier: 1.0, constant: 0.0))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(80)-[minBrightnessImageView]-[brightnessSlider]-[maxBrightnessImageView]-(22)-[useSystemBrightnessBtn]-(20)-|", metrics: nil, views: lightViews))
         
         // 字号
         addSubviews([smallerFontBtn, biggerFontBtn, fontSizeLabel])
@@ -253,11 +252,12 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
     @objc
     private func brightnessChanged(sender: UISlider) {
         renderModel.value.brightness = sender.value
+        renderModel.value.useSystemBrightness = false
     }
     
     @objc
     private func brightnessHandler(sender: UIButton) {
-        renderModel.value.applyBrightness = !renderModel.value.applyBrightness
+        renderModel.value.useSystemBrightness = !renderModel.value.useSystemBrightness
     }
     
     @objc
