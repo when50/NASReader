@@ -260,28 +260,32 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
 
 extension DYReaderController: DYGestureViewDelegate {
     func gestureView(_ gestureView: DYGestureView, didTap operation: DYGestureViewOperation) {
-        switch operation {
-        case .scrollBackword:
-            let pageIdx = Int(bookReader.pageIdx) - 1
-            guard pageIdx >= 0 else { return }
-            guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
-            if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
-                bookReader.pageIdx = Int32(pageIdx)
-                bookReader.chapterIdx = Int32(chapterIdx)
-                render?.scrollBackwardPage(animated: true)
+        if featureViewShown {
+            featureViewShown = false
+        } else {
+            switch operation {
+            case .scrollBackword:
+                let pageIdx = Int(bookReader.pageIdx) - 1
+                guard pageIdx >= 0 else { return }
+                guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
+                if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
+                    bookReader.pageIdx = Int32(pageIdx)
+                    bookReader.chapterIdx = Int32(chapterIdx)
+                    render?.scrollBackwardPage(animated: true)
+                }
+                
+            case .scrollForward:
+                let pageIdx = Int(bookReader.pageIdx) + 1
+                guard pageIdx < bookReader.pageNum else { return }
+                guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
+                if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
+                    bookReader.pageIdx = Int32(pageIdx)
+                    bookReader.chapterIdx = Int32(chapterIdx)
+                    render?.scrollForwardPage(animated: true)
+                }
+            case .toggleNavigationFeautre:
+                featureViewShown = true
             }
-            
-        case .scrollForward:
-            let pageIdx = Int(bookReader.pageIdx) + 1
-            guard pageIdx < bookReader.pageNum else { return }
-            guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
-            if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
-                bookReader.pageIdx = Int32(pageIdx)
-                bookReader.chapterIdx = Int32(chapterIdx)
-                render?.scrollForwardPage(animated: true)
-            }
-        case .toggleNavigationFeautre:
-            featureViewShown = !featureViewShown
         }
     }
 }
