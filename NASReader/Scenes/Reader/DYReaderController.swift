@@ -9,7 +9,7 @@ import UIKit
 import DYReader
 
 
-class DYReaderController: UIViewController, BrightnessSetable {
+class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer {
     @objc enum PageStlye: Int {
         case scrollVertical
         case scrollHorizontal
@@ -49,9 +49,15 @@ class DYReaderController: UIViewController, BrightnessSetable {
         v.delegate = self
         return v
     }()
-    private var gestureView: UIView = {
+    var containerView: UIView = {
         let v = UIView(frame: .zero)
         v.backgroundColor = .clear
+        return v
+    }()
+    private lazy var gestureView: DYGestureView = {
+        let v = DYGestureView(frame: .zero)
+        v.backgroundColor = .clear
+        v.delegate = self
         return v
     }()
     private(set) var brightnessView = DYBrightnessView(frame: .zero)
@@ -78,9 +84,8 @@ class DYReaderController: UIViewController, BrightnessSetable {
         featureView.delegate = self
         
         loadHistory()
-        buildRender()
         buildUI()
-        setupGestures()
+        buildRender()
         setupBindables()
         
         invalidRenderContent.value = true
@@ -91,40 +96,9 @@ class DYReaderController: UIViewController, BrightnessSetable {
         
     }
     
-    private func buildRender() {
-        render?.clean()
-        
-        var pageSize = view.bounds.size
-        switch pageStlye {
-        case .scrollVertical:
-            let render = DYVerticalScrollRender(nibName: nil, bundle: nil)
-            render.buildRender(parentController: self)
-            render.view.frame = view.bounds.inset(by: UIEdgeInsets(top: 0, left: edgeInsets.left, bottom: 0, right: edgeInsets.right))
-            render.tableView.contentInset = UIEdgeInsets(top: edgeInsets.top, left: 0, bottom: edgeInsets.bottom, right: 0)
-            pageSize = render.view.frame.size
-            self.render = render
-        case .scrollHorizontal:
-            let render = DYHorizontalScrollRender(nibName: nil, bundle: nil)
-            render.buildRender(parentController: self)
-            render.view.frame = view.bounds
-            render.coverStyle = true
-            pageSize = view.bounds.inset(by: edgeInsets).size
-            self.render = render
-        case .cover:
-            break
-        case .curl:
-            break
-        }
-        render?.dataSource = DYRenderDataSourceImpl(reader: bookReader, pageSize: pageSize)
-        render?.delegate = DYRenderDelegateImpl(reader: bookReader)
-        render?.tapFeatureArea = { [weak self] in
-            guard let sself = self else { return }
-            sself.featureViewShown = true
-        }
-    }
-    
     private func buildUI() {
         let views: [String: UIView] = [
+            "containerView": containerView,
             "navigationView": navigationView,
             "featureView": featureView,
             "settingView": settingView,
@@ -133,18 +107,31 @@ class DYReaderController: UIViewController, BrightnessSetable {
             "brightnessView": brightnessView,
         ]
         
-        [gestureView, navigationView, featureView, settingView, featureView, rollbackView, brightnessView].forEach { subView in
+        [containerView, gestureView, navigationView, featureView, settingView, featureView, rollbackView, brightnessView].forEach { subView in
             subView.translatesAutoresizingMaskIntoConstraints = false
             subView.isHidden = true
             setupShadow(view: subView)
             view.addSubview(subView)
         }
         
+        containerView.frame = view.bounds
+        containerView.layer.shadowOpacity = 0
+        containerView.isHidden = false
+        gestureView.layer.shadowOpacity = 0
+        gestureView.isHidden = false
         brightnessView.layer.shadowOpacity = 0
         brightnessView.isHidden = false
         settingView.layer.shadowOpacity = 0
         setupShadow(view: settingView.topShadowView)
         
+        NSLayoutConstraint.activate(
+            NSLayoutConstraint.constraints(withVisualFormat: "H:|[containerView]|",
+                                           metrics: nil,
+                                           views: ["containerView": containerView]))
+        NSLayoutConstraint.activate(
+            NSLayoutConstraint.constraints(withVisualFormat: "V:|[containerView]|",
+                                           metrics: nil,
+                                           views: ["containerView": containerView]))
         let top = NSLayoutConstraint(item: navigationView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: -94)
         view.addConstraint(top)
         navigationTopConstraint = top
@@ -170,16 +157,36 @@ class DYReaderController: UIViewController, BrightnessSetable {
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[brightnessView]-(0)-|", metrics: nil, views: views))
     }
     
+    private func buildRender() {
+        render?.clean()
+        
+        var pageSize = view.bounds.size
+        switch pageStlye {
+        case .scrollVertical:
+            let render = DYVerticalScrollRender(nibName: nil, bundle: nil)
+            render.buildRender(parentController: self)
+            render.view.frame = view.bounds.inset(by: UIEdgeInsets(top: 0, left: edgeInsets.left, bottom: 0, right: edgeInsets.right))
+            render.tableView.contentInset = UIEdgeInsets(top: edgeInsets.top, left: 0, bottom: edgeInsets.bottom, right: 0)
+            pageSize = render.view.frame.size
+            self.render = render
+        case .scrollHorizontal, .cover:
+            let render = DYHorizontalScrollRender(nibName: nil, bundle: nil)
+            render.buildRender(parentController: self)
+            render.view.frame = view.bounds
+            render.coverStyle = true
+            pageSize = view.bounds.inset(by: edgeInsets).size
+            self.render = render
+        case .curl:
+            break
+        }
+        render?.dataSource = DYRenderDataSourceImpl(reader: bookReader, pageSize: pageSize)
+    }
+    
     private func setupShadow(view: UIView) {
         view.layer.shadowOpacity = 1
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = .zero
         view.layer.shadowRadius = 5
-    }
-    
-    private func setupGestures() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler(sender:)))
-        gestureView.addGestureRecognizer(tap)
     }
     
     private func setupBindables() {
@@ -204,7 +211,7 @@ class DYReaderController: UIViewController, BrightnessSetable {
     }
     
     private func updateRenderContent(animated: Bool = false) {
-        render?.showPage(animated: animated)
+        render?.scrollBackwardPage(animated: false)
         
         if let progress = bookReader.chapterProgress(chaterIndex: Int(bookReader.chapterIdx)) {
             featureView.progressSlider.progress = CGFloat(progress)
@@ -230,7 +237,6 @@ class DYReaderController: UIViewController, BrightnessSetable {
     private func showNavigationFeatureViews() {
         navigationView.isHidden = false
         featureView.isHidden = false
-        gestureView.isHidden = false
         UIView.animate(withDuration: 0.25) { [weak navigationTopConstraint, weak featureBottomConstraint, weak view] in
             navigationTopConstraint?.constant = 0
             featureBottomConstraint?.constant = 0
@@ -245,10 +251,37 @@ class DYReaderController: UIViewController, BrightnessSetable {
             navigationTopConstraint?.constant = -94
             featureBottomConstraint?.constant = 175
             view?.layoutIfNeeded()
-        } completion: { [weak navigationView, weak featureView, weak gestureView] _ in
+        } completion: { [weak navigationView, weak featureView] _ in
             navigationView?.isHidden = true
             featureView?.isHidden = true
-            gestureView?.isHidden = true
+        }
+    }
+}
+
+extension DYReaderController: DYGestureViewDelegate {
+    func gestureView(_ gestureView: DYGestureView, didTap operation: DYGestureViewOperation) {
+        switch operation {
+        case .scrollBackword:
+            let pageIdx = Int(bookReader.pageIdx) - 1
+            guard pageIdx >= 0 else { return }
+            guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
+            if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
+                bookReader.pageIdx = Int32(pageIdx)
+                bookReader.chapterIdx = Int32(chapterIdx)
+                render?.scrollBackwardPage(animated: true)
+            }
+            
+        case .scrollForward:
+            let pageIdx = Int(bookReader.pageIdx) + 1
+            guard pageIdx < bookReader.pageNum else { return }
+            guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
+            if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
+                bookReader.pageIdx = Int32(pageIdx)
+                bookReader.chapterIdx = Int32(chapterIdx)
+                render?.scrollForwardPage(animated: true)
+            }
+        case .toggleNavigationFeautre:
+            featureViewShown = !featureViewShown
         }
     }
 }
@@ -349,4 +382,9 @@ extension DYBookReader {
         guard chapterList.count > 0 else { return nil }
         return Float(chaterIndex) / Float(chapterList.count - 1)
     }
+}
+
+extension DYBookReader {
+    func isValidPageIndex(_ index: Int) -> Bool { (0..<Int(pageNum)).contains(index) }
+    func isValidChapterIndex(_ index: Int) -> Bool { (0..<chapterList.count).contains(index) }
 }

@@ -8,10 +8,8 @@
 import Foundation
 import UIKit
 
-protocol DYRenderDelegate {
-    func switchTo(chapterIndex: Int, pageIndex: Int) -> Bool
-    func switchPrevPage() -> Bool
-    func switchNextPage() -> Bool
+protocol DYReaderContainer {
+    var containerView: UIView { get }
 }
 
 protocol DYRenderDataSource {
@@ -25,24 +23,21 @@ protocol DYRenderDataSource {
 }
 
 protocol DYRenderProtocol {
-    var tapFeatureArea: (() -> Void)? { get set }
-    var delegate: DYRenderDelegate? { get set }
     var dataSource: DYRenderDataSource? { get set }
     func buildRender(parentController: UIViewController)
-    func showPage(animated: Bool)
+    func scrollBackwardPage(animated: Bool)
+    func scrollForwardPage(animated: Bool)
     func clean()
 }
 
 extension DYRenderProtocol where Self: UIViewController {
-    func switchTo(chapterIndex: Int, pageIndex: Int) -> Bool {
-        return delegate?.switchTo(chapterIndex: chapterIndex, pageIndex: pageIndex) ?? false
-    }
-    
     func buildRender(parentController: UIViewController) {
         parentController.addChild(self)
         view.frame = parentController.view.bounds
-        parentController.view.addSubview(view)
-        parentController.view.sendSubviewToBack(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        if let container = parentController as? DYReaderContainer {
+            container.containerView.addSubview(view)
+        }
         didMove(toParent: parentController)
     }
     

@@ -8,7 +8,15 @@
 import UIKit
 
 class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
-    func showPage(animated: Bool) {
+    func scrollBackwardPage(animated: Bool) {
+        
+    }
+    
+    func scrollForwardPage(animated: Bool) {
+        
+    }
+    
+    func showPage() {
         
     }
     
@@ -16,7 +24,6 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         static let cellReuseId = "cellReuseId"
     }
     
-    var delegate: DYRenderDelegate?
     var dataSource: DYRenderDataSource?
     var currentPage = 0
     var tapFeatureArea: (() -> Void)?

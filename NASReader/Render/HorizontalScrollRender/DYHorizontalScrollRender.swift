@@ -8,9 +8,6 @@
 import UIKit
 
 class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
-    struct ConstValue {
-        static let scrollTapRange = 0.3
-    }
     
     var coverStyle = false {
         didSet {
@@ -18,12 +15,51 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
         }
     }
     var dataSource: DYRenderDataSource?
-    var delegate: DYRenderDelegate?
     var tapFeatureArea: (() -> Void)?
     private var showPageBlock: (() -> Void)?
     private var pageView: UIView?
     
-    func showPage(animated: Bool = false) {
+    func scrollBackwardPage(animated: Bool = true) {
+        scrollPage(animated: animated, backword: true)
+    }
+    
+    func scrollForwardPage(animated: Bool = true) {
+        scrollPage(animated: animated, backword: false)
+    }
+    
+    private func scrollPage(animated: Bool, backword: Bool) {
+        let oldPage = pageView
+        showPage()
+        if animated {
+            var initialFrame = view.bounds.offsetBy(dx: (backword ? -1 : 1) * view.bounds.width, dy: 0)
+            let finalFrame = view.bounds
+            let oldInitFrame = view.bounds
+            var oldFinalFrame = view.bounds.offsetBy(dx: (backword ? 1 : -1) * view.bounds.width, dy: 0)
+            if coverStyle {
+                if backword {
+                    oldFinalFrame = view.bounds
+                } else {
+                    initialFrame = view.bounds
+                    
+                    if let oldPage = oldPage {
+                        view.bringSubviewToFront(oldPage)
+                    }
+                }
+            }
+            pageView?.frame = initialFrame
+            oldPage?.frame = oldInitFrame
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .beginFromCurrentState) {
+                self.pageView?.frame = finalFrame
+                oldPage?.frame = oldFinalFrame
+            } completion: { _ in
+                oldPage?.removeFromSuperview()
+            }
+        } else {
+            oldPage?.removeFromSuperview()
+        }
+    }
+    
+    private func showPage() {
         if let page = dataSource?.getCurrentPage() {
             page.frame = view.bounds
             page.backgroundColor = .yellow
@@ -46,66 +82,4 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        addScrollGestureRecognizers()
-    }
-    
-    private func addScrollGestureRecognizers() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler(sender:)))
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc
-    private func tapHandler(sender: UITapGestureRecognizer) {
-        guard let delegate = delegate else { return }
-        let location = sender.location(in: sender.view)
-        let scaledLocation = location.x / view.frame.width
-        switch scaledLocation {
-        case let v where v < ConstValue.scrollTapRange:
-            print("scroll backwards")
-            if delegate.switchPrevPage() {
-                let oldPage = pageView
-                showPage(animated: true)
-                pageView?.frame = view.bounds.offsetBy(dx: -view.bounds.width, dy: 0)
-                UIView.animate(withDuration: 0.25, delay: 0.0, options: .beginFromCurrentState) {
-                    self.pageView?.frame = self.view.bounds
-                    if !self.coverStyle {
-                        oldPage?.frame = self.view.bounds.offsetBy(dx: self.view.bounds.width, dy: 0)
-                    }
-                } completion: { _ in
-                    oldPage?.removeFromSuperview()
-                }
-
-            } else {
-                print("is first page")
-            }
-        case let v where v + ConstValue.scrollTapRange > 1.0:
-            print("scroll forward")
-            if delegate.switchNextPage() {
-                let oldPage = pageView
-                showPage(animated: true)
-                if !self.coverStyle {
-                    pageView?.frame = view.bounds.offsetBy(dx: view.bounds.width, dy: 0)
-                }
-                if let oldPage = oldPage, coverStyle {
-                    view.bringSubviewToFront(oldPage)
-                }
-                UIView.animate(withDuration: 0.25, delay: 0.0, options: .beginFromCurrentState) {
-                    if !self.coverStyle {
-                        self.pageView?.frame = self.view.bounds
-                    }
-                    oldPage?.frame = self.view.bounds.offsetBy(dx: -self.view.bounds.width, dy: 0)
-                } completion: { _ in
-                    oldPage?.removeFromSuperview()
-                }
-            } else {
-                print("is last page")
-            }
-        default:
-            print("toggle control")
-            tapFeatureArea?()
-        }
-    }
 }
