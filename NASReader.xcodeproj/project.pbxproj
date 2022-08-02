@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A06324A2897D74100733185 /* SlideInPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0632492897D74100733185 /* SlideInPresentationManager.swift */; };
 		5A06324C2897D94D00733185 /* SlideInPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06324B2897D94D00733185 /* SlideInPresentationController.swift */; };
+		5A06324E2898BE0100733185 /* SlideInPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06324D2898BE0100733185 /* SlideInPresentationAnimator.swift */; };
 		5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2068FF286DA54E000C5BEA /* AppDelegate.m */; };
 		5A20690B286DA550000C5BEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A20690A286DA550000C5BEA /* Assets.xcassets */; };
 		5A20690E286DA550000C5BEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A20690C286DA550000C5BEA /* LaunchScreen.storyboard */; };
@@ -84,6 +85,7 @@
 /* Begin PBXFileReference section */
 		5A0632492897D74100733185 /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
 		5A06324B2897D94D00733185 /* SlideInPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationController.swift; sourceTree = "<group>"; };
+		5A06324D2898BE0100733185 /* SlideInPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationAnimator.swift; sourceTree = "<group>"; };
 		5A2068FB286DA54E000C5BEA /* NASReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NASReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A2068FE286DA54E000C5BEA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A2068FF286DA54E000C5BEA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			children = (
 				5A0632492897D74100733185 /* SlideInPresentationManager.swift */,
 				5A06324B2897D94D00733185 /* SlideInPresentationController.swift */,
+				5A06324D2898BE0100733185 /* SlideInPresentationAnimator.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				5A336C382886B917009F4DE9 /* Bindable.swift in Sources */,
 				5AECFE91287115D400E6205F /* DYPageTableViewCell.swift in Sources */,
 				5A06324A2897D74100733185 /* SlideInPresentationManager.swift in Sources */,
+				5A06324E2898BE0100733185 /* SlideInPresentationAnimator.swift in Sources */,
 				5AB21E2B2887DD1A00EE1433 /* OutlineItemCell.swift in Sources */,
 				5AACAF41287811A500D13209 /* DNSimpleSlider.swift in Sources */,
 				5AECFE982872941400E6205F /* DYHorizontalScrollRender.swift in Sources */,
