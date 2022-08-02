@@ -149,6 +149,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         if render?.supportStyle(style: style) ?? false { return }
         
         render?.clean()
+        render = nil
         
         var pageSize = view.bounds.size
         switch style {
@@ -170,6 +171,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             break
         }
         render?.dataSource = DYRenderDataSourceImpl(reader: bookReader, pageSize: pageSize)
+        invalidRenderContent.value = true
     }
     
     private func setupShadow(view: UIView) {
