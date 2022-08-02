@@ -95,7 +95,14 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             "brightnessView": brightnessView,
         ]
         
-        [containerView, gestureView, navigationView, featureView, settingView, featureView, rollbackView, brightnessView].forEach { subView in
+        [containerView,
+         gestureView,
+         navigationView,
+         featureView,
+         settingView,
+         featureView,
+         rollbackView,
+         brightnessView].forEach { subView in
             subView.translatesAutoresizingMaskIntoConstraints = false
             subView.isHidden = true
             setupShadow(view: subView)
@@ -164,7 +171,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             let render = DYHorizontalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
             render.view.frame = view.bounds
-            render.coverStyle = true
+            render.coverStyle = style == .cover
             pageSize = view.bounds.inset(by: edgeInsets).size
             self.render = render
         case .curl:
@@ -248,6 +255,10 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             navigationView?.isHidden = true
             featureView?.isHidden = true
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 }
 
