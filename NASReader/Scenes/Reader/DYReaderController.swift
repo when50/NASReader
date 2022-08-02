@@ -10,18 +10,7 @@ import DYReader
 
 
 class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer {
-    @objc enum PageStlye: Int {
-        case scrollVertical
-        case scrollHorizontal
-        case cover
-        case curl
-    }
     
-    @objc var pageStlye = PageStlye.scrollHorizontal {
-        didSet {
-            buildRender()
-        }
-    }
     @objc var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
     
     private var featureViewShown = false {
@@ -85,11 +74,10 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         
         loadHistory()
         buildUI()
-        buildRender()
         setupBindables()
         
-        invalidRenderContent.value = true
         self.renderModel.value = DYRenderModel(brightness: 0.0, useSystemBrightness: false, fontSize: 18)
+        invalidRenderContent.value = true
     }
     
     private func loadHistory() {
@@ -157,11 +145,13 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[brightnessView]-(0)-|", metrics: nil, views: views))
     }
     
-    private func buildRender() {
+    private func setupRender(style: DYRenderModel.Style) {
+        if render?.supportStyle(style: style) ?? false { return }
+        
         render?.clean()
         
         var pageSize = view.bounds.size
-        switch pageStlye {
+        switch style {
         case .scrollVertical:
             let render = DYVerticalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
@@ -207,6 +197,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
                 self?.setBrightness(value.brightness)
             }
             self?.settingView.updateRenderModel(value)
+            self?.setupRender(style: value.style)
         }
     }
     

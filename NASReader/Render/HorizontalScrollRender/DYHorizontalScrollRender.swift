@@ -19,6 +19,12 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
     private var showPageBlock: (() -> Void)?
     private var pageView: UIView?
     
+    func supportStyle(style: DYRenderModel.Style) -> Bool {
+        let styles: [DYRenderModel.Style] = [.scrollHorizontal, .cover]
+        coverStyle = style == .cover
+        return styles.contains(style)
+    }
+    
     func scrollBackwardPage(animated: Bool = true) {
         scrollPage(animated: animated, backword: true)
     }

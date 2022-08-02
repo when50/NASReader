@@ -24,6 +24,7 @@ protocol DYRenderDataSource {
 
 protocol DYRenderProtocol {
     var dataSource: DYRenderDataSource? { get set }
+    func supportStyle(style: DYRenderModel.Style) -> Bool
     func buildRender(parentController: UIViewController)
     func scrollBackwardPage(animated: Bool)
     func scrollForwardPage(animated: Bool)

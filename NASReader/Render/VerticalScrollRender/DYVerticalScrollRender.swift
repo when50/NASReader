@@ -8,6 +8,10 @@
 import UIKit
 
 class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
+    func supportStyle(style: DYRenderModel.Style) -> Bool {
+        return style == .scrollVertical
+    }
+    
     func scrollBackwardPage(animated: Bool) {
         
     }
