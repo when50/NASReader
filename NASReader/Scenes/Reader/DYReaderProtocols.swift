@@ -9,5 +9,6 @@ import UIKit
 
 protocol DYReaderCoordinatorProtocol: AnyObject {
     func showOutline(for outline: OutlineProtocol,
-                     delegate: OutlineViewControllerDelegate)
+                     delegate: OutlineViewControllerDelegate,
+                     brightness: Float)
 }

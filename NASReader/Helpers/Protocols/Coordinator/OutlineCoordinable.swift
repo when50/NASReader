@@ -10,17 +10,20 @@ import UIKit
 protocol OutlineCoordinable {
     func showOutline(for outline: OutlineProtocol,
                      delegate: OutlineViewControllerDelegate,
-                     transitioningDelegate: UIViewControllerTransitioningDelegate)
+                     transitioningDelegate: UIViewControllerTransitioningDelegate,
+                     brightness: Float)
 }
 
 extension OutlineCoordinable where Self: Coordinator {
     func showOutline(for outline: OutlineProtocol,
                      delegate: OutlineViewControllerDelegate,
-                     transitioningDelegate: UIViewControllerTransitioningDelegate) {
+                     transitioningDelegate: UIViewControllerTransitioningDelegate,
+                     brightness: Float) {
         let coordinator = OutlineViewCoordinator(navigationController: navigationController)
         coordinator.outline = outline
         coordinator.delegate = delegate
         coordinator.transitioningDelegate = transitioningDelegate
+        coordinator.brightness = brightness
         coordinator.start()
     }
 }

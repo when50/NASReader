@@ -12,6 +12,7 @@ final class OutlineViewCoordinator: Coordinator, OutlineViewCoordinatorProtocol 
     var outline: OutlineProtocol?
     var delegate: OutlineViewControllerDelegate?
     var transitioningDelegate: UIViewControllerTransitioningDelegate?
+    var brightness: Float = 0
     
     init(navigationController: UINavigationController, transitioningDelegate: UIViewControllerTransitioningDelegate? = nil) {
         self.navigationController = navigationController
@@ -23,6 +24,7 @@ final class OutlineViewCoordinator: Coordinator, OutlineViewCoordinatorProtocol 
         viewController.coordinator = self
         viewController.outline = outline
         viewController.delegate = delegate
+        viewController.brightness = brightness
         if let transitioningDelegate = transitioningDelegate {
             viewController.transitioningDelegate = transitioningDelegate
             viewController.modalPresentationStyle = .custom

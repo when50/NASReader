@@ -9,7 +9,7 @@ import UIKit
 import DYReader
 
 
-class DYReaderController: UIViewController {
+class DYReaderController: UIViewController, BrightnessSetable {
     @objc enum PageStlye: Int {
         case scrollVertical
         case scrollHorizontal
@@ -54,7 +54,7 @@ class DYReaderController: UIViewController {
         v.backgroundColor = .clear
         return v
     }()
-    private var brightnessView = DYBrightnessView(frame: .zero)
+    private(set) var brightnessView = DYBrightnessView(frame: .zero)
     private lazy var rollbackView: DYRollbackChapterView = {
         let view = DYRollbackChapterView(frame: .zero)
         view.rollback = { [weak self] in
@@ -195,9 +195,9 @@ class DYReaderController: UIViewController {
         renderModel.bind { [weak self] value in
             // seriallize
             if value.useSystemBrightness {
-                self?.brightnessView.brightness.value = 1
+                self?.setBrightness(1)
             } else {
-                self?.brightnessView.brightness.value = value.brightness
+                self?.setBrightness(value.brightness)
             }
             self?.settingView.updateRenderModel(value)
         }
@@ -302,7 +302,10 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
                                    isCurrent: i == bookReader.chapterIdx)
             items += [item]
         }
-        coordinator?.showOutline(for: Outline(items: items), delegate: self)
+        coordinator?.showOutline(
+            for: Outline(items: items),
+            delegate: self,
+            brightness: renderModel.value.useSystemBrightness ? 1.0 : renderModel.value.brightness)
     }
     
     func toggleDeepColor(open: Bool) {

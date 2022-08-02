@@ -10,6 +10,7 @@
 		5A06324A2897D74100733185 /* SlideInPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0632492897D74100733185 /* SlideInPresentationManager.swift */; };
 		5A06324C2897D94D00733185 /* SlideInPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06324B2897D94D00733185 /* SlideInPresentationController.swift */; };
 		5A06324E2898BE0100733185 /* SlideInPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06324D2898BE0100733185 /* SlideInPresentationAnimator.swift */; };
+		5A0632512898C8D600733185 /* BrightnessSetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0632502898C8D600733185 /* BrightnessSetable.swift */; };
 		5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2068FF286DA54E000C5BEA /* AppDelegate.m */; };
 		5A20690B286DA550000C5BEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A20690A286DA550000C5BEA /* Assets.xcassets */; };
 		5A20690E286DA550000C5BEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A20690C286DA550000C5BEA /* LaunchScreen.storyboard */; };
@@ -86,6 +87,7 @@
 		5A0632492897D74100733185 /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
 		5A06324B2897D94D00733185 /* SlideInPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationController.swift; sourceTree = "<group>"; };
 		5A06324D2898BE0100733185 /* SlideInPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationAnimator.swift; sourceTree = "<group>"; };
+		5A0632502898C8D600733185 /* BrightnessSetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessSetable.swift; sourceTree = "<group>"; };
 		5A2068FB286DA54E000C5BEA /* NASReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NASReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A2068FE286DA54E000C5BEA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A2068FF286DA54E000C5BEA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -154,6 +156,14 @@
 				5A06324D2898BE0100733185 /* SlideInPresentationAnimator.swift */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		5A06324F2898C8A300733185 /* Brightness */ = {
+			isa = PBXGroup;
+			children = (
+				5A0632502898C8D600733185 /* BrightnessSetable.swift */,
+			);
+			path = Brightness;
 			sourceTree = "<group>";
 		};
 		5A2068F2286DA54E000C5BEA = {
@@ -264,6 +274,7 @@
 		5AACAF38287807FB00D13209 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				5A06324F2898C8A300733185 /* Brightness */,
 				5A0632482897D72700733185 /* Presentation */,
 				5A65CB25287D7E1100D4BE75 /* RoundCornerImage */,
 				5A65CB1E287D7D7200D4BE75 /* ColorImage */,
@@ -515,6 +526,7 @@
 				5AB21ECE289127BB00EE1433 /* DYRenderDataSourceImpl.swift in Sources */,
 				5AB21E232887A27D00EE1433 /* OutlineItem.swift in Sources */,
 				5A76DC6F28796F80003D6D36 /* DYReaderSettingView.swift in Sources */,
+				5A0632512898C8D600733185 /* BrightnessSetable.swift in Sources */,
 				5AB21EC4288FC1EC00EE1433 /* DYRollbackChapterView.m in Sources */,
 				5AB21E292887A86E00EE1433 /* OutlineCoordinable.swift in Sources */,
 				5A65CB28287D7E3200D4BE75 /* UIImage+RoundCorner.m in Sources */,

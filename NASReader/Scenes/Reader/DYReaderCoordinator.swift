@@ -27,8 +27,11 @@ final class DYReaderCoordinator: NSObject, Coordinator, OutlineCoordinable, DYRe
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showOutline(for outline: OutlineProtocol, delegate: OutlineViewControllerDelegate) {
+    func showOutline(for outline: OutlineProtocol, delegate: OutlineViewControllerDelegate, brightness: Float) {
         transitioningDelegate.direction = .left
-        showOutline(for: outline, delegate: delegate, transitioningDelegate: transitioningDelegate)
+        showOutline(for: outline,
+                    delegate: delegate,
+                    transitioningDelegate: transitioningDelegate,
+                    brightness: brightness)
     }
 }

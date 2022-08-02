@@ -11,14 +11,16 @@ protocol OutlineViewControllerDelegate: AnyObject {
     func outlineViewController(_ outlineViewController: OutlineViewController, didSelectItem index: Int)
 }
 
-class OutlineViewController: UITableViewController {
+class OutlineViewController: UITableViewController, BrightnessSetable {
     struct Constant {
         static let outlineReuseIdentifier = "OutlineItemCell"
     }
     
+    private(set) var brightnessView = DYBrightnessView(frame: .zero)
     weak var coordinator: OutlineViewCoordinatorProtocol?
     var outline: OutlineProtocol?
     weak var delegate: OutlineViewControllerDelegate?
+    var brightness: Float = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +33,20 @@ class OutlineViewController: UITableViewController {
         }
         
         setupUI()
+        setBrightness(brightness)
     }
     
     private func setupUI() {
         tableView.estimatedRowHeight = 45
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(OutlineItemCell.self, forCellReuseIdentifier: Constant.outlineReuseIdentifier)
+        
+        view.addSubview(brightnessView)
+        brightnessView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.brightnessView.frame = tableView.bounds
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
