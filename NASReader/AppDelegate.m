@@ -26,7 +26,6 @@
     [readerCoordinator start];
     window.rootViewController = readerCoordinator.navigationController;
     
-//    window.rootViewController =
     [window makeKeyAndVisible];
     self.readerCoordinator = readerCoordinator;
     self.window = window;
