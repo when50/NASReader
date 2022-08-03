@@ -28,9 +28,8 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         static let cellReuseId = "cellReuseId"
     }
     
+    var delegate: DYRenderDelegate?
     var dataSource: DYRenderDataSource?
-    var currentPage = 0
-    var tapFeatureArea: (() -> Void)?
     func showPageAt(_ pageIdx: Int, animated: Bool = false) {
         if (pageIdx < tableView(tableView, numberOfRowsInSection: 0)) {
             tableView.scrollToRow(at: IndexPath(item: pageIdx, section: 0), at: .top, animated: animated)
@@ -45,13 +44,21 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         tableView.showsHorizontalScrollIndicator = false
         tableView.register(DYPageTableViewCell.self, forCellReuseIdentifier: ConstValue.cellReuseId)
 
+        setupGestures()
+    }
+    
+    private func setupGestures() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
-        tableView.addGestureRecognizer(tap)
+        view.addGestureRecognizer(tap)
     }
     
     @objc
     private func handleTap(sender: UITapGestureRecognizer) {
-        tapFeatureArea?()
+        let location = sender.location(in: view)
+        let range = view.frame.size.width
+        if range > 0 {
+            processTapAt(location: Float(location.x / range))
+        }
     }
 
     // MARK: - Table view data source

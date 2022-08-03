@@ -43,12 +43,6 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         v.backgroundColor = .clear
         return v
     }()
-    private lazy var gestureView: DYGestureView = {
-        let v = DYGestureView(frame: .zero)
-        v.backgroundColor = .clear
-        v.delegate = self
-        return v
-    }()
     private(set) var brightnessView = DYBrightnessView(frame: .zero)
     private lazy var rollbackView: DYRollbackChapterView = {
         let view = DYRollbackChapterView(frame: .zero)
@@ -90,13 +84,11 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             "navigationView": navigationView,
             "featureView": featureView,
             "settingView": settingView,
-            "gestureView": gestureView,
             "rollbackView": rollbackView,
             "brightnessView": brightnessView,
         ]
         
         [containerView,
-         gestureView,
          navigationView,
          featureView,
          settingView,
@@ -112,8 +104,6 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         containerView.frame = view.bounds
         containerView.layer.shadowOpacity = 0
         containerView.isHidden = false
-        gestureView.layer.shadowOpacity = 0
-        gestureView.isHidden = false
         brightnessView.layer.shadowOpacity = 0
         brightnessView.isHidden = false
         settingView.layer.shadowOpacity = 0
@@ -141,9 +131,6 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[settingView(334)]-(98)-|", metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[settingView]-(0)-|", metrics: nil, views: views))
-        
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[gestureView]-(0)-|", metrics: nil, views: views))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[gestureView]-(0)-|", metrics: nil, views: views))
         
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[rollbackView(48)]-(98)-[featureView]", metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[rollbackView]-(20)-|", metrics: nil, views: views))
@@ -229,11 +216,6 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         }
     }
     
-    @objc
-    private func tapHandler(sender: UITapGestureRecognizer) {
-        featureViewShown = false
-    }
-    
     private func showNavigationFeatureViews() {
         navigationView.isHidden = false
         featureView.isHidden = false
@@ -262,8 +244,8 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     }
 }
 
-extension DYReaderController: DYGestureViewDelegate {
-    func gestureView(_ gestureView: DYGestureView, didTap operation: DYGestureViewOperation) {
+extension DYReaderController: DYRenderDelegate {
+    func render(_ render: DYRenderProtocol, didTap operation: DYGestureViewOperation) {
         if featureViewShown {
             featureViewShown = false
         } else {
@@ -275,7 +257,7 @@ extension DYReaderController: DYGestureViewDelegate {
                 if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
                     bookReader.pageIdx = Int32(pageIdx)
                     bookReader.chapterIdx = Int32(chapterIdx)
-                    render?.scrollBackwardPage(animated: true)
+                    render.scrollBackwardPage(animated: true)
                 }
                 
             case .scrollForward:
@@ -285,7 +267,7 @@ extension DYReaderController: DYGestureViewDelegate {
                 if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
                     bookReader.pageIdx = Int32(pageIdx)
                     bookReader.chapterIdx = Int32(chapterIdx)
-                    render?.scrollForwardPage(animated: true)
+                    render.scrollForwardPage(animated: true)
                 }
             case .toggleNavigationFeautre:
                 featureViewShown = true

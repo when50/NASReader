@@ -14,10 +14,29 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
             updatePages()
         }
     }
+    var delegate: DYRenderDelegate?
     var dataSource: DYRenderDataSource?
-    var tapFeatureArea: (() -> Void)?
     private var showPageBlock: (() -> Void)?
     private var pageView: UIView?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupGestures()
+    }
+    
+    private func setupGestures() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc
+    private func handleTap(sender: UITapGestureRecognizer) {
+        let location = sender.location(in: view)
+        let range = view.frame.size.width
+        if range > 0 {
+            processTapAt(location: Float(location.x / range))
+        }
+    }
     
     func supportStyle(style: DYRenderModel.Style) -> Bool {
         let styles: [DYRenderModel.Style] = [.scrollHorizontal, .cover]

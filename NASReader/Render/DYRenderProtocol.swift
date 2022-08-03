@@ -22,17 +22,36 @@ protocol DYRenderDataSource {
     func getChapterIndex(pageIndex: Int) -> Int?
 }
 
-protocol DYRenderProtocol {
+enum DYGestureViewOperation {
+    case scrollBackword
+    case scrollForward
+    case toggleNavigationFeautre
+}
+
+protocol DYRenderDelegate: AnyObject {
+    func render(_ render: DYRenderProtocol, didTap operation: DYGestureViewOperation)
+}
+
+protocol DYRenderProtocol: AnyObject {
+    var delegate: DYRenderDelegate? { get set }
     var dataSource: DYRenderDataSource? { get set }
     func supportStyle(style: DYRenderModel.Style) -> Bool
     func buildRender(parentController: UIViewController)
     func scrollBackwardPage(animated: Bool)
     func scrollForwardPage(animated: Bool)
     func clean()
+    func processTapAt(location: Float)
+}
+
+struct DYRenderConstant {
+    static let scrollTapRange: Float = 0.3
 }
 
 extension DYRenderProtocol where Self: UIViewController {
     func buildRender(parentController: UIViewController) {
+        if let delegate = parentController as? DYRenderDelegate {
+            self.delegate = delegate
+        }
         parentController.addChild(self)
         view.frame = parentController.view.bounds
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -46,5 +65,19 @@ extension DYRenderProtocol where Self: UIViewController {
         willMove(toParent: nil)
         view.removeFromSuperview()
         removeFromParent()
+    }
+    
+    func processTapAt(location: Float) {
+        switch location {
+        case let v where v < DYRenderConstant.scrollTapRange:
+            print("scroll backward")
+            delegate?.render(self, didTap: .scrollBackword)
+        case let v where v + DYRenderConstant.scrollTapRange > 1.0:
+            print("scroll forward")
+            delegate?.render(self, didTap: .scrollForward)
+        default:
+            print("toggle control")
+            delegate?.render(self, didTap: .toggleNavigationFeautre)
+        }
     }
 }

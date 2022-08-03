@@ -11,7 +11,6 @@
 		5A06324C2897D94D00733185 /* SlideInPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06324B2897D94D00733185 /* SlideInPresentationController.swift */; };
 		5A06324E2898BE0100733185 /* SlideInPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06324D2898BE0100733185 /* SlideInPresentationAnimator.swift */; };
 		5A0632512898C8D600733185 /* BrightnessSetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0632502898C8D600733185 /* BrightnessSetable.swift */; };
-		5A0632532898FC7000733185 /* DYGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0632522898FC7000733185 /* DYGestureView.swift */; };
 		5A206900286DA54E000C5BEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2068FF286DA54E000C5BEA /* AppDelegate.m */; };
 		5A20690B286DA550000C5BEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A20690A286DA550000C5BEA /* Assets.xcassets */; };
 		5A20690E286DA550000C5BEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A20690C286DA550000C5BEA /* LaunchScreen.storyboard */; };
@@ -88,7 +87,6 @@
 		5A06324B2897D94D00733185 /* SlideInPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationController.swift; sourceTree = "<group>"; };
 		5A06324D2898BE0100733185 /* SlideInPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationAnimator.swift; sourceTree = "<group>"; };
 		5A0632502898C8D600733185 /* BrightnessSetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessSetable.swift; sourceTree = "<group>"; };
-		5A0632522898FC7000733185 /* DYGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYGestureView.swift; sourceTree = "<group>"; };
 		5A2068FB286DA54E000C5BEA /* NASReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NASReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A2068FE286DA54E000C5BEA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A2068FF286DA54E000C5BEA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -267,7 +265,6 @@
 				5AACAF40287811A500D13209 /* DNSimpleSlider.swift */,
 				5A76DC702879A513003D6D36 /* DYControlProtocol.swift */,
 				5A84F7662893B08400C1A2DA /* DYBrightnessView.swift */,
-				5A0632522898FC7000733185 /* DYGestureView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -501,7 +498,6 @@
 				5AB21E1F2887A1A000EE1433 /* DYReaderProtocols.swift in Sources */,
 				5AB21E1528879F4D00EE1433 /* OutlineViewCoordinator.swift in Sources */,
 				5AACAF35287806B200D13209 /* DYReaderNavigationView.swift in Sources */,
-				5A0632532898FC7000733185 /* DYGestureView.swift in Sources */,
 				5A06324C2897D94D00733185 /* SlideInPresentationController.swift in Sources */,
 				5A76DC712879A513003D6D36 /* DYControlProtocol.swift in Sources */,
 				5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */,
