@@ -188,7 +188,10 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         case .curl:
             break
         }
+        let pageIdx = bookReader.pageIdx
+        let chapterIdx = bookReader.chapterIdx
         bookReader.reopenFile()
+        bookReader.switch(toPage: pageIdx, chapter: chapterIdx)
         render?.dataSource = DYRenderDataSourceImpl(reader: bookReader)
         invalidRenderContent.value = true
     }
@@ -280,8 +283,7 @@ extension DYReaderController: DYRenderDelegate {
                 guard pageIdx >= 0 else { return }
                 guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
                 if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
-                    bookReader.pageIdx = Int32(pageIdx)
-                    bookReader.chapterIdx = Int32(chapterIdx)
+                    bookReader.switch(toPage: Int32(pageIdx), chapter: Int32(chapterIdx))
                     render.scrollBackwardPage(animated: true)
                 }
                 
@@ -290,8 +292,7 @@ extension DYReaderController: DYRenderDelegate {
                 guard pageIdx < bookReader.pageNum else { return }
                 guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
                 if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
-                    bookReader.pageIdx = Int32(pageIdx)
-                    bookReader.chapterIdx = Int32(chapterIdx)
+                    bookReader.switch(toPage: Int32(pageIdx), chapter: Int32(chapterIdx))
                     render.scrollForwardPage(animated: true)
                 }
             case .toggleNavigationFeautre:

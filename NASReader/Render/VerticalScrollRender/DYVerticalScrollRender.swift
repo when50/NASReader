@@ -13,15 +13,13 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
     }
     
     func scrollBackwardPage(animated: Bool) {
-        
+        let indexPath = IndexPath(item: dataSource?.currentPageIdx ?? 0, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
     }
     
     func scrollForwardPage(animated: Bool) {
-        
-    }
-    
-    func showPage() {
-        
+        let indexPath = IndexPath(item: dataSource?.pageNum ?? 0, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
     }
     
     struct ConstValue {
@@ -29,7 +27,11 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
     }
     
     var delegate: DYRenderDelegate?
-    var dataSource: DYRenderDataSource?
+    var dataSource: DYRenderDataSource? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     func showPageAt(_ pageIdx: Int, animated: Bool = false) {
         if (pageIdx < tableView(tableView, numberOfRowsInSection: 0)) {
             tableView.scrollToRow(at: IndexPath(item: pageIdx, section: 0), at: .top, animated: animated)
