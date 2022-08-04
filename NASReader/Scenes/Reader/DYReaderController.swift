@@ -164,26 +164,33 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         render?.clean()
         render = nil
         
-        var pageSize = view.bounds.size
         switch style {
         case .scrollVertical:
             let render = DYVerticalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
             render.view.frame = view.bounds.inset(by: UIEdgeInsets(top: 0, left: edgeInsets.left, bottom: 0, right: edgeInsets.right))
-            render.tableView.contentInset = UIEdgeInsets(top: edgeInsets.top, left: 0, bottom: edgeInsets.bottom, right: 0)
-            pageSize = render.view.frame.size
             self.render = render
+            bookReader.pageSize = render.view.frame.size
         case .scrollHorizontal, .cover:
             let render = DYHorizontalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
             render.view.frame = view.bounds
             render.coverStyle = style == .cover
-            pageSize = view.bounds.inset(by: edgeInsets).size
             self.render = render
+            var frame = UIScreen.main.bounds
+            var insets = UIEdgeInsets.zero
+            if #available(iOS 11.0, *) {
+                if let window = UIApplication.shared.keyWindow {
+                    insets = window.safeAreaInsets
+                    frame = frame.inset(by: insets)
+                }
+            }
+            bookReader.pageSize = frame.size
         case .curl:
             break
         }
-        render?.dataSource = DYRenderDataSourceImpl(reader: bookReader, pageSize: pageSize)
+        bookReader.reopenFile()
+        render?.dataSource = DYRenderDataSourceImpl(reader: bookReader)
         invalidRenderContent.value = true
     }
     
