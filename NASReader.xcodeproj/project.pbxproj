@@ -48,7 +48,7 @@
 		5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */; };
 		5AECFE8E2870A15400E6205F /* DYRenderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8D2870A15400E6205F /* DYRenderProtocol.swift */; };
 		5AECFE91287115D400E6205F /* DYPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE90287115D400E6205F /* DYPageTableViewCell.swift */; };
-		5AECFE982872941400E6205F /* DYHorizontalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE972872941400E6205F /* DYHorizontalScrollRender.swift */; };
+		5AECFE982872941400E6205F /* DYCoverRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE972872941400E6205F /* DYCoverRender.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,7 +131,7 @@
 		5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYReaderController.swift; sourceTree = "<group>"; };
 		5AECFE8D2870A15400E6205F /* DYRenderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYRenderProtocol.swift; sourceTree = "<group>"; };
 		5AECFE90287115D400E6205F /* DYPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYPageTableViewCell.swift; sourceTree = "<group>"; };
-		5AECFE972872941400E6205F /* DYHorizontalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYHorizontalScrollRender.swift; sourceTree = "<group>"; };
+		5AECFE972872941400E6205F /* DYCoverRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYCoverRender.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,7 +312,7 @@
 			children = (
 				5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */,
 				5AECFE8D2870A15400E6205F /* DYRenderProtocol.swift */,
-				5AECFE942871736D00E6205F /* HorizontalScrollRender */,
+				5AECFE942871736D00E6205F /* CoverRender */,
 				5AECFE8F287115B600E6205F /* VerticalScrollRender */,
 			);
 			path = Render;
@@ -393,12 +393,12 @@
 			path = VerticalScrollRender;
 			sourceTree = "<group>";
 		};
-		5AECFE942871736D00E6205F /* HorizontalScrollRender */ = {
+		5AECFE942871736D00E6205F /* CoverRender */ = {
 			isa = PBXGroup;
 			children = (
-				5AECFE972872941400E6205F /* DYHorizontalScrollRender.swift */,
+				5AECFE972872941400E6205F /* DYCoverRender.swift */,
 			);
-			path = HorizontalScrollRender;
+			path = CoverRender;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -515,7 +515,7 @@
 				5A06324E2898BE0100733185 /* SlideInPresentationAnimator.swift in Sources */,
 				5AB21E2B2887DD1A00EE1433 /* OutlineItemCell.swift in Sources */,
 				5AACAF41287811A500D13209 /* DNSimpleSlider.swift in Sources */,
-				5AECFE982872941400E6205F /* DYHorizontalScrollRender.swift in Sources */,
+				5AECFE982872941400E6205F /* DYCoverRender.swift in Sources */,
 				5A206911286DA550000C5BEA /* main.m in Sources */,
 				5AACAF3C2878080E00D13209 /* UIImage+DNIconfontHelper.m in Sources */,
 				5AB21E272887A72F00EE1433 /* Outline.swift in Sources */,

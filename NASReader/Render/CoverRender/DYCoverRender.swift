@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
+class DYCoverRender: UIViewController, DYRenderProtocol {
     
     var coverStyle = false {
         didSet {

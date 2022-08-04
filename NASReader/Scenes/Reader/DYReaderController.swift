@@ -171,7 +171,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             self.render = render
             bookReader.pageSize = containerView.frame.size
         case .scrollHorizontal, .cover:
-            let render = DYHorizontalScrollRender(nibName: nil, bundle: nil)
+            let render = DYCoverRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
             render.view.frame = view.bounds
             render.coverStyle = style == .cover
