@@ -53,10 +53,17 @@ extension DYRenderProtocol where Self: UIViewController {
             self.delegate = delegate
         }
         parentController.addChild(self)
-        view.frame = parentController.view.bounds
         view.translatesAutoresizingMaskIntoConstraints = false
         if let container = parentController as? DYReaderContainer {
             container.containerView.addSubview(view)
+            NSLayoutConstraint.activate(
+                NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|",
+                                               metrics: nil,
+                                               views: ["view": view]))
+            NSLayoutConstraint.activate(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|",
+                                               metrics: nil,
+                                               views: ["view": view]))
         }
         didMove(toParent: parentController)
     }
