@@ -30,6 +30,7 @@ enum DYGestureViewOperation {
 
 protocol DYRenderDelegate: AnyObject {
     func render(_ render: DYRenderProtocol, didTap operation: DYGestureViewOperation)
+    func render(_ render: DYRenderProtocol, switchTo page: Int, chapter: Int)
 }
 
 protocol DYRenderProtocol: AnyObject {
@@ -56,6 +57,7 @@ extension DYRenderProtocol where Self: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         if let container = parentController as? DYReaderContainer {
             container.containerView.addSubview(view)
+            view.frame = container.containerView.bounds
             NSLayoutConstraint.activate(
                 NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|",
                                                metrics: nil,

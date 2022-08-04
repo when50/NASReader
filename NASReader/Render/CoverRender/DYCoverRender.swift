@@ -9,11 +9,7 @@ import UIKit
 
 class DYCoverRender: UIViewController, DYRenderProtocol {
     
-    var coverStyle = false {
-        didSet {
-            updatePages()
-        }
-    }
+    var coverStyle = true
     var delegate: DYRenderDelegate?
     var dataSource: DYRenderDataSource?
     private var showPageBlock: (() -> Void)?
@@ -39,9 +35,7 @@ class DYCoverRender: UIViewController, DYRenderProtocol {
     }
     
     func supportStyle(style: DYRenderModel.Style) -> Bool {
-        let styles: [DYRenderModel.Style] = [.scrollHorizontal, .cover]
-        coverStyle = style == .cover
-        return styles.contains(style)
+        return style == .cover
     }
     
     func scrollBackwardPage(animated: Bool = true) {

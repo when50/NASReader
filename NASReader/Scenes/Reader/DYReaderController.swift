@@ -24,7 +24,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     }
     
     private let bookReader = DYBookReader()
-    private var renderModel = Bindable(DYRenderModel(brightness: 1.0, useSystemBrightness: true, fontSize: 20))
+    private var renderModel = Bindable(DYRenderModel(brightness: 1.0, useSystemBrightness: false, fontSize: 20))
     
     weak var coordinator: DYReaderCoordinatorProtocol?
     
@@ -70,7 +70,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         buildUI()
         setupBindables()
         
-        self.renderModel.value = DYRenderModel(brightness: 0.0, useSystemBrightness: false, fontSize: 18)
+        self.renderModel.value = DYRenderModel(brightness: 0.0, useSystemBrightness: true, fontSize: 18)
         invalidRenderContent.value = true
     }
     
@@ -169,27 +169,22 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             let render = DYVerticalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
             self.render = render
-            bookReader.pageSize = containerView.frame.size
-        case .scrollHorizontal, .cover:
+        case .scrollHorizontal:
+            let render = DYHorizontalScrollRenderViewController(nibName: nil, bundle: nil)
+            render.buildRender(parentController: self)
+            self.render = render
+        case .cover:
             let render = DYCoverRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
             render.view.frame = view.bounds
             render.coverStyle = style == .cover
             self.render = render
-            var frame = UIScreen.main.bounds
-            var insets = UIEdgeInsets.zero
-            if #available(iOS 11.0, *) {
-                if let window = UIApplication.shared.keyWindow {
-                    insets = window.safeAreaInsets
-                    frame = frame.inset(by: insets)
-                }
-            }
-            bookReader.pageSize = frame.size
         case .curl:
             break
         }
         let pageIdx = bookReader.pageIdx
         let chapterIdx = bookReader.chapterIdx
+        bookReader.pageSize = containerView.frame.size
         bookReader.reopenFile()
         bookReader.switch(toPage: pageIdx, chapter: chapterIdx)
         render?.dataSource = DYRenderDataSourceImpl(reader: bookReader)
@@ -273,6 +268,12 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
 }
 
 extension DYReaderController: DYRenderDelegate {
+    func render(_ render: DYRenderProtocol, switchTo page: Int, chapter: Int) {
+        if bookReader.isValidPageIndex(page) && bookReader.isValidChapterIndex(chapter) {
+            bookReader.switch(toPage: Int32(page), chapter: Int32(chapter))
+        }
+    }
+    
     func render(_ render: DYRenderProtocol, didTap operation: DYGestureViewOperation) {
         if featureViewShown {
             featureViewShown = false
