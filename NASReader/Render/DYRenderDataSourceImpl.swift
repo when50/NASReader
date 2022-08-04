@@ -8,31 +8,25 @@
 import Foundation
 
 struct DYRenderDataSourceImpl: DYRenderDataSource {
+    var pageSize: CGSize {
+        return reader.pageSize
+    }
     var currentPageIdx: Int {
-        get {
-            return Int(reader.pageIdx)
-        }
+        return Int(reader.pageIdx)
     }
     var currentChapterIdx: Int {
-        get {
-            return reader.getChapterIndex(pageIndex: currentPageIdx) ?? 0
-        }
+        return reader.getChapterIndex(pageIndex: currentPageIdx) ?? 0
     }
     var pageNum: Int {
-        get {
-            return Int(reader.pageNum)
-        }
+        return Int(reader.pageNum)
     }
     private let reader: DYBookReader
-    let pageSize: CGSize
-    
-    init(reader: DYBookReader, pageSize: CGSize) {
+    init(reader: DYBookReader) {
         self.reader = reader
-        self.pageSize = pageSize
     }
     
     func getPageAt(index: Int) -> UIView? {
-        return reader.getPageView(atPage: Int32(index), size: pageSize)
+        return reader.getPageView(atPage: Int32(index))
     }
     
     func getCurrentPage() -> UIView? {
