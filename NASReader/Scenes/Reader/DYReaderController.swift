@@ -168,9 +168,8 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         case .scrollVertical:
             let render = DYVerticalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
-            render.view.frame = view.bounds.inset(by: UIEdgeInsets(top: 0, left: edgeInsets.left, bottom: 0, right: edgeInsets.right))
             self.render = render
-            bookReader.pageSize = render.view.frame.size
+            bookReader.pageSize = containerView.frame.size
         case .scrollHorizontal, .cover:
             let render = DYHorizontalScrollRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
