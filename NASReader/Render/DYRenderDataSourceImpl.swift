@@ -26,6 +26,7 @@ struct DYRenderDataSourceImpl: DYRenderDataSource {
     }
     
     func getPageAt(index: Int) -> UIView? {
+        guard index >= 0 && index < reader.pageNum else { return nil }
         return reader.getPageView(atPage: Int32(index))
     }
     
