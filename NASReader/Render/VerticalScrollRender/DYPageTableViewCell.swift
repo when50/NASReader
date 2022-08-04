@@ -13,6 +13,7 @@ class DYPageTableViewCell: UITableViewCell {
             oldValue?.removeFromSuperview()
             
             if let page = page {
+                page.frame = self.bounds
                 self.contentView.addSubview(page)
             }
         }

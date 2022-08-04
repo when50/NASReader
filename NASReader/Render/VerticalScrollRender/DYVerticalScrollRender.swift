@@ -77,6 +77,7 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         let cell = tableView.dequeueReusableCell(withIdentifier: ConstValue.cellReuseId, for: indexPath)
         if let cell = cell as? DYPageTableViewCell, let page = dataSource?.getPageAt(index: indexPath.item) {
             cell.page = page
+            page.isUserInteractionEnabled = false
         }
         return cell
     }
