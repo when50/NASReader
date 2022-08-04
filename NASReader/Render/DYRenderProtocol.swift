@@ -59,11 +59,11 @@ extension DYRenderProtocol where Self: UIViewController {
             NSLayoutConstraint.activate(
                 NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|",
                                                metrics: nil,
-                                               views: ["view": view]))
+                                               views: ["view": view!]))
             NSLayoutConstraint.activate(
                 NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|",
                                                metrics: nil,
-                                               views: ["view": view]))
+                                               views: ["view": view!]))
         }
         didMove(toParent: parentController)
     }
