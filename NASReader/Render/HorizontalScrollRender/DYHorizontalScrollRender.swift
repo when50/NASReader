@@ -107,4 +107,9 @@ class DYHorizontalScrollRender: UIViewController, DYRenderProtocol {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        pageView?.frame = view.bounds
+    }
+    
 }
