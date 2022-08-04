@@ -11,7 +11,7 @@ import DYReader
 
 class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer {
     
-    @objc var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
+    @objc var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     
     private var featureViewShown = false {
         didSet {
@@ -113,10 +113,29 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             NSLayoutConstraint.constraints(withVisualFormat: "H:|[containerView]|",
                                            metrics: nil,
                                            views: ["containerView": containerView]))
-        NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(withVisualFormat: "V:|[containerView]|",
-                                           metrics: nil,
-                                           views: ["containerView": containerView]))
+        if #available(iOS 11.0, *) {
+            NSLayoutConstraint.activate([
+                NSLayoutConstraint(item: containerView,
+                                   attribute: .top,
+                                   relatedBy: .equal,
+                                   toItem: view.safeAreaLayoutGuide,
+                                   attribute: .top,
+                                   multiplier: 1.0,
+                                   constant: 0.0),
+                NSLayoutConstraint(item: containerView,
+                                   attribute: .bottom,
+                                   relatedBy: .equal,
+                                   toItem: view.safeAreaLayoutGuide,
+                                   attribute: .bottom,
+                                   multiplier: 1.0,
+                                   constant: 0.0)
+            ])
+        } else {
+            NSLayoutConstraint.activate(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:|[containerView]|",
+                                               metrics: nil,
+                                               views: ["containerView": containerView]))
+        }
         let top = NSLayoutConstraint(item: navigationView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: -94)
         view.addConstraint(top)
         navigationTopConstraint = top
