@@ -176,19 +176,29 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         case .cover:
             let render = DYCoverRender(nibName: nil, bundle: nil)
             render.buildRender(parentController: self)
-            render.view.frame = view.bounds
-            render.coverStyle = style == .cover
             self.render = render
         case .curl:
             break
         }
         let pageIdx = bookReader.pageIdx
         let chapterIdx = bookReader.chapterIdx
-        bookReader.pageSize = containerView.frame.size
-        bookReader.reopenFile()
         bookReader.switch(toPage: pageIdx, chapter: chapterIdx)
         render?.dataSource = DYRenderDataSourceImpl(reader: bookReader)
+        view.setNeedsLayout()
         invalidRenderContent.value = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let containerWidth = containerView.frame.size.width
+        let containerHeight = containerView.frame.size.height
+        if bookReader.pageSize.width != containerWidth ||
+            bookReader.pageSize.height != containerHeight {
+            if let _ = render {
+                bookReader.pageSize = containerView.frame.size
+                bookReader.layoutPageOutlines()
+                invalidRenderContent.value = true
+            }
+        }
     }
     
     private func setupShadow(view: UIView) {
