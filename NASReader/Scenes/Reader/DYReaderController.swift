@@ -38,7 +38,8 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         v.delegate = self
         return v
     }()
-    var containerView: UIView = {
+    private let backgroundView = DNReaderBackgroundView(frame: .zero)
+    private(set) var containerView: UIView = {
         let v = UIView(frame: .zero)
         v.backgroundColor = .clear
         return v
@@ -80,6 +81,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     
     private func buildUI() {
         let views: [String: UIView] = [
+            "backgroundView": backgroundView,
             "containerView": containerView,
             "navigationView": navigationView,
             "featureView": featureView,
@@ -88,7 +90,8 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             "brightnessView": brightnessView,
         ]
         
-        [containerView,
+        [backgroundView,
+         containerView,
          navigationView,
          featureView,
          settingView,
@@ -101,6 +104,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             view.addSubview(subView)
         }
         
+        backgroundView.isHidden = false
         containerView.frame = view.bounds
         containerView.layer.shadowOpacity = 0
         containerView.isHidden = false
@@ -108,6 +112,9 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         brightnessView.isHidden = false
         settingView.layer.shadowOpacity = 0
         setupShadow(view: settingView.topShadowView)
+        
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|[backgroundView]|", metrics: nil, views: ["backgroundView": backgroundView]))
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|[backgroundView]|", metrics: nil, views: ["backgroundView": backgroundView]))
         
         NSLayoutConstraint.activate(
             NSLayoutConstraint.constraints(withVisualFormat: "H:|[containerView]|",
@@ -227,6 +234,20 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             }
             self?.settingView.updateRenderModel(value)
             self?.setupRender(style: value.style)
+            if self?.bookReader.updateFontSize(CGFloat(value.fontSize)) ?? false {
+                self?.render?.cleanCache()
+                self?.invalidRenderContent.value = true
+            }
+            
+            if let styles = self?.backgroundStyles, styles.indices.contains(value.backgroundColorIndex) {
+                let (color, _) = styles[value.backgroundColorIndex]
+                if let color = color {
+                    self?.backgroundView.update(config: color)
+                }
+                else if let image = UIImage(named: "bookReader_page_background") {
+                    self?.backgroundView.update(config: image)
+                }
+            }
         }
     }
     
@@ -414,4 +435,79 @@ extension DYBookReader {
 extension DYBookReader {
     func isValidPageIndex(_ index: Int) -> Bool { (0..<Int(pageNum)).contains(index) }
     func isValidChapterIndex(_ index: Int) -> Bool { (0..<chapterList.count).contains(index) }
+}
+
+extension DYReaderController {
+    struct Constant {
+        static let customCss = "@page{margin:0em 0em}" +
+        "a{color:#06C;text-decoration:underline}" +
+        "address{display:block;font-style:italic}" +
+        "b{font-weight:bold}" +
+        "bdo{direction:rtl;unicode-bidi:bidi-override}" +
+        "blockquote{display:block;margin:1em 40px}" +
+        "body{display:block;margin:1em}" +
+        "cite{font-style:italic}" +
+        "code{font-family:monospace}" +
+        "dd{display:block;margin:0 0 0 40px}" +
+        "del{text-decoration:line-through}" +
+        "div{display:block}" +
+        "dl{display:block;margin:1em 0}" +
+        "dt{display:block}" +
+        "em{font-style:italic}" +
+        "h1{display:block;font-size:2em;font-weight:bold;margin:0.67em 0;page-break-after:avoid}" +
+        "h2{display:block;font-size:1.5em;font-weight:bold;margin:0.83em 0;page-break-after:avoid}" +
+        "h3{display:block;font-size:1.17em;font-weight:bold;margin:1em 0;page-break-after:avoid}" +
+        "h4{display:block;font-size:1em;font-weight:bold;margin:1.33em 0;page-break-after:avoid}" +
+        "h5{display:block;font-size:0.83em;font-weight:bold;margin:1.67em 0;page-break-after:avoid}" +
+        "h6{display:block;font-size:0.67em;font-weight:bold;margin:2.33em 0;page-break-after:avoid}" +
+        "head{display:none}" +
+        "hr{border-style:solid;border-width:1px;display:block;margin-bottom:0.5em;margin-top:0.5em;text-align:center}" +
+        "html{display:block}" +
+        "i{font-style:italic}" +
+        "ins{text-decoration:underline}" +
+        "kbd{font-family:monospace}" +
+        "li{display:list-item}" +
+        "menu{display:block;list-style-type:disc;margin:1em 0;padding:0 0 0 30pt}" +
+        "ol{display:block;list-style-type:decimal;margin:1em 0;padding:0 0 0 30pt}" +
+        "p{display:block;margin:1em 0}" +
+        "pre{display:block;font-family:monospace;margin:1em 0;white-space:pre}" +
+        "samp{font-family:monospace}" +
+        "script{display:none}" +
+        "small{font-size:0.83em}" +
+        "strong{font-weight:bold}" +
+        "style{display:none}" +
+        "sub{font-size:0.83em;vertical-align:sub}" +
+        "sup{font-size:0.83em;vertical-align:super}" +
+        "table{display:table}" +
+        "tbody{display:table-row-group}" +
+        "td{display:table-cell;padding:1px}" +
+        "tfoot{display:table-footer-group}" +
+        "th{display:table-cell;font-weight:bold;padding:1px;text-align:center}" +
+        "thead{display:table-header-group}" +
+        "tr{display:table-row}" +
+        "ul{display:block;list-style-type:disc;margin:1em 0;padding:0 0 0 30pt}" +
+        "ul ul{list-style-type:circle}" +
+        "ul ul ul{list-style-type:square}" +
+        "var{font-style:italic}" +
+        "svg{display:none}"
+    }
+    
+    var customReaderCss: String {
+        return DYReaderController.Constant.customCss
+    }
+    
+    var backgroundStyles: [(UIColor?, UIImage?)] {
+        var backgrounds: [(UIColor?, UIImage?)] = []
+        let backgroundColors = [#colorLiteral(red: 1, green: 0.9999999404, blue: 0.9999999404, alpha: 1), #colorLiteral(red: 0.9529411765, green: 0.9176470588, blue: 0.8117647059, alpha: 1), #colorLiteral(red: 0.9254901961, green: 0.9803921569, blue: 0.9254901961, alpha: 1), #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 0.9411764706, alpha: 1)]
+        backgroundColors.forEach { color in
+            backgrounds.append((color, nil))
+        }
+        
+        if let image = UIImage(named: "bookReader_icon_background5") {
+            backgrounds.append((nil, image))
+        }
+        return backgrounds
+    }
+    
+    
 }
