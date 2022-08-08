@@ -71,7 +71,12 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         buildUI()
         setupBindables()
         
-        self.renderModel.value = DYRenderModel(brightness: 0.0, useSystemBrightness: true, fontSize: 18)
+        self.renderModel.value = DYRenderModel(brightness: 0.0,
+                                               useSystemBrightness: true,
+                                               fontSize: 18,
+                                               lineSpace: .lineSpace1,
+                                               backgroundColor: .color5,
+                                               style: .scrollHorizontal)
         invalidRenderContent.value = true
     }
     
