@@ -112,8 +112,30 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         return renderDataSource?.pageSize.height ?? 0
     }
     
+    private func updatePageIndex() {
+        guard let renderDataSource = renderDataSource else { return }
+        let visibleCells = tableView.visibleCells
+        guard let cell = visibleCells.filter({ cell in
+            if let frame = tableView.superview?.convert(cell.frame, from: tableView) {
+                return frame.contains(tableView.center)
+            } else {
+                return false
+            }
+        }).first else {
+            return
+        }
+        if let pageIdx = tableView.indexPath(for: cell)?.item,
+           let chapterIdx = renderDataSource.getChapterIndex(pageIndex: pageIdx) {
+            renderDelegate?.render(self, switchTo: pageIdx, chapter: chapterIdx)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        switchTo(chapterIndex: <#T##Int#>, pageIndex: <#T##Int#>)
+        updatePageIndex()
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updatePageIndex()
     }
 
 
