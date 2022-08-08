@@ -20,6 +20,7 @@
 		5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5A336C382886B917009F4DE9 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A336C372886B917009F4DE9 /* Bindable.swift */; };
 		5A47977E289BA243007F9831 /* DYHorizontalScrollRenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47977D289BA243007F9831 /* DYHorizontalScrollRenderViewController.swift */; };
+		5A479784289CC47A007F9831 /* 每天懂一点好玩心理学.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5A479783289CC47A007F9831 /* 每天懂一点好玩心理学.epub */; };
 		5A5D506A2892954A00978A2B /* OutlineProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5D50692892954A00978A2B /* OutlineProtocols.swift */; };
 		5A65CB24287D7DBE00D4BE75 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65CB23287D7DBE00D4BE75 /* UIImage+Color.m */; };
 		5A65CB28287D7E3200D4BE75 /* UIImage+RoundCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65CB27287D7E3200D4BE75 /* UIImage+RoundCorner.m */; };
@@ -44,6 +45,7 @@
 		5AB21E2B2887DD1A00EE1433 /* OutlineItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E2A2887DD1A00EE1433 /* OutlineItemCell.swift */; };
 		5AB21EC4288FC1EC00EE1433 /* DYRollbackChapterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21EC3288FC1EB00EE1433 /* DYRollbackChapterView.m */; };
 		5AB21ECE289127BB00EE1433 /* DYRenderDataSourceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */; };
+		5AE8F78F28A0AE43002CAFCC /* DNReaderBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8F78E28A0AE43002CAFCC /* DNReaderBackgroundView.swift */; };
 		5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */; };
 		5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */; };
 		5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */; };
@@ -99,6 +101,7 @@
 		5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DYReader.xcodeproj; path = libdyreader/DYReader.xcodeproj; sourceTree = "<group>"; };
 		5A336C372886B917009F4DE9 /* Bindable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		5A47977D289BA243007F9831 /* DYHorizontalScrollRenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYHorizontalScrollRenderViewController.swift; sourceTree = "<group>"; };
+		5A479783289CC47A007F9831 /* 每天懂一点好玩心理学.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "每天懂一点好玩心理学.epub"; sourceTree = "<group>"; };
 		5A5D50692892954A00978A2B /* OutlineProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlineProtocols.swift; sourceTree = "<group>"; };
 		5A65CB22287D7DBE00D4BE75 /* UIImage+Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		5A65CB23287D7DBE00D4BE75 /* UIImage+Color.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
@@ -127,6 +130,7 @@
 		5AB21EC2288FC1EB00EE1433 /* DYRollbackChapterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRollbackChapterView.h; sourceTree = "<group>"; };
 		5AB21EC3288FC1EB00EE1433 /* DYRollbackChapterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRollbackChapterView.m; sourceTree = "<group>"; };
 		5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYRenderDataSourceImpl.swift; sourceTree = "<group>"; };
+		5AE8F78E28A0AE43002CAFCC /* DNReaderBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNReaderBackgroundView.swift; sourceTree = "<group>"; };
 		5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = TLYCSEbookDec2020FINAL.epub; sourceTree = "<group>"; };
 		5AECFE882870A0AE00E6205F /* NASReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NASReader-Bridging-Header.h"; sourceTree = "<group>"; };
 		5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYVerticalScrollRender.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 				5AACAF38287807FB00D13209 /* Vendor */,
 				5AB21E1028879BB500EE1433 /* Render */,
 				5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */,
+				5A479783289CC47A007F9831 /* 每天懂一点好玩心理学.epub */,
 				5A20691F286DA627000C5BEA /* test.pdf */,
 				5A2068FE286DA54E000C5BEA /* AppDelegate.h */,
 				5A2068FF286DA54E000C5BEA /* AppDelegate.m */,
@@ -327,6 +332,7 @@
 		5AB21E1028879BB500EE1433 /* Render */ = {
 			isa = PBXGroup;
 			children = (
+				5AE8F78E28A0AE43002CAFCC /* DNReaderBackgroundView.swift */,
 				5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */,
 				5AECFE8D2870A15400E6205F /* DYRenderProtocol.swift */,
 				5A47977C289BA210007F9831 /* CurlRender */,
@@ -501,6 +507,7 @@
 				5AACAF3F2878086F00D13209 /* iconfont.ttf in Resources */,
 				5A20690B286DA550000C5BEA /* Assets.xcassets in Resources */,
 				5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */,
+				5A479784289CC47A007F9831 /* 每天懂一点好玩心理学.epub in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +536,7 @@
 				5AACAF4428782F3D00D13209 /* UIButton+alignVertical.swift in Sources */,
 				5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */,
 				5A336C382886B917009F4DE9 /* Bindable.swift in Sources */,
+				5AE8F78F28A0AE43002CAFCC /* DNReaderBackgroundView.swift in Sources */,
 				5AECFE91287115D400E6205F /* DYPageTableViewCell.swift in Sources */,
 				5A06324A2897D74100733185 /* SlideInPresentationManager.swift in Sources */,
 				5A06324E2898BE0100733185 /* SlideInPresentationAnimator.swift in Sources */,
