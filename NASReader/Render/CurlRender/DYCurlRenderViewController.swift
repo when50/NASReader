@@ -57,6 +57,15 @@ class DYCurlRenderViewController: UIPageViewController, DYBackgroundRenderProtoc
         }
         didMove(toParent: parentController)
     }
+    
+    func cleanCache() {
+        if let pageIdx = renderDataSource?.currentPageIdx {
+            setViewControllers([buildPageViewController(at: pageIdx)],
+                               direction: .forward,
+                               animated: false,
+                               completion: nil)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
