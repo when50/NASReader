@@ -61,8 +61,9 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         super.viewDidLoad()
 
         let bundle = Bundle.main
-        if let bookfile = bundle.path(forResource: "TLYCSEbookDec2020FINAL", ofType: "epub") {
-            bookReader.openFile(bookfile)
+//        if let bookfile = bundle.path(forResource: "TLYCSEbookDec2020FINAL", ofType: "epub") {
+        if let bookfile = bundle.path(forResource: "每天懂一点好玩心理学", ofType: "epub") {
+            bookReader.openFile(bookfile, customCss: nil)
         }
         
         featureView.delegate = self
