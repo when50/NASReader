@@ -52,6 +52,8 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
         canvas.translatesAutoresizingMaskIntoConstraints = false
         canvas.isPagingEnabled = true
         canvas.delegate = self
+        canvas.showsVerticalScrollIndicator = false
+        canvas.showsHorizontalScrollIndicator = false
         view.addSubview(canvas)
         
         self.canvas = canvas
