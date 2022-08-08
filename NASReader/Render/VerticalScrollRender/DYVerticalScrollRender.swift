@@ -13,12 +13,12 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
     }
     
     func scrollBackwardPage(animated: Bool) {
-        let indexPath = IndexPath(item: dataSource?.currentPageIdx ?? 0, section: 0)
+        let indexPath = IndexPath(item: renderDataSource?.currentPageIdx ?? 0, section: 0)
         tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
     }
     
     func scrollForwardPage(animated: Bool) {
-        let indexPath = IndexPath(item: dataSource?.pageNum ?? 0, section: 0)
+        let indexPath = IndexPath(item: renderDataSource?.pageNum ?? 0, section: 0)
         tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
     }
     
@@ -26,8 +26,8 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         static let cellReuseId = "cellReuseId"
     }
     
-    var delegate: DYRenderDelegate?
-    var dataSource: DYRenderDataSource? {
+    var renderDelegate: DYRenderDelegate?
+    var renderDataSource: DYRenderDataSource? {
         didSet {
             tableView.reloadData()
         }
@@ -64,6 +64,27 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
             processTapAt(location: Float(location.x / range))
         }
     }
+    
+    func buildRender(parentController: UIViewController) {
+        if let delegate = parentController as? DYRenderDelegate {
+            self.renderDelegate = delegate
+        }
+        parentController.addChild(self)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        if let container = parentController as? DYReaderContainer {
+            container.containerView.addSubview(view)
+            view.frame = container.containerView.bounds
+            NSLayoutConstraint.activate(
+                NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|",
+                                               metrics: nil,
+                                               views: ["view": view!]))
+            NSLayoutConstraint.activate(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|",
+                                               metrics: nil,
+                                               views: ["view": view!]))
+        }
+        didMove(toParent: parentController)
+    }
 
     // MARK: - Table view data source
 
@@ -74,12 +95,12 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return dataSource?.pageNum ?? 0
+        return renderDataSource?.pageNum ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ConstValue.cellReuseId, for: indexPath)
-        if let cell = cell as? DYPageTableViewCell, let page = dataSource?.getPageAt(index: indexPath.item) {
+        if let cell = cell as? DYPageTableViewCell, let page = renderDataSource?.getPageAt(index: indexPath.item) {
             cell.page = page
             page.isUserInteractionEnabled = false
         }
@@ -88,7 +109,7 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
     
     // MARK: - TableView delegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return dataSource?.pageSize.height ?? 0
+        return renderDataSource?.pageSize.height ?? 0
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

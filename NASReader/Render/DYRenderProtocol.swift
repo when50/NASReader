@@ -34,14 +34,29 @@ protocol DYRenderDelegate: AnyObject {
 }
 
 protocol DYRenderProtocol: AnyObject {
-    var delegate: DYRenderDelegate? { get set }
-    var dataSource: DYRenderDataSource? { get set }
+    var renderDelegate: DYRenderDelegate? { get set }
+    var renderDataSource: DYRenderDataSource? { get set }
     func supportStyle(style: DYRenderModel.Style) -> Bool
     func buildRender(parentController: UIViewController)
     func scrollBackwardPage(animated: Bool)
     func scrollForwardPage(animated: Bool)
-    func clean()
+    func cleanCache()
+    func doRelease()
     func processTapAt(location: Float)
+}
+
+protocol DYBackgroundRenderProtocol: DYRenderProtocol {
+    var backgroundConfig: AnyObject? { get set }
+    func updateBackground(_ config: AnyObject)
+}
+
+extension DYBackgroundRenderProtocol where Self: UIPageViewController {
+    func updateBackground(_ config: AnyObject) {
+        backgroundConfig = config
+        (viewControllers as? [DYPageViewController])?.forEach({ pageViewController in
+            pageViewController.backgroundView.update(config: config)
+        })
+    }
 }
 
 struct DYRenderConstant {
@@ -51,7 +66,7 @@ struct DYRenderConstant {
 extension DYRenderProtocol where Self: UIViewController {
     func buildRender(parentController: UIViewController) {
         if let delegate = parentController as? DYRenderDelegate {
-            self.delegate = delegate
+            self.renderDelegate = delegate
         }
         parentController.addChild(self)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +85,7 @@ extension DYRenderProtocol where Self: UIViewController {
         didMove(toParent: parentController)
     }
     
-    func clean() {
+    func doRelease() {
         willMove(toParent: nil)
         view.removeFromSuperview()
         removeFromParent()
@@ -80,13 +95,17 @@ extension DYRenderProtocol where Self: UIViewController {
         switch location {
         case let v where v < DYRenderConstant.scrollTapRange:
             print("scroll backward")
-            delegate?.render(self, didTap: .scrollBackword)
+            renderDelegate?.render(self, didTap: .scrollBackword)
         case let v where v + DYRenderConstant.scrollTapRange > 1.0:
             print("scroll forward")
-            delegate?.render(self, didTap: .scrollForward)
+            renderDelegate?.render(self, didTap: .scrollForward)
         default:
             print("toggle control")
-            delegate?.render(self, didTap: .toggleNavigationFeautre)
+            renderDelegate?.render(self, didTap: .toggleNavigationFeautre)
         }
+    }
+    
+    func cleanCache() {
+        
     }
 }

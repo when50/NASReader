@@ -174,7 +174,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     private func setupRender(style: DYRenderModel.Style) {
         if render?.supportStyle(style: style) ?? false { return }
         
-        render?.clean()
+        render?.doRelease()
         render = nil
         
         switch style {
@@ -191,12 +191,14 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             render.buildRender(parentController: self)
             self.render = render
         case .curl:
-            break
+            let render = DYCurlRenderViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal)
+            render.buildRender(parentController: self)
+            self.render = render
         }
         let pageIdx = bookReader.pageIdx
         let chapterIdx = bookReader.chapterIdx
         bookReader.switch(toPage: pageIdx, chapter: chapterIdx)
-        render?.dataSource = DYRenderDataSourceImpl(reader: bookReader)
+        render?.renderDataSource = DYRenderDataSourceImpl(reader: bookReader)
         view.setNeedsLayout()
         invalidRenderContent.value = true
     }
@@ -247,11 +249,12 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             
             if let styles = self?.backgroundStyles, styles.indices.contains(value.backgroundColorIndex) {
                 let (color, _) = styles[value.backgroundColorIndex]
-                if let color = color {
-                    self?.backgroundView.update(config: color)
-                }
-                else if let image = UIImage(named: "bookReader_page_background") {
-                    self?.backgroundView.update(config: image)
+                if let config = color ?? UIImage(named: "bookReader_page_background") {
+                    self?.backgroundView.update(config: config)
+                    
+                    if let render = self?.render as? DYBackgroundRenderProtocol {
+                        render.updateBackground(config)
+                    }
                 }
             }
         }

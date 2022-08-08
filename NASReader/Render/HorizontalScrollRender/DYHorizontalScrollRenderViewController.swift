@@ -11,11 +11,11 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
     struct Constant {
         static let gap: CGFloat = 20.0
     }
-    var delegate: DYRenderDelegate?
+    var renderDelegate: DYRenderDelegate?
     private(set) var canvas: UIScrollView!
     private var allPages: [Int: UIView] = [:]
     
-    var dataSource: DYRenderDataSource? {
+    var renderDataSource: DYRenderDataSource? {
         didSet {
             scrollViewDidScroll(self.canvas)
         }
@@ -34,7 +34,7 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
     }
     
     private func scrollToCurrentPage(animated: Bool) {
-        guard let dataSource = dataSource else {
+        guard let dataSource = renderDataSource else {
             return
         }
         let width = canvas.frame.size.width
@@ -58,6 +58,15 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
         
         self.canvas = canvas
         self.view = view
+    }
+    
+    
+    
+    func cleanCache() {
+        allPages.forEach { (key: Int, value: UIView) in
+            value.removeFromSuperview()
+        }
+        allPages.removeAll()
     }
     
 
@@ -89,8 +98,8 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
         let width = canvas.frame.size.width
         let height = canvas.frame.size.height
         canvas.contentInset = .zero
-        canvas.contentSize = CGSize(width: CGFloat(dataSource?.pageNum ?? 0) * width, height: height)
-        canvas.contentOffset = CGPoint(x: CGFloat(dataSource?.currentPageIdx ?? 0) * width, y: 0)
+        canvas.contentSize = CGSize(width: CGFloat(renderDataSource?.pageNum ?? 0) * width, height: height)
+        canvas.contentOffset = CGPoint(x: CGFloat(renderDataSource?.currentPageIdx ?? 0) * width, y: 0)
         
         allPages.forEach { (key: Int, value: UIView) in
             value.frame = CGRect(x: width * CGFloat(key), y: 0, width: width, height: height)
@@ -117,7 +126,7 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
     }
     
     private func updateCurrentPage() {
-        guard let dataSource = dataSource else {
+        guard let dataSource = renderDataSource else {
             return
         }
 
@@ -126,12 +135,12 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
         let x = canvas.contentOffset.x + width * 0.5
         let pageIdx = Int(x / width)
         if let chapterIdx = dataSource.getChapterIndex(pageIndex: pageIdx) {
-            delegate?.render(self, switchTo: pageIdx, chapter: chapterIdx)
+            renderDelegate?.render(self, switchTo: pageIdx, chapter: chapterIdx)
         }
     }
     
     private func removeInvisiblePages() {
-        guard let dataSource = dataSource else {
+        guard let dataSource = renderDataSource else {
             return
         }
 
@@ -148,7 +157,7 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
     }
     
     private func setupPages() {
-        guard let dataSource = dataSource else {
+        guard let dataSource = renderDataSource else {
             return
         }
 

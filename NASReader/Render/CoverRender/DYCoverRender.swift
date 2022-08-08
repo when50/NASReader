@@ -9,8 +9,8 @@ import UIKit
 
 class DYCoverRender: UIViewController, DYRenderProtocol, UIScrollViewDelegate {
     
-    var delegate: DYRenderDelegate?
-    var dataSource: DYRenderDataSource?
+    var renderDelegate: DYRenderDelegate?
+    var renderDataSource: DYRenderDataSource?
     private var canvas: UIScrollView!
     private var allPages: [Int: UIView] = [:]
     
@@ -80,8 +80,8 @@ class DYCoverRender: UIViewController, DYRenderProtocol, UIScrollViewDelegate {
         let height = canvas.frame.size.height
         
         canvas.contentInset = .zero
-        canvas.contentSize = CGSize(width: width * CGFloat(dataSource?.pageNum ?? 0), height: height)
-        canvas.contentOffset = CGPoint(x: width * CGFloat(dataSource?.currentPageIdx ?? 0), y: 0)
+        canvas.contentSize = CGSize(width: width * CGFloat(renderDataSource?.pageNum ?? 0), height: height)
+        canvas.contentOffset = CGPoint(x: width * CGFloat(renderDataSource?.currentPageIdx ?? 0), y: 0)
         
         allPages.forEach { (key: Int, value: UIView) in
             value.frame = CGRect(x: width * CGFloat(key), y: 0, width: width, height: height)
@@ -95,7 +95,7 @@ class DYCoverRender: UIViewController, DYRenderProtocol, UIScrollViewDelegate {
     }
     
     private func updateCurrentPage() {
-        guard let dataSource = dataSource else {
+        guard let dataSource = renderDataSource else {
             return
         }
 
@@ -104,12 +104,12 @@ class DYCoverRender: UIViewController, DYRenderProtocol, UIScrollViewDelegate {
         let x = canvas.contentOffset.x + width * 0.5
         let pageIdx = Int(x / width)
         if let chapterIdx = dataSource.getChapterIndex(pageIndex: pageIdx) {
-            delegate?.render(self, switchTo: pageIdx, chapter: chapterIdx)
+            renderDelegate?.render(self, switchTo: pageIdx, chapter: chapterIdx)
         }
     }
     
     private func removeInvisiblePages() {
-        guard let dataSource = dataSource else {
+        guard let dataSource = renderDataSource else {
             return
         }
 
@@ -126,7 +126,7 @@ class DYCoverRender: UIViewController, DYRenderProtocol, UIScrollViewDelegate {
     }
     
     private func setupPages() {
-        guard let dataSource = dataSource else {
+        guard let dataSource = renderDataSource else {
             return
         }
 

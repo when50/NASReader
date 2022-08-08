@@ -46,6 +46,8 @@
 		5AB21EC4288FC1EC00EE1433 /* DYRollbackChapterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21EC3288FC1EB00EE1433 /* DYRollbackChapterView.m */; };
 		5AB21ECE289127BB00EE1433 /* DYRenderDataSourceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */; };
 		5AE8F78F28A0AE43002CAFCC /* DNReaderBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8F78E28A0AE43002CAFCC /* DNReaderBackgroundView.swift */; };
+		5AE8F79228A0E1C9002CAFCC /* DYCurlRenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8F79128A0E1C9002CAFCC /* DYCurlRenderViewController.swift */; };
+		5AE8F79428A0EA0C002CAFCC /* DYPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8F79328A0EA0C002CAFCC /* DYPageViewController.swift */; };
 		5AECFE8728707CA000E6205F /* TLYCSEbookDec2020FINAL.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */; };
 		5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */; };
 		5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */; };
@@ -131,6 +133,8 @@
 		5AB21EC3288FC1EB00EE1433 /* DYRollbackChapterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRollbackChapterView.m; sourceTree = "<group>"; };
 		5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYRenderDataSourceImpl.swift; sourceTree = "<group>"; };
 		5AE8F78E28A0AE43002CAFCC /* DNReaderBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNReaderBackgroundView.swift; sourceTree = "<group>"; };
+		5AE8F79128A0E1C9002CAFCC /* DYCurlRenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYCurlRenderViewController.swift; sourceTree = "<group>"; };
+		5AE8F79328A0EA0C002CAFCC /* DYPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYPageViewController.swift; sourceTree = "<group>"; };
 		5AECFE8628707C2500E6205F /* TLYCSEbookDec2020FINAL.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = TLYCSEbookDec2020FINAL.epub; sourceTree = "<group>"; };
 		5AECFE882870A0AE00E6205F /* NASReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NASReader-Bridging-Header.h"; sourceTree = "<group>"; };
 		5AECFE892870A0AE00E6205F /* DYVerticalScrollRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYVerticalScrollRender.swift; sourceTree = "<group>"; };
@@ -254,6 +258,8 @@
 		5A47977C289BA210007F9831 /* CurlRender */ = {
 			isa = PBXGroup;
 			children = (
+				5AE8F79128A0E1C9002CAFCC /* DYCurlRenderViewController.swift */,
+				5AE8F79328A0EA0C002CAFCC /* DYPageViewController.swift */,
 			);
 			path = CurlRender;
 			sourceTree = "<group>";
@@ -532,6 +538,8 @@
 				5A84F7672893B08400C1A2DA /* DYBrightnessView.swift in Sources */,
 				5A65CB24287D7DBE00D4BE75 /* UIImage+Color.m in Sources */,
 				5AB21E1928879FA800EE1433 /* DYReaderCoordinator.swift in Sources */,
+				5AE8F79428A0EA0C002CAFCC /* DYPageViewController.swift in Sources */,
+				5AE8F79228A0E1C9002CAFCC /* DYCurlRenderViewController.swift in Sources */,
 				5A5D506A2892954A00978A2B /* OutlineProtocols.swift in Sources */,
 				5AACAF4428782F3D00D13209 /* UIButton+alignVertical.swift in Sources */,
 				5AECFE8C2870A0DF00E6205F /* DYReaderController.swift in Sources */,
