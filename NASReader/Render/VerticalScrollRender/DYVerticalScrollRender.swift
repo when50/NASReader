@@ -40,6 +40,8 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = .clear
+        tableView.isOpaque = false
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
