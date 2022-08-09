@@ -65,12 +65,8 @@ class DYCoverRender: UIViewController, DYRenderProtocol, UIScrollViewDelegate {
         return style == .cover
     }
     
-    func scrollBackwardPage(animated: Bool = true) {
-//        scrollPage(animated: animated, backword: true)
-    }
-    
-    func scrollForwardPage(animated: Bool = true) {
-//        scrollPage(animated: animated, backword: false)
+    func scrollToCurrentPage(animated: Bool = true) {
+        scrollViewDidScroll(canvas)
     }
     
     override func viewDidLayoutSubviews() {

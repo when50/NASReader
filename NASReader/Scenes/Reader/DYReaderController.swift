@@ -261,7 +261,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     }
     
     private func updateRenderContent(animated: Bool = false) {
-        render?.scrollBackwardPage(animated: false)
+        render?.scrollToCurrentPage(animated: animated)
         
         if let progress = bookReader.chapterProgress(chaterIndex: Int(bookReader.chapterIdx)) {
             featureView.progressSlider.progress = CGFloat(progress)
@@ -325,7 +325,7 @@ extension DYReaderController: DYRenderDelegate {
                 guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
                 if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
                     bookReader.switch(toPage: Int32(pageIdx), chapter: Int32(chapterIdx))
-                    render.scrollBackwardPage(animated: true)
+                    render.scrollToCurrentPage(animated: true)
                 }
                 
             case .scrollForward:
@@ -334,7 +334,7 @@ extension DYReaderController: DYRenderDelegate {
                 guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
                 if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
                     bookReader.switch(toPage: Int32(pageIdx), chapter: Int32(chapterIdx))
-                    render.scrollForwardPage(animated: true)
+                    render.scrollToCurrentPage(animated: true)
                 }
             case .toggleNavigationFeautre:
                 featureViewShown = true

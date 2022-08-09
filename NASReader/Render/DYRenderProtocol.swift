@@ -38,8 +38,7 @@ protocol DYRenderProtocol: AnyObject {
     var renderDataSource: DYRenderDataSource? { get set }
     func supportStyle(style: DYRenderModel.Style) -> Bool
     func buildRender(parentController: UIViewController)
-    func scrollBackwardPage(animated: Bool)
-    func scrollForwardPage(animated: Bool)
+    func scrollToCurrentPage(animated: Bool)
     func cleanCache()
     func doRelease()
     func processTapAt(location: Float)

@@ -12,14 +12,11 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         return style == .scrollVertical
     }
     
-    func scrollBackwardPage(animated: Bool) {
-        let indexPath = IndexPath(item: renderDataSource?.currentPageIdx ?? 0, section: 0)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
-    }
-    
-    func scrollForwardPage(animated: Bool) {
-        let indexPath = IndexPath(item: renderDataSource?.pageNum ?? 0, section: 0)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+    func scrollToCurrentPage(animated: Bool) {
+        if let row = renderDataSource?.currentPageIdx, row > 0 {
+            let indexPath = IndexPath(item: row - 1, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+        }
     }
     
     struct ConstValue {

@@ -25,15 +25,7 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
         return DYRenderModel.Style.scrollHorizontal == style
     }
     
-    func scrollBackwardPage(animated: Bool) {
-        scrollToCurrentPage(animated: animated)
-    }
-    
-    func scrollForwardPage(animated: Bool) {
-        scrollToCurrentPage(animated: animated)
-    }
-    
-    private func scrollToCurrentPage(animated: Bool) {
+    func scrollToCurrentPage(animated: Bool) {
         guard let dataSource = renderDataSource else {
             return
         }

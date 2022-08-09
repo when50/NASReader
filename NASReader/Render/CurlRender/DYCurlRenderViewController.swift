@@ -26,17 +26,12 @@ class DYCurlRenderViewController: UIPageViewController, DYBackgroundRenderProtoc
         return style == .curl
     }
     
-    func scrollBackwardPage(animated: Bool) {
-        if let currentPage = viewControllers?.first as? DYPageViewController, currentPage.pageIdx > 0 {
-            let page = buildPageViewController(at: currentPage.pageIdx - 1)
-            setViewControllers([page], direction: .reverse, animated: animated, completion: nil)
-        }
-    }
-    
-    func scrollForwardPage(animated: Bool) {
-        if let currentPage = viewControllers?.first as? DYPageViewController, currentPage.pageIdx + 1 < (renderDataSource?.pageNum ?? 0) {
-            let page = buildPageViewController(at: currentPage.pageIdx + 1)
-            setViewControllers([page], direction: .forward, animated: animated, completion: nil)
+    func scrollToCurrentPage(animated: Bool) {
+        if let pageIdx = renderDataSource?.currentPageIdx {
+            setViewControllers([buildPageViewController(at: pageIdx)],
+                               direction: .forward,
+                               animated: animated,
+                               completion: nil)
         }
     }
     
