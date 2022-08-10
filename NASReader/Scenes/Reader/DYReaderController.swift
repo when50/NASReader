@@ -65,7 +65,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     private var featureBottomConstraint: NSLayoutConstraint?
     private var settingBottomConstraint: NSLayoutConstraint?
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         let bundle = Bundle.main
@@ -211,7 +211,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         invalidRenderContent.value = true
     }
     
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         let containerWidth = containerView.frame.size.width
         let containerHeight = containerView.frame.size.height
         if bookReader.pageSize.width != containerWidth ||
@@ -310,7 +310,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 }
