@@ -41,7 +41,8 @@ static NSString * _fontName;
 + (UIFont*)fontWithSize:(CGFloat)size {
     UIFont *font = [UIFont fontWithName:[self fontName] size:size];
     if (font == nil) {
-        NSURL *fontFileUrl = [[NSBundle mainBundle] URLForResource:[self fontFile] withExtension:@"ttf"];
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSURL *fontFileUrl = [bundle URLForResource:[self fontFile] withExtension:@"ttf"];
         [self registerFontWithURL:fontFileUrl];
         font = [UIFont fontWithName:[self fontName] size:size];
         NSAssert(font, @"UIFont object should not be nil, check if the font file is added to the application bundle and you're using the correct font name.");
@@ -55,7 +56,8 @@ static NSString * _fontName;
 + (UIFont*)fontWithSize:(CGFloat)size withFontName:(NSString*)fontName {
     UIFont *font = [UIFont fontWithName:fontName size:size];
     if (font == nil) {
-        NSURL *fontFileUrl = [[NSBundle mainBundle] URLForResource:fontName withExtension:@"ttf"];
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSURL *fontFileUrl = [bundle URLForResource:fontName withExtension:@"ttf"];
         [self registerFontWithURL:fontFileUrl];
         font = [UIFont fontWithName:fontName size:size];
         NSAssert(font, @"UIFont object should not be nil, check if the font file is added to the application bundle and you're using the correct font name.");
