@@ -21,10 +21,16 @@ class DYCoverRender: UIViewController, DYFullScreenRenderProtocol, UIScrollViewD
     weak var renderDelegate: DYRenderDelegate?
     var renderDataSource: DYRenderDataSource?
     private var canvas: UIScrollView!
+    private var staticCanvas: UIView!
     private var allPages: [Int: UIView] = [:]
     
     override func loadView() {
         let view = UIView()
+        
+        staticCanvas = UIView(frame: .zero)
+        staticCanvas.translatesAutoresizingMaskIntoConstraints = false
+        staticCanvas.isUserInteractionEnabled = false
+        view.addSubview(staticCanvas)
         
         canvas = UIScrollView()
         canvas.isPagingEnabled = true
@@ -50,6 +56,7 @@ class DYCoverRender: UIViewController, DYFullScreenRenderProtocol, UIScrollViewD
     
     override func viewWillLayoutSubviews() {
         canvas.frame = view.bounds
+        staticCanvas.frame = view.bounds
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,7 +82,11 @@ class DYCoverRender: UIViewController, DYFullScreenRenderProtocol, UIScrollViewD
     }
     
     func scrollToCurrentPage(animated: Bool = true) {
-        scrollViewDidScroll(canvas)
+        guard let dataSource = renderDataSource else { return }
+        let width = canvas.frame.width
+        let offset = CGPoint(x: dataSource.currentPageIdx * Int(width), y: 0)
+        fromPageIdx = dataSource.currentPageIdx
+        canvas.setContentOffset(offset, animated: animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -93,10 +104,23 @@ class DYCoverRender: UIViewController, DYFullScreenRenderProtocol, UIScrollViewD
         }
     }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        guard let dataSource = renderDataSource else { return }
+        if fromPageIdx == nil {
+            fromPageIdx = dataSource.currentPageIdx
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        fromPageIdx = nil
+        setupPages()
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateCurrentPage()
         removeInvisiblePages()
         setupPages()
+        updateStaticCanvas()
     }
     
     private func updateCurrentPage() {
@@ -136,16 +160,51 @@ class DYCoverRender: UIViewController, DYFullScreenRenderProtocol, UIScrollViewD
         }
 
         let pageIndexes = [dataSource.currentPageIdx - 1, dataSource.currentPageIdx, dataSource.currentPageIdx + 1]
+        
+        let width = canvas.frame.size.width
+        let height = canvas.frame.size.height
+        
         for pageIndex in pageIndexes {
             let found = allPages.keys.contains(pageIndex)
             if !found {
                 if let pageView = dataSource.getPageAt(index: pageIndex) {
-                    let width = canvas.frame.size.width
-                    let height = canvas.frame.size.height
-                    pageView.frame = CGRect(x: CGFloat(pageIndex) * width, y: 0, width: width, height: height)
-                    canvas.addSubview(pageView)
-                    allPages[pageIndex] = pageView
+                    let renderPageView = DYCoverRenderPageView(frame: CGRect(x: CGFloat(pageIndex) * width, y: 0, width: width, height: height))
+                    renderPageView.backgroundConfig = backgroundConfig
+                    renderPageView.pageView = pageView
+                    canvas.addSubview(renderPageView)
+                    allPages[pageIndex] = renderPageView
                 }
+            }
+            
+            if let renderPageView = allPages[pageIndex] {
+                canvas.addSubview(renderPageView)
+                renderPageView.frame = CGRect(x: CGFloat(pageIndex) * width, y: 0, width: width, height: height)
+            }
+        }
+    }
+    
+    private var fromPageIdx: Int?
+    private func updateStaticCanvas() {
+        if let from = fromPageIdx {
+            let width = canvas.frame.width
+            guard width > 0 else { return }
+            var to = from
+            if canvas.contentOffset.x < (CGFloat(from) * width) {
+                to = from - 1
+            } else if canvas.contentOffset.x > (CGFloat(from) * width) {
+                to = from + 1
+            }
+            
+            guard let fromPage = allPages[from], let toPage = allPages[to] else { return }
+            print("from: \(from) to: \(to)")
+            
+            if to > from {
+                staticCanvas.addSubview(toPage)
+                toPage.frame = staticCanvas.bounds
+            }
+            else if to < from {
+                staticCanvas.addSubview(fromPage)
+                fromPage.frame = staticCanvas.bounds
             }
         }
     }
