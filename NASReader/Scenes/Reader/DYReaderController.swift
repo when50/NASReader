@@ -86,7 +86,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
                                                fontSize: 18,
                                                lineSpace: .lineSpace1,
                                                backgroundColor: .color5,
-                                               style: .scrollHorizontal)
+                                               style: .cover)
         invalidRenderContent.value = true
     }
     
