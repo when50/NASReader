@@ -7,7 +7,16 @@
 
 import UIKit
 
-class DYCoverRender: UIViewController, DYRenderProtocol, UIScrollViewDelegate {
+class DYCoverRender: UIViewController, DYFullScreenRenderProtocol, UIScrollViewDelegate {
+    var backgroundConfig: AnyObject?
+    func updateBackground(_ config: AnyObject) {
+        backgroundConfig = config
+        allPages.forEach { (key: Int, value: UIView) in
+            if let renderPageView = value as? DYCoverRenderPageView {
+                renderPageView.backgroundConfig = backgroundConfig
+            }
+        }
+    }
     
     weak var renderDelegate: DYRenderDelegate?
     var renderDataSource: DYRenderDataSource?

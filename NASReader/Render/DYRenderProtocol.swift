@@ -44,12 +44,12 @@ protocol DYRenderProtocol: AnyObject {
     func processTapAt(location: Float)
 }
 
-protocol DYBackgroundRenderProtocol: DYRenderProtocol {
+protocol DYFullScreenRenderProtocol: DYRenderProtocol {
     var backgroundConfig: AnyObject? { get set }
     func updateBackground(_ config: AnyObject)
 }
 
-extension DYBackgroundRenderProtocol where Self: UIPageViewController {
+extension DYFullScreenRenderProtocol where Self: UIPageViewController {
     func updateBackground(_ config: AnyObject) {
         backgroundConfig = config
         (viewControllers as? [DYPageViewController])?.forEach({ pageViewController in
@@ -60,6 +60,26 @@ extension DYBackgroundRenderProtocol where Self: UIPageViewController {
 
 struct DYRenderConstant {
     static let scrollTapRange: Float = 0.3
+}
+
+extension DYFullScreenRenderProtocol where Self: UIViewController {
+    func buildRender(parentController: UIViewController) {
+        if let delegate = parentController as? DYRenderDelegate {
+            self.renderDelegate = delegate
+        }
+        parentController.addChild(self)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        if let container = parentController as? DYReaderContainer,
+            let parentView = container.containerView.superview {
+            container.containerView.addSubview(view)
+            view.frame = container.containerView.bounds
+            let attributes = [NSLayoutConstraint.Attribute.top, .leading, .bottom, .trailing]
+            NSLayoutConstraint.activate(attributes.map({ attribute in
+                return NSLayoutConstraint(item: parentView, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: 1.0, constant: 0.0)
+            }))
+        }
+        didMove(toParent: parentController)
+    }
 }
 
 extension DYRenderProtocol where Self: UIViewController {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DYCurlRenderViewController: UIPageViewController, DYBackgroundRenderProtocol, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class DYCurlRenderViewController: UIPageViewController, DYFullScreenRenderProtocol, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     var backgroundConfig: AnyObject?
     
     weak var renderDelegate: DYRenderDelegate?
@@ -33,24 +33,6 @@ class DYCurlRenderViewController: UIPageViewController, DYBackgroundRenderProtoc
                                animated: animated,
                                completion: nil)
         }
-    }
-    
-    func buildRender(parentController: UIViewController) {
-        if let delegate = parentController as? DYRenderDelegate {
-            self.renderDelegate = delegate
-        }
-        parentController.addChild(self)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        if let container = parentController as? DYReaderContainer,
-            let parentView = container.containerView.superview {
-            container.containerView.addSubview(view)
-            view.frame = container.containerView.bounds
-            let attributes = [NSLayoutConstraint.Attribute.top, .leading, .bottom, .trailing]
-            NSLayoutConstraint.activate(attributes.map({ attribute in
-                return NSLayoutConstraint(item: parentView, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: 1.0, constant: 0.0)
-            }))
-        }
-        didMove(toParent: parentController)
     }
     
     func cleanCache() {

@@ -262,7 +262,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
                 if let config = color ?? image {
                     self?.backgroundView.update(config: config)
                     
-                    if let render = self?.render as? DYBackgroundRenderProtocol {
+                    if let render = self?.render as? DYFullScreenRenderProtocol {
                         render.updateBackground(config)
                     }
                 }
