@@ -96,8 +96,7 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         return btn
     }()
     private lazy var lineSpaceBtns: [UIButton] = {
-        let lineSpaceIcons = ["图标-行间距4", "图标-行间距3", "图标-行间距2", "图标-行间距1"]
-        return lineSpaceIcons.map { icon in
+        return lineSpaceBtnIcons.map { icon in
             let btn = UIButton(type: .system)
             btn.setImage(UIImage.icon(withName: icon, fontSize: 14.0, color: .black), for: .selected)
             btn.setImage(UIImage.icon(withName: icon, fontSize: 14.0, color: .gray), for: .normal)
@@ -107,15 +106,7 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         }
     }()
     private lazy var backgroundColorBtns: [UIButton] = {
-        let backgroundColors = [#colorLiteral(red: 1, green: 0.9999999404, blue: 0.9999999404, alpha: 1), #colorLiteral(red: 0.9529411765, green: 0.9176470588, blue: 0.8117647059, alpha: 1), #colorLiteral(red: 0.9254901961, green: 0.9803921569, blue: 0.9254901961, alpha: 1), #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 0.9411764706, alpha: 1)]
-        
-        var backgroundImages = backgroundColors.map { color in
-            return UIImage.backgroundColorBtnImage(color: color)
-        }
-        if let image = UIImage(named: "bookReader_icon_background5") {
-            backgroundImages += [image]
-        }
-        return backgroundImages.map { image in
+        return backgroundBtnIcons.map { image in
             let btn = UIButton(type: .custom)
             btn.setImage(image, for: .normal)
             btn.setupBorder(cornerRadius: 16)
@@ -291,6 +282,34 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
         if let i = styleBtns.firstIndex(of: sender) {
             renderModel.value.styleIndex = i
         }
+    }
+}
+
+extension DYReaderSettingView {
+    struct Assets {
+        static let backgroundBtnImageName = "bookReader_icon_background5"
+        static let lineSpaceBtnIcons = ["图标-行间距4", "图标-行间距3", "图标-行间距2", "图标-行间距1"]
+    }
+    
+    var backgroundBtnImageName: String {
+        return Assets.backgroundBtnImageName
+    }
+    
+    var lineSpaceBtnIcons: [String] {
+        return Assets.lineSpaceBtnIcons
+    }
+    
+    var backgroundBtnIcons: [UIImage] {
+        let backgroundColors = [#colorLiteral(red: 1, green: 0.9999999404, blue: 0.9999999404, alpha: 1), #colorLiteral(red: 0.9529411765, green: 0.9176470588, blue: 0.8117647059, alpha: 1), #colorLiteral(red: 0.9254901961, green: 0.9803921569, blue: 0.9254901961, alpha: 1), #colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 0.9411764706, alpha: 1)]
+        
+        var backgroundImages = backgroundColors.map { color in
+            return UIImage.backgroundColorBtnImage(color: color)
+        }
+        let bundle = Bundle(for: DYReaderSettingView.self)
+        if let image = UIImage(named: backgroundBtnImageName, in: bundle, compatibleWith: traitCollection) {
+            backgroundImages += [image]
+        }
+        return backgroundImages
     }
 }
 
