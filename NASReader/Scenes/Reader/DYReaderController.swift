@@ -67,16 +67,17 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        let bundle = Bundle.main
-//        if let bookfile = bundle.path(forResource: "TLYCSEbookDec2020FINAL", ofType: "epub") {
-        if let bookfile = bundle.path(forResource: "每天懂一点好玩心理学", ofType: "epub") {
+        
+        if (bookPath?.count ?? 0) == 0 {
+            let bundle = Bundle.main
+            if let bookfile = bundle.path(forResource: "每天懂一点好玩心理学", ofType: "epub") {
+                bookPath = bookfile
+            }
+        }
+        if let bookfile = bookPath {
             bookReader.openFile(bookfile, customCss: nil)
         }
         
-        featureView.delegate = self
-        
-        loadHistory()
         buildUI()
         setupBindables()
         
@@ -89,8 +90,6 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         invalidRenderContent.value = true
     }
     
-    private func loadHistory() {
-        
     }
     
     private func buildUI() {
