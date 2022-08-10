@@ -10,7 +10,7 @@ import DYReader
 
 
 class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer {
-    
+    public var bookPath: String?
     @objc var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     
     private var featureViewShown = false {
@@ -88,8 +88,6 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
                                                backgroundColor: .color5,
                                                style: .scrollHorizontal)
         invalidRenderContent.value = true
-    }
-    
     }
     
     private func buildUI() {
