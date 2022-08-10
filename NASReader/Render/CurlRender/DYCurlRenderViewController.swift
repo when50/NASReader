@@ -9,8 +9,8 @@ import UIKit
 
 class DYCurlRenderViewController: UIPageViewController, DYBackgroundRenderProtocol, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     var backgroundConfig: AnyObject?
-    var renderDelegate: DYRenderDelegate?
     
+    weak var renderDelegate: DYRenderDelegate?
     var renderDataSource: DYRenderDataSource? {
         didSet {
             if let pageIdx = renderDataSource?.currentPageIdx {

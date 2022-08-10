@@ -11,10 +11,10 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
     struct Constant {
         static let gap: CGFloat = 20.0
     }
-    var renderDelegate: DYRenderDelegate?
     private(set) var canvas: UIScrollView!
     private var allPages: [Int: UIView] = [:]
     
+    weak var renderDelegate: DYRenderDelegate?
     var renderDataSource: DYRenderDataSource? {
         didSet {
             scrollViewDidScroll(self.canvas)

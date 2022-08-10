@@ -10,8 +10,8 @@ import UIKit
 final class OutlineViewCoordinator: Coordinator, OutlineViewCoordinatorProtocol {
     var navigationController: UINavigationController
     var outline: OutlineProtocol?
-    var delegate: OutlineViewControllerDelegate?
-    var transitioningDelegate: UIViewControllerTransitioningDelegate?
+    weak var delegate: OutlineViewControllerDelegate?
+    weak var transitioningDelegate: UIViewControllerTransitioningDelegate?
     var brightness: Float = 0
     
     init(navigationController: UINavigationController, transitioningDelegate: UIViewControllerTransitioningDelegate? = nil) {

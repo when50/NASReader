@@ -23,7 +23,7 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         static let cellReuseId = "cellReuseId"
     }
     
-    var renderDelegate: DYRenderDelegate?
+    weak var renderDelegate: DYRenderDelegate?
     var renderDataSource: DYRenderDataSource? {
         didSet {
             tableView.reloadData()

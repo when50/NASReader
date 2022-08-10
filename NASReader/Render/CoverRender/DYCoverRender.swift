@@ -9,7 +9,7 @@ import UIKit
 
 class DYCoverRender: UIViewController, DYRenderProtocol, UIScrollViewDelegate {
     
-    var renderDelegate: DYRenderDelegate?
+    weak var renderDelegate: DYRenderDelegate?
     var renderDataSource: DYRenderDataSource?
     private var canvas: UIScrollView!
     private var allPages: [Int: UIView] = [:]
