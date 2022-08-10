@@ -256,7 +256,12 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             
             if let styles = self?.backgroundStyles, styles.indices.contains(value.backgroundColorIndex) {
                 let (color, _) = styles[value.backgroundColorIndex]
-                if let config = color ?? UIImage(named: "bookReader_page_background") {
+                let bundle = Bundle(for: DYReaderController.self)
+                var image: UIImage? = nil
+                if let self = self {
+                    image = UIImage(named: self.backgroundImageName, in: bundle, compatibleWith: self.traitCollection)
+                }
+                if let config = color ?? image {
                     self?.backgroundView.update(config: config)
                     
                     if let render = self?.render as? DYBackgroundRenderProtocol {
