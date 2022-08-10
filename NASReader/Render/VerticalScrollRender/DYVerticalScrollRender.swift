@@ -19,10 +19,6 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         }
     }
     
-    struct ConstValue {
-        static let cellReuseId = "cellReuseId"
-    }
-    
     weak var renderDelegate: DYRenderDelegate?
     var renderDataSource: DYRenderDataSource? {
         didSet {
@@ -43,7 +39,7 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
         tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
-        tableView.register(DYPageTableViewCell.self, forCellReuseIdentifier: ConstValue.cellReuseId)
+        tableView.register(DYPageTableViewCell.self, forCellReuseIdentifier: cellReuseId)
 
         setupGestures()
     }
@@ -96,7 +92,7 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ConstValue.cellReuseId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath)
         if let cell = cell as? DYPageTableViewCell, let page = renderDataSource?.getPageAt(index: indexPath.item) {
             cell.page = page
             page.isUserInteractionEnabled = false
@@ -136,5 +132,16 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
     }
 
 
+}
+
+extension DYVerticalScrollRender {
+    
+    struct ConstValue {
+        static let cellReuseId = "cellReuseId"
+    }
+    
+    var cellReuseId: String {
+        return ConstValue.cellReuseId
+    }
 }
 
