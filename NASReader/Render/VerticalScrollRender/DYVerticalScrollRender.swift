@@ -13,8 +13,8 @@ class DYVerticalScrollRender: UITableViewController, DYRenderProtocol {
     }
     
     func scrollToCurrentPage(animated: Bool) {
-        if let row = renderDataSource?.currentPageIdx, row > 0 {
-            let indexPath = IndexPath(item: row - 1, section: 0)
+        if let row = renderDataSource?.currentPageIdx, row >= 0 {
+            let indexPath = IndexPath(item: row, section: 0)
             tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
         }
     }
