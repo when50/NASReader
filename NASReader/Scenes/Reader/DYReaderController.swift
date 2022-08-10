@@ -456,6 +456,7 @@ extension DYBookReader {
 
 extension DYReaderController {
     struct Constant {
+        static let backgroundImageName = "bookReader_page_background"
         static let customCss = "@page{margin:0em 0em}" +
         "a{color:#06C;text-decoration:underline}" +
         "address{display:block;font-style:italic}" +
@@ -509,8 +510,12 @@ extension DYReaderController {
         "svg{display:none}"
     }
     
+    var backgroundImageName: String {
+        return Constant.backgroundImageName
+    }
+    
     var customReaderCss: String {
-        return DYReaderController.Constant.customCss
+        return Constant.customCss
     }
     
     var backgroundStyles: [(UIColor?, UIImage?)] {
@@ -520,7 +525,8 @@ extension DYReaderController {
             backgrounds.append((color, nil))
         }
         
-        if let image = UIImage(named: "bookReader_icon_background5") {
+        let bundle = Bundle(for: DYReaderController.self)
+        if let image = UIImage(named: "bookReader_icon_background5", in: bundle, compatibleWith: traitCollection) {
             backgrounds.append((nil, image))
         }
         return backgrounds
