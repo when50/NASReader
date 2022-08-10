@@ -7,7 +7,12 @@
 
 import UIKit
 
+protocol DYReaderNavigationViewDelegate: AnyObject {
+    func navigationViewTapBack(_ view: DYReaderNavigationView)
+}
+
 class DYReaderNavigationView: UIView {
+    weak var delegate: DYReaderNavigationViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,10 +28,26 @@ class DYReaderNavigationView: UIView {
         
         let backBtn = UIButton(type: .system)
         backBtn.translatesAutoresizingMaskIntoConstraints = false
-        backBtn.setImage(UIImage.icon(withName: "图标-返回", fontSize: 17.6, color: .black), for: .normal)
+        backBtn.setImage(UIImage.icon(withName: backBtnName, fontSize: 17.6, color: .black), for: .normal)
+        backBtn.addTarget(self, action: #selector(handleTap(_:)), for: .touchUpInside)
         addSubview(backBtn)
         addConstraint(NSLayoutConstraint(item: backBtn, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 20))
         addConstraint(NSLayoutConstraint(item: backBtn, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -7))
     }
+    
+    @objc
+    private func handleTap(_ sender: UIButton) {
+        delegate?.navigationViewTapBack(self)
+    }
 
+}
+
+extension DYReaderNavigationView {
+    struct Assets {
+        static let backBtnName = "图标-返回"
+    }
+    
+    var backBtnName: String {
+        return Assets.backBtnName
+    }
 }
