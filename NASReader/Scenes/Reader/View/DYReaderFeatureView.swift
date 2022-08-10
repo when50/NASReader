@@ -48,7 +48,13 @@ class DYReaderFeatureView: UIView {
     
     func setupBindables () {
         deepColorIsOpen.bind { [weak deepColorBtn, weak delegate] isOpen in
-            deepColorBtn?.isSelected = isOpen
+            UIView.setAnimationsEnabled(false)
+            let iconName = isOpen ? "图标-亮度+" : "图标-夜间模式"
+            let icon = UIImage.icon(withName: iconName, fontSize: 18.0, color: .black)
+            deepColorBtn?.setImage(icon, for: .normal)
+            
+            let title = isOpen ? "白天模式" : "夜间模式"
+            deepColorBtn?.setTitle(title, for: .normal)
             delegate?.toggleDeepColor(open: isOpen)
         }
         settingShown.bind { [weak settingBtn, weak delegate] shown in
