@@ -11,6 +11,7 @@ class DYCurlRenderViewController: UIPageViewController, DYFullScreenRenderProtoc
     var backgroundConfig: AnyObject?
     
     weak var renderDelegate: DYRenderDelegate?
+    private var latestPageIdx: Int? = nil
     var renderDataSource: DYRenderDataSource? {
         didSet {
             if let pageIdx = renderDataSource?.currentPageIdx {
@@ -28,8 +29,12 @@ class DYCurlRenderViewController: UIPageViewController, DYFullScreenRenderProtoc
     
     func scrollToCurrentPage(animated: Bool) {
         if let pageIdx = renderDataSource?.currentPageIdx {
+            var direction = NavigationDirection.forward
+            if let latestPageIdx = latestPageIdx, pageIdx < latestPageIdx {
+                direction = .reverse
+            }
             setViewControllers([buildPageViewController(at: pageIdx)],
-                               direction: .forward,
+                               direction: direction,
                                animated: animated,
                                completion: nil)
         }
@@ -52,6 +57,13 @@ class DYCurlRenderViewController: UIPageViewController, DYFullScreenRenderProtoc
         delegate = self
         
         setupGestures()
+    }
+    
+    override func setViewControllers(_ viewControllers: [UIViewController]?, direction: UIPageViewController.NavigationDirection, animated: Bool, completion: ((Bool) -> Void)? = nil) {
+        super.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
+        if let pageVC = viewControllers?.first as? DYPageViewController {
+            latestPageIdx = pageVC.pageIdx
+        }
     }
     
     private func setupGestures() {
@@ -107,6 +119,7 @@ class DYCurlRenderViewController: UIPageViewController, DYFullScreenRenderProtoc
                 let pageNum = renderDataSource?.pageNum,
                 pageNum > 0 else { return }
         if let pageIdx = pageVCs.first?.pageIdx, let chapterIdx = self.renderDataSource?.getChapterIndex(pageIndex: pageIdx) {
+            latestPageIdx = pageIdx
             self.renderDelegate?.render(self, switchTo: pageIdx, chapter: chapterIdx)
         }
     }
