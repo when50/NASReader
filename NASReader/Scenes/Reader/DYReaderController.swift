@@ -315,6 +315,12 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     }
 }
 
+extension DYReaderController: DYReaderNavigationViewDelegate {
+    func navigationViewTapBack(_ view: DYReaderNavigationView) {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
 extension DYReaderController: DYRenderDelegate {
     func render(_ render: DYRenderProtocol, switchTo page: Int, chapter: Int) {
         if bookReader.isValidPageIndex(page) && bookReader.isValidChapterIndex(chapter) {
