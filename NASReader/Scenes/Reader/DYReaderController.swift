@@ -31,8 +31,16 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     private var invalidRenderContent = Bindable(false)
     private var rollbackChapterIndex = Bindable(0)
     private var render: DYRenderProtocol?
-    private let navigationView = DYReaderNavigationView(frame: .zero)
-    private let featureView = DYReaderFeatureView(frame: .zero)
+    private lazy var navigationView: DYReaderNavigationView = {
+        let v = DYReaderNavigationView(frame: .zero)
+        v.delegate = self
+        return v
+    }()
+    private lazy var featureView: DYReaderFeatureView = {
+        let v = DYReaderFeatureView(frame: .zero)
+        v.delegate = self
+        return v
+    }()
     private lazy var settingView: DYReaderSettingView = {
         let v = DYReaderSettingView(frame: .zero)
         v.delegate = self
