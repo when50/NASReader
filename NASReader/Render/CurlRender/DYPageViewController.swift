@@ -9,7 +9,11 @@ import UIKit
 
 class DYPageViewController: UIViewController {
     var pageIdx = 0
-    var pageView: UIView?
+    var pageView: UIView? {
+        didSet {
+            view.setNeedsLayout()
+        }
+    }
     let backgroundView = DNReaderBackgroundView(frame: .zero)
 
     override func viewDidLoad() {
@@ -18,8 +22,6 @@ class DYPageViewController: UIViewController {
         // Do any additional setup after loading the view.
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundView)
-        NSLayoutConstraint.constraints(withVisualFormat: "H:|[backgroundView]|", metrics: nil, views: ["backgroundView": backgroundView])
-        NSLayoutConstraint.constraints(withVisualFormat: "V:|[backgroundView]|", metrics: nil, views: ["backgroundView": backgroundView])
         if let pageView = pageView {
             pageView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(pageView)
@@ -27,6 +29,7 @@ class DYPageViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        backgroundView.frame = view.bounds
         if #available(iOS 11.0, *) {
             pageView?.frame = view.bounds.inset(by: view.safeAreaInsets)
         } else {
