@@ -72,7 +72,6 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
     private lazy var fontSizeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
-        label.textColor = .black
         label.textAlignment = .center
         label.text = "20"
         return label
@@ -130,7 +129,12 @@ final class DYReaderSettingView: UIView, DYControlProtocol {
     }
     
     private func setupUI() {
-        backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            backgroundColor = .systemBackground
+        } else {
+            // Fallback on earlier versions
+            backgroundColor = .white
+        }
         
         topShadowView.backgroundColor = backgroundColor
         let bgView = UIView()

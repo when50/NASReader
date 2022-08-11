@@ -24,7 +24,11 @@ class DYReaderNavigationView: UIView {
     }
     
     private func buildUI() {
-        backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            backgroundColor = .systemBackground
+        } else {
+            // Fallback on earlier versions
+        }
         
         let backBtn = UIButton(type: .system)
         backBtn.translatesAutoresizingMaskIntoConstraints = false

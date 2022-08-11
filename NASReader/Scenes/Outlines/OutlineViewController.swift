@@ -21,6 +21,24 @@ class OutlineViewController: UITableViewController, BrightnessSetable {
     var outline: OutlineProtocol?
     weak var delegate: OutlineViewControllerDelegate?
     var brightness: Float = 0
+    var deepColorIsOpen = false {
+        didSet {
+            if deepColorIsOpen {
+                if #available(iOS 13.0, *) {
+                    overrideUserInterfaceStyle = .dark
+                } else {
+                    // Fallback on earlier versions
+                }
+            } else {
+                if #available(iOS 13.0, *) {
+                    overrideUserInterfaceStyle = .unspecified
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

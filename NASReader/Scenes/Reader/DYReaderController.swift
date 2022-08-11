@@ -36,6 +36,9 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         v.delegate = self
         return v
     }()
+    
+    
+    private var deepColorIsOpen = Bindable(false)
     private lazy var featureView: DYReaderFeatureView = {
         let v = DYReaderFeatureView(frame: .zero)
         v.delegate = self
@@ -230,6 +233,10 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     
     private func setupBindables() {
         featureView.setupBindables()
+        deepColorIsOpen.bind { [weak self] value in
+            self?.setNeedsStatusBarAppearanceUpdate()
+            self?.featureView.deepColorIsOpen.value = value
+        }
         invalidRenderContent.bind { [weak self] in
             if $0 {
                 self?.updateRenderContent()
@@ -408,14 +415,38 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
                                    isCurrent: i == bookReader.chapterIdx)
             items += [item]
         }
+        let brightness = renderModel.value.useSystemBrightness ? 1.0 : renderModel.value.brightness
         coordinator?.showOutline(
             for: Outline(items: items),
             delegate: self,
-            brightness: renderModel.value.useSystemBrightness ? 1.0 : renderModel.value.brightness)
+            brightness: brightness,
+            deepColorIsOpen: deepColorIsOpen.value)
     }
     
-    func toggleDeepColor(open: Bool) {
-        
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return deepColorIsOpen.value ? .lightContent : .darkContent
+        } else {
+            // Fallback on earlier versions
+            return .default
+        }
+    }
+    
+    func toggleDeepColor() {
+        deepColorIsOpen.value = !deepColorIsOpen.value
+        if deepColorIsOpen.value {
+            if #available(iOS 13.0, *) {
+                overrideUserInterfaceStyle = .dark
+            } else {
+                // Fallback on earlier versions
+            }
+        } else {
+            if #available(iOS 13.0, *) {
+                overrideUserInterfaceStyle = .unspecified
+            } else {
+                // Fallback on earlier versions
+            }
+        }
     }
     
     func toggleSettingView(shown: Bool) {

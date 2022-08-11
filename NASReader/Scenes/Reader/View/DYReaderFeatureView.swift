@@ -16,7 +16,7 @@ protocol DYReaderFeatureViewDelegate: NSObject {
     func slidingChapterProgress(_ progress: Float)
     func slidingChapterProgressEnd(_ progress: Float)
     func showOutlineViews()
-    func toggleDeepColor(open: Bool)
+    func toggleDeepColor()
     func toggleSettingView(shown: Bool)
 }
 
@@ -47,15 +47,17 @@ class DYReaderFeatureView: UIView {
     var settingShown = Bindable(false)
     
     func setupBindables () {
-        deepColorIsOpen.bind { [weak deepColorBtn, weak delegate] isOpen in
-            UIView.setAnimationsEnabled(false)
-            let iconName = isOpen ? "图标-亮度+" : "图标-夜间模式"
-            let icon = UIImage.icon(withName: iconName, fontSize: 18.0, color: .black)
-            deepColorBtn?.setImage(icon, for: .normal)
-            
-            let title = isOpen ? "白天模式" : "夜间模式"
-            deepColorBtn?.setTitle(title, for: .normal)
-            delegate?.toggleDeepColor(open: isOpen)
+        deepColorIsOpen.bind { [weak deepColorBtn] isOpen in
+            UIView.performWithoutAnimation {
+                let iconName = isOpen ? "图标-亮度+" : "图标-夜间模式"
+                let icon = UIImage.icon(withName: iconName, fontSize: 18.0, color: .black)
+                deepColorBtn?.setImage(icon, for: .normal)
+                
+                
+                let title = isOpen ? "白天模式" : "夜间模式"
+                deepColorBtn?.setTitle(title, for: .normal)
+                deepColorBtn?.layoutIfNeeded()
+            }
         }
         settingShown.bind { [weak settingBtn, weak delegate] shown in
             let iconName = shown ? "图标-设置-面" : "图标-设置"
@@ -75,7 +77,12 @@ class DYReaderFeatureView: UIView {
     }
     
     private func setupUI() {
-        backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            backgroundColor = .systemBackground
+        } else {
+            // Fallback on earlier versions
+            backgroundColor = .white
+        }
         
         previousChapterBtn.setTitle("上一章", for: .normal)
         previousChapterBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -153,7 +160,7 @@ class DYReaderFeatureView: UIView {
         case outlineBtn:
             delegate?.showOutlineViews()
         case deepColorBtn:
-            deepColorIsOpen.value = !deepColorIsOpen.value
+            delegate?.toggleDeepColor()
         case settingBtn:
             settingShown.value = !settingShown.value
         default:

@@ -13,6 +13,7 @@ final class OutlineViewCoordinator: Coordinator, OutlineViewCoordinatorProtocol 
     weak var delegate: OutlineViewControllerDelegate?
     weak var transitioningDelegate: UIViewControllerTransitioningDelegate?
     var brightness: Float = 0
+    var deepColorIsOpen = false
     
     init(navigationController: UINavigationController, transitioningDelegate: UIViewControllerTransitioningDelegate? = nil) {
         self.navigationController = navigationController
@@ -25,6 +26,7 @@ final class OutlineViewCoordinator: Coordinator, OutlineViewCoordinatorProtocol 
         viewController.outline = outline
         viewController.delegate = delegate
         viewController.brightness = brightness
+        viewController.deepColorIsOpen = deepColorIsOpen
         if let transitioningDelegate = transitioningDelegate {
             viewController.transitioningDelegate = transitioningDelegate
             viewController.modalPresentationStyle = .custom
