@@ -46,6 +46,8 @@
 		5AB21E2B2887DD1A00EE1433 /* OutlineItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21E2A2887DD1A00EE1433 /* OutlineItemCell.swift */; };
 		5AB21EC4288FC1EC00EE1433 /* DYRollbackChapterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21EC3288FC1EB00EE1433 /* DYRollbackChapterView.m */; };
 		5AB21ECE289127BB00EE1433 /* DYRenderDataSourceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */; };
+		5AC24A6828A4F81700082CDE /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AC24A6728A4F81700082CDE /* main.storyboard */; };
+		5AC24A6A28A4F87100082CDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC24A6928A4F87100082CDE /* ViewController.swift */; };
 		5AE8F78F28A0AE43002CAFCC /* DNReaderBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8F78E28A0AE43002CAFCC /* DNReaderBackgroundView.swift */; };
 		5AE8F79228A0E1C9002CAFCC /* DYCurlRenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8F79128A0E1C9002CAFCC /* DYCurlRenderViewController.swift */; };
 		5AE8F79428A0EA0C002CAFCC /* DYPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8F79328A0EA0C002CAFCC /* DYPageViewController.swift */; };
@@ -134,6 +136,8 @@
 		5AB21EC2288FC1EB00EE1433 /* DYRollbackChapterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRollbackChapterView.h; sourceTree = "<group>"; };
 		5AB21EC3288FC1EB00EE1433 /* DYRollbackChapterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRollbackChapterView.m; sourceTree = "<group>"; };
 		5AB21ECD289127BB00EE1433 /* DYRenderDataSourceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYRenderDataSourceImpl.swift; sourceTree = "<group>"; };
+		5AC24A6728A4F81700082CDE /* main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = main.storyboard; sourceTree = "<group>"; };
+		5AC24A6928A4F87100082CDE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5AE8F78E28A0AE43002CAFCC /* DNReaderBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNReaderBackgroundView.swift; sourceTree = "<group>"; };
 		5AE8F79128A0E1C9002CAFCC /* DYCurlRenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYCurlRenderViewController.swift; sourceTree = "<group>"; };
 		5AE8F79328A0EA0C002CAFCC /* DYPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYPageViewController.swift; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 				5A20690F286DA550000C5BEA /* Info.plist */,
 				5A206910286DA550000C5BEA /* main.m */,
 				5AECFE882870A0AE00E6205F /* NASReader-Bridging-Header.h */,
+				5AC24A6728A4F81700082CDE /* main.storyboard */,
+				5AC24A6928A4F87100082CDE /* ViewController.swift */,
 			);
 			path = NASReader;
 			sourceTree = "<group>";
@@ -512,6 +518,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A206920286DA627000C5BEA /* test.pdf in Resources */,
+				5AC24A6828A4F81700082CDE /* main.storyboard in Resources */,
 				5A20690E286DA550000C5BEA /* LaunchScreen.storyboard in Resources */,
 				5AACAF3F2878086F00D13209 /* iconfont.ttf in Resources */,
 				5A20690B286DA550000C5BEA /* Assets.xcassets in Resources */,
@@ -535,6 +542,7 @@
 				5AACAF35287806B200D13209 /* DYReaderNavigationView.swift in Sources */,
 				5A06324C2897D94D00733185 /* SlideInPresentationController.swift in Sources */,
 				5A76DC712879A513003D6D36 /* DYControlProtocol.swift in Sources */,
+				5AC24A6A28A4F87100082CDE /* ViewController.swift in Sources */,
 				5AECFE8A2870A0AE00E6205F /* DYVerticalScrollRender.swift in Sources */,
 				5AB21E1D2887A0DC00EE1433 /* Coordinator.swift in Sources */,
 				5A324D8628A3AEE1000F8B21 /* DYCoverRenderPageView.swift in Sources */,
@@ -715,6 +723,7 @@
 				INFOPLIST_FILE = NASReader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -746,6 +755,7 @@
 				INFOPLIST_FILE = NASReader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

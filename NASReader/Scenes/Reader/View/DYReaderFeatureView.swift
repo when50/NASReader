@@ -116,6 +116,11 @@ class DYReaderFeatureView: UIView {
         deepColorBtn.addTarget(self, action: #selector(btnHandler(sender:)), for: .touchUpInside)
         deepColorBtn.alignVertical(spacing: 6.0)
         addSubview(deepColorBtn)
+        if #available(iOS 13.0, *) {
+            deepColorBtn.isEnabled = true
+        } else {
+            deepColorBtn.isEnabled = false
+        }
         settingBtn.translatesAutoresizingMaskIntoConstraints = false
         settingBtn.setImage(UIImage.icon(withName: "图标-设置", fontSize: 18.0, color: .black), for: .normal)
         settingBtn.setTitle("设置", for: .normal)

@@ -73,12 +73,15 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         
         if (bookPath?.count ?? 0) == 0 {
             let bundle = Bundle.main
-            if let bookfile = bundle.path(forResource: "每天懂一点好玩心理学", ofType: "epub") {
+//            if let bookfile = bundle.path(forResource: "每天懂一点好玩心理学", ofType: "epub") {
+//                bookPath = bookfile
+//            }
+            if let bookfile = bundle.path(forResource: "test", ofType: "pdf") {
                 bookPath = bookfile
             }
         }
         if let bookfile = bookPath {
-            bookReader.openFile(bookfile, customCss: nil)
+            bookReader.openFile(bookfile, customCss: customReaderCss)
         }
         
         buildUI()
@@ -502,7 +505,7 @@ extension DYReaderController {
         "b{font-weight:bold}" +
         "bdo{direction:rtl;unicode-bidi:bidi-override}" +
         "blockquote{display:block;margin:1em 40px}" +
-        "body{display:block;margin:1em}" +
+        "body{display:block;margin:10em}" +
         "cite{font-style:italic}" +
         "code{font-family:monospace}" +
         "dd{display:block;margin:0 0 0 40px}" +
