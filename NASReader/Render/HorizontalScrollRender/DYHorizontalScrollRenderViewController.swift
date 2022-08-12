@@ -118,7 +118,7 @@ class DYHorizontalScrollRenderViewController: UIViewController, DYRenderProtocol
     }
     
     private func updateCurrentPage() {
-        guard let dataSource = renderDataSource else {
+        guard let dataSource = renderDataSource, dataSource.pageNum > 0 else {
             return
         }
 
