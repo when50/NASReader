@@ -221,7 +221,9 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             bookReader.pageSize.height != containerHeight {
             if let _ = render {
                 bookReader.pageSize = containerView.frame.size
-                bookReader.layoutPageOutlines()
+                bookReader.layoutPageOutlines {
+                    
+                }
                 invalidRenderContent.value = true
             }
         }
@@ -257,10 +259,12 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             }
             self?.settingView.updateRenderModel(value)
             self?.setupRender(style: value.style)
-            if self?.bookReader.updateFontSize(CGFloat(value.fontSize)) ?? false {
-                self?.render?.cleanCache()
-                self?.invalidRenderContent.value = true
-            }
+            bookReader.updateFontSize(CGFloat(value.fontSize), completion: { changed in
+                if (changed) {
+                    self?.render?.cleanCache()
+                    self?.invalidRenderContent.value = true
+                }
+            })
             
             if let styles = self?.backgroundStyles, styles.indices.contains(value.backgroundColorIndex) {
                 let (color, _) = styles[value.backgroundColorIndex]
@@ -505,7 +509,7 @@ extension DYReaderController {
         "b{font-weight:bold}" +
         "bdo{direction:rtl;unicode-bidi:bidi-override}" +
         "blockquote{display:block;margin:1em 40px}" +
-        "body{display:block;margin:10em}" +
+        "body{display:block;margin:1em}" +
         "cite{font-style:italic}" +
         "code{font-family:monospace}" +
         "dd{display:block;margin:0 0 0 40px}" +
