@@ -120,4 +120,41 @@ struct DYRenderModel: Equatable {
             }
         }
     }
+    
+    static func modelWithDictionary(_ dictionary: [String: AnyObject]) -> DYRenderModel {
+        var instance = DYRenderModel(brightness: 0.0,
+                                     useSystemBrightness: true,
+                                     fontSize: 18,
+                                     lineSpace: .lineSpace1,
+                                     backgroundColor: .color5,
+                                     style: .cover)
+        if let brightness = dictionary["brightness"]?.floatValue {
+            instance.brightness = brightness
+        }
+        if let useSystemBrightness = dictionary["useSystemBrightness"]?.boolValue {
+            instance.useSystemBrightness = useSystemBrightness
+        }
+        if let fontSize = dictionary["fontSize"]?.floatValue {
+            instance.fontSize = fontSize
+        }
+        if let idx = dictionary["lineSpace"]?.integerValue, LineSpace.all.indices.contains(idx) {
+            instance.lineSpace = LineSpace.all[idx]
+        }
+        if let idx = dictionary["backgroundStyle"]?.integerValue, BackgroundColor.all.indices.contains(idx) {
+            instance.backgroundColor = BackgroundColor.all[idx]
+        }
+        if let idx = dictionary["pageStyle"]?.integerValue, Style.all.indices.contains(idx) {
+            instance.style = Style.all[idx]
+        }
+        return instance
+    }
+    
+    func toDictionary() -> [String: AnyObject] {
+        return ["brightness": NSNumber(value: brightness),
+                "useSystemBrightness": NSNumber(value: useSystemBrightness),
+                "fontSize": NSNumber(value: fontSize),
+                "lineSpace": NSNumber(value: lineSpaceIndex),
+                "backgroundStyle": NSNumber(value: backgroundColorIndex),
+                "pageStyle": NSNumber(value: styleIndex)]
+    }
 }

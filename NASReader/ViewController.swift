@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     
     @objc
     private func open(sender: UIButton) {
+        coordinator.pageIndex = 10
         coordinator.start()
         
     }

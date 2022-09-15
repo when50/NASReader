@@ -8,9 +8,15 @@
 import UIKit
 import DYReader
 
+var bookReader = DYBookReader()
 
-class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer {
-    public var bookPath: String?
+public class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer {
+    var bookPath: String?
+    var renderConfig: [String: AnyObject] = [:]
+    var pageIndex: Int = 0
+    var renderConfigChangedCallback: (([String: AnyObject]) -> Void)?
+    var pageIndexChangedCallback: ((Int) -> Void)?
+    
     @objc var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     
     private var featureViewShown = false {
@@ -23,7 +29,6 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         }
     }
     
-    private let bookReader = DYBookReader()
     private var renderModel = Bindable(DYRenderModel(brightness: 1.0, useSystemBrightness: false, fontSize: 20))
     
     weak var coordinator: DYReaderCoordinatorProtocol?
@@ -59,7 +64,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     private lazy var rollbackView: DYRollbackChapterView = {
         let view = DYRollbackChapterView(frame: .zero)
         view.rollback = { [weak self] in
-            self?.bookReader.rollbackChapter()
+            bookReader.rollbackChapter()
             self?.invalidRenderContent.value = true
         }
         return view
@@ -73,10 +78,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         
         if (bookPath?.count ?? 0) == 0 {
             let bundle = Bundle.main
-//            if let bookfile = bundle.path(forResource: "每天懂一点好玩心理学", ofType: "epub") {
-//                bookPath = bookfile
-//            }
-            if let bookfile = bundle.path(forResource: "test", ofType: "pdf") {
+            if let bookfile = bundle.path(forResource: "每天懂一点好玩心理学", ofType: "epub") {
                 bookPath = bookfile
             }
         }
@@ -87,13 +89,19 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
         buildUI()
         setupBindables()
         
-        self.renderModel.value = DYRenderModel(brightness: 0.0,
-                                               useSystemBrightness: true,
-                                               fontSize: 18,
-                                               lineSpace: .lineSpace1,
-                                               backgroundColor: .color5,
-                                               style: .cover)
-        invalidRenderContent.value = true
+        self.renderModel.value = DYRenderModel.modelWithDictionary(renderConfig)
+        
+        DispatchQueue.main.async {
+            self.readFromHistory()
+        }
+    }
+    
+    private func readFromHistory() {
+        print("readFrom History");
+        let chapterIndex = bookReader.getChapterIndex(withPageIndex: Int32(self.pageIndex))
+        bookReader.pageIdx = Int32(self.pageIndex)
+        bookReader.chapterIdx = chapterIndex
+        self.invalidRenderContent.value = true
     }
     
     private func buildUI() {
@@ -221,9 +229,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             bookReader.pageSize.height != containerHeight {
             if let _ = render {
                 bookReader.pageSize = containerView.frame.size
-                bookReader.layoutPageOutlines {
-                    
-                }
+//                bookReader.layoutPageOutlines()
                 invalidRenderContent.value = true
             }
         }
@@ -251,6 +257,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             self?.updateRollbackInfo(chapterIndex: $0)
         }
         renderModel.bind { [weak self] value in
+            self?.renderConfigChangedCallback?(value.toDictionary())
             // seriallize
             if value.useSystemBrightness {
                 self?.setBrightness(1)
@@ -259,12 +266,15 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
             }
             self?.settingView.updateRenderModel(value)
             self?.setupRender(style: value.style)
-            bookReader.updateFontSize(CGFloat(value.fontSize), completion: { changed in
-                if (changed) {
+            
+            bookReader.updateFontSize(CGFloat(value.fontSize)) { changed in
+                if changed {
                     self?.render?.cleanCache()
                     self?.invalidRenderContent.value = true
+                } else {
+                    print("书籍格式不支持修改字体（如PDF）")
                 }
-            })
+            }
             
             if let styles = self?.backgroundStyles, styles.indices.contains(value.backgroundColorIndex) {
                 let (color, _) = styles[value.backgroundColorIndex]
@@ -287,9 +297,8 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     private func updateRenderContent(animated: Bool = false) {
         render?.scrollToCurrentPage(animated: animated)
         
-        if let progress = bookReader.chapterProgress(chaterIndex: Int(bookReader.chapterIdx)) {
-            featureView.progressSlider.progress = CGFloat(progress)
-        }
+        let progress = bookReader.chapterProgress(bookReader.chapterIdx)
+        featureView.progressSlider.progress = CGFloat(progress)
         
         invalidRenderContent.value = false
         
@@ -298,7 +307,7 @@ class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer
     
     private func updateRollbackInfo(chapterIndex: Int) {
         if let chapter = bookReader.getChapterAt(Int32(chapterIndex)) {
-            let progress = bookReader.chapterProgress(chaterIndex: chapterIndex) ?? 0
+            let progress = bookReader.chapterProgress(Int32(chapterIndex))
             rollbackView.updateChapter(chapter.title, locationPercent: CGFloat(progress), rollbackEnabled: true)
         }
     }
@@ -339,8 +348,9 @@ extension DYReaderController: DYReaderNavigationViewDelegate {
 
 extension DYReaderController: DYRenderDelegate {
     func render(_ render: DYRenderProtocol, switchTo page: Int, chapter: Int) {
-        if bookReader.isValidPageIndex(page) && bookReader.isValidChapterIndex(chapter) {
+        if bookReader.isValidPageIndex(Int32(page)) && bookReader.isValidChapterIndex(Int32(chapter)) {
             bookReader.switch(toPage: Int32(page), chapter: Int32(chapter))
+            pageIndexChangedCallback?(page)
         }
     }
     
@@ -352,18 +362,20 @@ extension DYReaderController: DYRenderDelegate {
             case .scrollBackword:
                 let pageIdx = Int(bookReader.pageIdx) - 1
                 guard pageIdx >= 0 else { return }
-                guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
-                if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
+                let chapterIdx = Int(bookReader.getChapterIndex(withPageIndex: Int32(pageIdx)))
+                if bookReader.isValidPageIndex(Int32(pageIdx)) && bookReader.isValidChapterIndex(Int32(chapterIdx)) {
                     bookReader.switch(toPage: Int32(pageIdx), chapter: Int32(chapterIdx))
+                    pageIndexChangedCallback?(pageIdx)
                     render.scrollToCurrentPage(animated: true)
                 }
                 
             case .scrollForward:
                 let pageIdx = Int(bookReader.pageIdx) + 1
                 guard pageIdx < bookReader.pageNum else { return }
-                guard let chapterIdx = bookReader.getChapterIndex(pageIndex: pageIdx) else { return }
-                if bookReader.isValidPageIndex(pageIdx) && bookReader.isValidChapterIndex(chapterIdx) {
+                let chapterIdx = Int(bookReader.getChapterIndex(withPageIndex: Int32(pageIdx)))
+                if bookReader.isValidPageIndex(Int32(pageIdx)) && bookReader.isValidChapterIndex(Int32(chapterIdx)) {
                     bookReader.switch(toPage: Int32(pageIdx), chapter: Int32(chapterIdx))
+                    pageIndexChangedCallback?(pageIdx)
                     render.scrollToCurrentPage(animated: true)
                 }
             case .toggleNavigationFeautre:
@@ -398,13 +410,12 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
     
     func slidingChapterProgress(_ progress: Float) {
         rollbackView.isHidden = false
-        if let chapterIndex = bookReader.chapterIndex(progress: progress) {
-            rollbackChapterIndex.value = chapterIndex
-        }
+        let chapterIndex = bookReader.chapterIndex(withProgress: progress)
+        rollbackChapterIndex.value = Int(chapterIndex)
     }
     
     func slidingChapterProgressEnd(_ progress: Float) {
-        guard let switchToChapter = bookReader.chapterIndex(progress: progress) else { return }
+        let switchToChapter = bookReader.chapterIndex(withProgress: progress)
         if bookReader.switchChapter(Int32(switchToChapter)) {
             invalidRenderContent.value = true
         }
@@ -430,7 +441,7 @@ extension DYReaderController: DYReaderFeatureViewDelegate {
             deepColorIsOpen: deepColorIsOpen.value)
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13.0, *) {
             return deepColorIsOpen.value ? .lightContent : .darkContent
         } else {
@@ -481,23 +492,6 @@ extension DYReaderController: OutlineViewControllerDelegate {
         invalidRenderContent.value = true
         dismiss(animated: true)
     }
-}
-
-extension DYBookReader {
-    func chapterIndex(progress: Float) -> Int? {
-        guard chapterList.count > 0 else { return nil }
-        return Int(Float(chapterList.count - 1) * progress)
-    }
-    
-    func chapterProgress(chaterIndex: Int) -> Float? {
-        guard chapterList.count > 0 else { return nil }
-        return Float(chaterIndex) / Float(chapterList.count - 1)
-    }
-}
-
-extension DYBookReader {
-    func isValidPageIndex(_ index: Int) -> Bool { (0..<Int(pageNum)).contains(index) }
-    func isValidChapterIndex(_ index: Int) -> Bool { (0..<chapterList.count).contains(index) }
 }
 
 extension DYReaderController {

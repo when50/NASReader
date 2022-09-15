@@ -8,7 +8,13 @@
 import UIKit
 
 @objc
-final class DYReaderCoordinator: NSObject, Coordinator, OutlineCoordinable, DYReaderCoordinatorProtocol  {
+public final class DYReaderCoordinator: NSObject, Coordinator, OutlineCoordinable, DYReaderCoordinatorProtocol  {
+    public var bookPath: String?
+    public var renderConfig: [String: AnyObject] = [:]
+    public var pageIndex: Int = 0
+    public var renderConfigChangedCallback: (([String: AnyObject]) -> Void)?
+    public var pageIndexChangedCallback: ((Int) -> Void)?
+    
     lazy var transitioningDelegate = SlideInPresentationManager()
     
     @objc
@@ -16,14 +22,19 @@ final class DYReaderCoordinator: NSObject, Coordinator, OutlineCoordinable, DYRe
     private lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     
     @objc
-    init(navigationController: UINavigationController) {
+    public init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     @objc
-    func start() {
+    public func start() {
         let viewController = DYReaderController()
         viewController.coordinator = self
+        viewController.bookPath = bookPath
+        viewController.pageIndex = pageIndex
+        viewController.renderConfig = renderConfig
+        viewController.renderConfigChangedCallback = renderConfigChangedCallback
+        viewController.pageIndexChangedCallback = pageIndexChangedCallback
         navigationController.pushViewController(viewController, animated: true)
     }
     

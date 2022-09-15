@@ -15,7 +15,7 @@ struct DYRenderDataSourceImpl: DYRenderDataSource {
         return Int(reader.pageIdx)
     }
     var currentChapterIdx: Int {
-        return reader.getChapterIndex(pageIndex: currentPageIdx) ?? 0
+        return Int(reader.getChapterIndex(withPageIndex: Int32(currentPageIdx)))
     }
     var pageNum: Int {
         return Int(reader.pageNum)
@@ -35,19 +35,6 @@ struct DYRenderDataSourceImpl: DYRenderDataSource {
     }
     
     func getChapterIndex(pageIndex: Int) -> Int? {
-        return reader.getChapterIndex(pageIndex: pageIndex)
-    }
-}
-
-extension DYBookReader {
-    func getChapterIndex(pageIndex: Int) -> Int? {
-        var chapterIndex: Int? = nil
-        for i in chapterList.indices {
-            if let chapter = chapterList[i] as? DYChapter, chapter.pageIdx >= pageIndex {
-                chapterIndex = i
-                break
-            }
-        }
-        return chapterIndex
+        return Int(reader.getChapterIndex(withPageIndex: Int32(pageIndex)))
     }
 }
