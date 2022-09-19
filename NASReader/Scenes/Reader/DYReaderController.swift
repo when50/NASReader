@@ -83,17 +83,20 @@ public class DYReaderController: UIViewController, BrightnessSetable, DYReaderCo
             }
         }
         if let bookfile = bookPath {
-            bookReader.openFile(bookfile, customCss: customReaderCss)
+            bookReader.openFile(bookfile) { [weak self] successed in
+                guard let wself = self else { return }
+                wself.buildUI()
+                wself.setupBindables()
+                
+                wself.renderModel.value = DYRenderModel.modelWithDictionary(wself.renderConfig)
+                
+                DispatchQueue.main.async {
+                    wself.readFromHistory()
+                }
+            }
         }
         
-        buildUI()
-        setupBindables()
         
-        self.renderModel.value = DYRenderModel.modelWithDictionary(renderConfig)
-        
-        DispatchQueue.main.async {
-            self.readFromHistory()
-        }
     }
     
     private func readFromHistory() {
