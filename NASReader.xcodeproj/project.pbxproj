@@ -17,14 +17,16 @@
 		5A206911286DA550000C5BEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A206910286DA550000C5BEA /* main.m */; };
 		5A206920286DA627000C5BEA /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5A20691F286DA627000C5BEA /* test.pdf */; };
 		5A206930286DAEBA000C5BEA /* DYReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; platformFilter = ios; };
-		5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A20692F286DAE7F000C5BEA /* DYReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5A324D8628A3AEE1000F8B21 /* DYCoverRenderPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A324D8528A3AEE1000F8B21 /* DYCoverRenderPageView.swift */; };
 		5A336C382886B917009F4DE9 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A336C372886B917009F4DE9 /* Bindable.swift */; };
+		5A370B5528F3F6110041C806 /* DYTextBookReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A370B5328F3F6110041C806 /* DYTextBookReader.swift */; };
+		5A370B5628F3F6110041C806 /* DYTextChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A370B5428F3F6110041C806 /* DYTextChapter.swift */; };
 		5A47977E289BA243007F9831 /* DYHorizontalScrollRenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47977D289BA243007F9831 /* DYHorizontalScrollRenderViewController.swift */; };
 		5A479784289CC47A007F9831 /* 每天懂一点好玩心理学.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5A479783289CC47A007F9831 /* 每天懂一点好玩心理学.epub */; };
 		5A5D506A2892954A00978A2B /* OutlineProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5D50692892954A00978A2B /* OutlineProtocols.swift */; };
 		5A65CB24287D7DBE00D4BE75 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65CB23287D7DBE00D4BE75 /* UIImage+Color.m */; };
 		5A65CB28287D7E3200D4BE75 /* UIImage+RoundCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A65CB27287D7E3200D4BE75 /* UIImage+RoundCorner.m */; };
+		5A73756E28F3FD410085D56D /* DTCoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A370B5728F3F6870041C806 /* DTCoreText.framework */; };
 		5A76DC6F28796F80003D6D36 /* DYReaderSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A76DC6E28796F80003D6D36 /* DYReaderSettingView.swift */; };
 		5A76DC712879A513003D6D36 /* DYControlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A76DC702879A513003D6D36 /* DYControlProtocol.swift */; };
 		5A84F7672893B08400C1A2DA /* DYBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A84F7662893B08400C1A2DA /* DYBrightnessView.swift */; };
@@ -76,20 +78,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		5A206924286DA66B000C5BEA /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				5A206931286DAEBA000C5BEA /* DYReader.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		5A0632492897D74100733185 /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
 		5A06324B2897D94D00733185 /* SlideInPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationController.swift; sourceTree = "<group>"; };
@@ -106,6 +94,9 @@
 		5A20692A286DAE7F000C5BEA /* DYReader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DYReader.xcodeproj; path = libdyreader/DYReader.xcodeproj; sourceTree = "<group>"; };
 		5A324D8528A3AEE1000F8B21 /* DYCoverRenderPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYCoverRenderPageView.swift; sourceTree = "<group>"; };
 		5A336C372886B917009F4DE9 /* Bindable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		5A370B5328F3F6110041C806 /* DYTextBookReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DYTextBookReader.swift; sourceTree = "<group>"; };
+		5A370B5428F3F6110041C806 /* DYTextChapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DYTextChapter.swift; sourceTree = "<group>"; };
+		5A370B5728F3F6870041C806 /* DTCoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DTCoreText.framework; sourceTree = "<group>"; };
 		5A47977D289BA243007F9831 /* DYHorizontalScrollRenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYHorizontalScrollRenderViewController.swift; sourceTree = "<group>"; };
 		5A479783289CC47A007F9831 /* 每天懂一点好玩心理学.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "每天懂一点好玩心理学.epub"; sourceTree = "<group>"; };
 		5A5D50692892954A00978A2B /* OutlineProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlineProtocols.swift; sourceTree = "<group>"; };
@@ -155,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A73756E28F3FD410085D56D /* DTCoreText.framework in Frameworks */,
 				5A206930286DAEBA000C5BEA /* DYReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,6 +193,7 @@
 		5A2068FD286DA54E000C5BEA /* NASReader */ = {
 			isa = PBXGroup;
 			children = (
+				5A370B5728F3F6870041C806 /* DTCoreText.framework */,
 				5AB21E202887A23400EE1433 /* DYReaderDomain */,
 				5AB21E1628879F7600EE1433 /* Scenes */,
 				5A336C352886B8E4009F4DE9 /* Helpers */,
@@ -382,6 +375,8 @@
 			isa = PBXGroup;
 			children = (
 				5AACAF0F2877DF4700D13209 /* View */,
+				5A370B5328F3F6110041C806 /* DYTextBookReader.swift */,
+				5A370B5428F3F6110041C806 /* DYTextChapter.swift */,
 				5AECFE8B2870A0DF00E6205F /* DYReaderController.swift */,
 				5AB21E1828879FA800EE1433 /* DYReaderCoordinator.swift */,
 				5AB21E1E2887A1A000EE1433 /* DYReaderProtocols.swift */,
@@ -451,7 +446,6 @@
 				5A2068F7286DA54E000C5BEA /* Sources */,
 				5A2068F8286DA54E000C5BEA /* Frameworks */,
 				5A2068F9286DA54E000C5BEA /* Resources */,
-				5A206924286DA66B000C5BEA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -559,9 +553,11 @@
 				5AE8F78F28A0AE43002CAFCC /* DNReaderBackgroundView.swift in Sources */,
 				5AECFE91287115D400E6205F /* DYPageTableViewCell.swift in Sources */,
 				5A06324A2897D74100733185 /* SlideInPresentationManager.swift in Sources */,
+				5A370B5528F3F6110041C806 /* DYTextBookReader.swift in Sources */,
 				5A06324E2898BE0100733185 /* SlideInPresentationAnimator.swift in Sources */,
 				5AB21E2B2887DD1A00EE1433 /* OutlineItemCell.swift in Sources */,
 				5AACAF41287811A500D13209 /* DNSimpleSlider.swift in Sources */,
+				5A370B5628F3F6110041C806 /* DYTextChapter.swift in Sources */,
 				5AECFE982872941400E6205F /* DYCoverRender.swift in Sources */,
 				5A206911286DA550000C5BEA /* main.m in Sources */,
 				5AACAF3C2878080E00D13209 /* UIImage+DNIconfontHelper.m in Sources */,
@@ -716,9 +712,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 425HQFZ36D;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NASReader",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NASReader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -734,6 +735,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.aggrx.NASReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NASReader/NASReader-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -748,9 +753,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 425HQFZ36D;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NASReader",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NASReader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -766,6 +776,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.aggrx.NASReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NASReader/NASReader-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
