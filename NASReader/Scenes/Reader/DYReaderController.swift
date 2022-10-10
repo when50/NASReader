@@ -8,9 +8,8 @@
 import UIKit
 import DYReader
 
-var bookReader = DYBookReader()
-
 public class DYReaderController: UIViewController, BrightnessSetable, DYReaderContainer {
+    var bookReader = DYBookReader()
     var bookPath: String?
     var renderConfig: [String: AnyObject] = [:]
     var pageIndex: Int = 0
@@ -64,7 +63,7 @@ public class DYReaderController: UIViewController, BrightnessSetable, DYReaderCo
     private lazy var rollbackView: DYRollbackChapterView = {
         let view = DYRollbackChapterView(frame: .zero)
         view.rollback = { [weak self] in
-            bookReader.rollbackChapter()
+            self?.bookReader.rollbackChapter()
             self?.invalidRenderContent.value = true
         }
         return view
@@ -270,7 +269,7 @@ public class DYReaderController: UIViewController, BrightnessSetable, DYReaderCo
             self?.settingView.updateRenderModel(value)
             self?.setupRender(style: value.style)
             
-            bookReader.updateFontSize(CGFloat(value.fontSize)) { changed in
+            self?.bookReader.updateFontSize(CGFloat(value.fontSize)) { changed in
                 if changed {
                     self?.render?.cleanCache()
                     self?.invalidRenderContent.value = true
